@@ -7,12 +7,14 @@ import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.game.actor.*;
+import ch.epfl.cs107.play.game.demo1.actor.MovingRock;
 
 import java.awt.*;
 
 public class Demo1 implements Game {
 
     private Actor actor1;
+    private Actor actor2;
     private Window window;
     private FileSystem fileSystem;
 
@@ -35,11 +37,12 @@ public class Demo1 implements Game {
 
         //changement d'échelle
         //valeur de "scaled" représente la réduction (10 = monde 10x plus petit)
-        Transform viewTransform = Transform.I.scaled(10).translated(Vector.ZERO);
-        window.setRelativeTransform(viewTransform);
+        //Transform viewTransform = Transform.I.scaled(10).translated(Vector.ZERO);
+        //window.setRelativeTransform(viewTransform);
 
         float radius = 0.2f;
         actor1 = new GraphicsEntity(Vector.ZERO, new ShapeGraphics(new Circle(radius), null, Color.RED, 0.005f));
+        actor2 = new MovingRock(Vector.ZERO, "this is a rock");
 
         return true;
     }
@@ -53,6 +56,7 @@ public class Demo1 implements Game {
     public void update(float deltaTime) {
 
         actor1.draw(window);
+        actor2.draw(window);
 
     }
 }

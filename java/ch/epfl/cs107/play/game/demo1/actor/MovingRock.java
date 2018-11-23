@@ -1,4 +1,4 @@
-package ch.epfl.cs107.play.game.demo1.demo1.actor;
+package ch.epfl.cs107.play.game.demo1.actor;
 
 import ch.epfl.cs107.play.game.actor.GraphicsEntity;
 import ch.epfl.cs107.play.game.actor.TextGraphics;
@@ -13,7 +13,8 @@ public class MovingRock extends GraphicsEntity {
     private final TextGraphics text;
 
     public MovingRock(Vector position, String text) {
-        GraphicsEntity graphic = new GraphicsEntity(position, new ImageGraphics(ResourcePath.getSprite("rock.3"), 0.1f,0.1f, null, Vector.ZERO, 1.0f, -Float.MAX_VALUE));
+
+        super(position,new ImageGraphics(ResourcePath.getSprite("rock.3"), 0.1f,0.1f, null, Vector.ZERO, 1.0f, -Float.MAX_VALUE));
 
         this.text = new TextGraphics(text, 0.04f, Color.BLUE);
         this.text.setParent(this);
