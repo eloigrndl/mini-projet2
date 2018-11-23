@@ -8,6 +8,7 @@ import ch.epfl.cs107.play.io.ResourceFileSystem;
 import ch.epfl.cs107.play.io.XMLTexts;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.window.swing.SwingWindow;
+import ch.epfl.cs107.play.game.demo1.Demo1;
 
 
 /**
@@ -28,8 +29,10 @@ public class Play {
 		final FileSystem fileSystem = new ResourceFileSystem(DefaultFileSystem.INSTANCE);
 
         // Create a demo game and initialize corresponding texts
-		final Game game = new Enigme();
-		XMLTexts.initialize(fileSystem, "strings/enigme_fr.xml");
+		final Game game = new Demo1();
+
+//		final Game game = new Enigme();
+//		XMLTexts.initialize(fileSystem, "strings/enigme_fr.xml");
 
 		// Use Swing display
 		final Window window = new SwingWindow(game.getTitle(), fileSystem, 750, 750);
