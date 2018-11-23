@@ -5,16 +5,20 @@ import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
+import ch.epfl.cs107.play.window.Keyboard;
+import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.game.actor.*;
 import ch.epfl.cs107.play.game.demo1.actor.MovingRock;
 
-import java.awt.*;
+import java.awt.Color;
+
 
 public class Demo1 implements Game {
 
     private Actor actor1;
     private Actor actor2;
+    private Actor actor3;
     private Window window;
     private FileSystem fileSystem;
 
@@ -42,7 +46,8 @@ public class Demo1 implements Game {
 
         float radius = 0.2f;
         actor1 = new GraphicsEntity(Vector.ZERO, new ShapeGraphics(new Circle(radius), null, Color.RED, 0.005f));
-        actor2 = new MovingRock(Vector.ZERO, "this is a rock");
+        actor2 = new MovingRock(new Vector(0.3f,0.1f), "this is a rock");
+        actor3 = new GraphicsEntity(new Vector(0.0f,0.0f),new TextGraphics("BOUM!!!", 0.05f, Color.RED, Color.RED, 0.005f, true, false, new Vector(0.0f,0.0f)));
 
         return true;
     }
@@ -57,6 +62,20 @@ public class Demo1 implements Game {
 
         actor1.draw(window);
         actor2.draw(window);
+        Keyboard keyboard = window.getKeyboard();
+        Button downArrow = keyboard.get(Keyboard.DOWN);
+        if (downArrow.isDown()) {
+            actor2.update(1);
+        }
+
+        if( Math.abs(actor2.getPosition().x) <=0.2 && Math.abs(actor2.getPosition().y) <=0.2) {
+            actor3.draw(window);
+        }
+
+
+
+
+
 
     }
 }

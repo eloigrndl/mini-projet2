@@ -25,7 +25,12 @@ public class MovingRock extends GraphicsEntity {
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        
         text.draw(canvas);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        setCurrentPosition(getPosition().sub(0.005f,0.005f));
+
     }
 }
