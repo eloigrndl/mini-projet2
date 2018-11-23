@@ -17,6 +17,9 @@ import java.util.List;
  */
 public abstract class Area implements Playable {
 
+    /// The behavior Map
+    private AreaBehavior areaBehavior;
+
     // Context objects
     // TODO implements me #PROJECT #TUTO
 
