@@ -23,6 +23,11 @@ import java.util.List;
  * Area is a "Part" of the AreaGame. It is characterized by its AreaBehavior and a List of Actors
  */
 public abstract class Area implements Playable {
+
+
+    /// The behavior Map
+    private AreaBehavior areaBehavior;
+
    // Context objects
    private Window window;
    private FileSystem fileSystem;
@@ -37,6 +42,7 @@ public abstract class Area implements Playable {
     private Actor viewCandidate;
     // efective center of the view
     private Vector viewCenter;
+
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */
     public abstract float getCameraScaleFactor();
 
