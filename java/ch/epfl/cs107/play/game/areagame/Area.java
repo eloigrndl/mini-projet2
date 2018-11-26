@@ -15,6 +15,7 @@ import ch.epfl.cs107.play.math.Vector;
 import javafx.scene.Camera;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -89,12 +90,13 @@ public abstract class Area implements Playable {
      * @return (boolean): true if the actor is correctly registered
      */
     public final boolean registerActor(Actor a){
-
-        if (registeredActors.add(a)) {
+        registeredActors.add(a);
+        if (Arrays.asList(registeredActors).contains(a)){
             return true;
         } else {
             return false;
         }
+
 
     }
 
@@ -104,7 +106,9 @@ public abstract class Area implements Playable {
      * @return (boolean): true if the actor is correctly unregistered
      */
     public final boolean unregisterActor(Actor a){
-        if (unregisteredActors.add(a)){
+
+        unregisteredActors.add(a);
+        if (Arrays.asList(unregisteredActors).contains(a)){
             return true;
         }else{
             return false;
