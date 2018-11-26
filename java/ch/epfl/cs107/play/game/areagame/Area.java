@@ -28,14 +28,14 @@ public abstract class Area implements Playable {
     /// The behavior Map
     private AreaBehavior areaBehavior;
 
-   // Context objects
-   private Window window;
-   private FileSystem fileSystem;
-   //List of Actors inside the area
+    // Context objects
+    private Window window;
+    private FileSystem fileSystem;
+    //List of Actors inside the area
     private List<Actor> actors;
 
-   private List<Actor> registeredActors;
-   private List<Actor> unregisteredActors;
+    private List<Actor> registeredActors;
+    private List<Actor> unregisteredActors;
 
     //Camera Parameter
     // actor on which thz camera is centered
@@ -47,12 +47,10 @@ public abstract class Area implements Playable {
     public abstract float getCameraScaleFactor();
 
     public final void setViewCandidate(Actor a){
+
         this.viewCandidate = a;
     }
 
-    public final void setViewCenter(Vector v){
-        this.viewCenter = v;
-    }
     /**
      * Add an actor to the actors list
      * @param a (Actor): the actor to add, not null
@@ -92,9 +90,9 @@ public abstract class Area implements Playable {
      */
     public final boolean registerActor(Actor a){
 
-        if (registeredActors.add(a)){
+        if (registeredActors.add(a)) {
             return true;
-        }else{
+        } else {
             return false;
         }
 
@@ -150,7 +148,7 @@ public abstract class Area implements Playable {
         this.actors = new LinkedList<>();
 
         //Initialization of center of the view/actor of view
-        setViewCenter(Vector.ZERO);
+        viewCenter = Vector.ZERO;
         setViewCandidate(null);
 
         return true;
@@ -162,39 +160,40 @@ public abstract class Area implements Playable {
      * @param fileSystem (FileSystem): given file system, not null
      * @return (boolean) : if the resume succeed, true by default
      */
-    public boolean resume(Window window, FileSystem fileSystem){
+    public boolean resume(Window window, FileSystem fileSystem) {
         return true;
     }
 
     private final void purgeRegistration(){
-       for(int j =0; j<(registeredActors.size()); ++j ){
-           addActor(registeredActors.get(j),true);
+       for(int j=0; j<(registeredActors.size()); ++j){
+           addActor(registeredActors.get(j),false);
        }
        for(int k = 0; k<(unregisteredActors.size()); ++k){
-           removeActor(unregisteredActors.get(k), true);
+           removeActor(unregisteredActors.get(k), false);
        }
 
        registeredActors = null;
        unregisteredActors = null;
 
     }
+
     @Override
     public void update(float deltaTime) {
-    purgeRegistration();
-    updateCamera();
-    Keyboard keyboard = window.getKeyboard();
-    Button downArrow = keyboard.get(Keyboard.DOWN);
-    for(int i = 0; i < actors.size(); ++i){
-        actors.get(i).draw(window);
-    }
+
+        purgeRegistration();
+
+        updateCamera();
+        Keyboard keyboard = window.getKeyboard();
+        Button downArrow = keyboard.get(Keyboard.DOWN);
+        for (int i = 0; i < actors.size(); ++i) {
+            actors.get(i).draw(window);
+        }
 
     }
-
-
 
     private void updateCamera () {
         if(viewCandidate!=null){
-           setViewCenter(viewCandidate.getPosition());
+           viewCenter = viewCandidate.getPosition();
         }
         Transform viewTransform = Transform.I.scaled(getCameraScaleFactor()).translated(viewCenter);
         window.setRelativeTransform(viewTransform);
