@@ -6,6 +6,7 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.game.actor.Entity;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.math.Vector;
 
 
 /**
@@ -13,7 +14,12 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
  */
 public abstract class AreaEntity extends Entity {
 
-    // TODO implements me #PROJECT #TUTO
+    /// an AreaEntity knows its ow Area
+    private Area ownerArea;
+    /// Orientatinn of the AreaEntity in the Area
+    private Orientation orientation;
+    /// Coordinate of the main Cell linked to the entity
+    private DiscreteCoordinates currentMainCellCoordinates;
 
     /**
      * Default AreaEntity constructor
@@ -23,8 +29,16 @@ public abstract class AreaEntity extends Entity {
      */
     public AreaEntity(Area area, Orientation orientation, DiscreteCoordinates position) {
 
+        // TODO fix me assert impossible
+//        assert area != null;
+//        assert orientation != null;
+//        assert position != null;
+
         super(position.toVector());
-        // TODO implements me #PROJECT #TUTO
+
+        this.ownerArea = area;
+        this.orientation = orientation;
+        this.currentMainCellCoordinates = position;
     }
 
 
@@ -33,8 +47,31 @@ public abstract class AreaEntity extends Entity {
      * @return (DiscreteCoordinates)
      */
     protected DiscreteCoordinates getCurrentMainCellCoordinates(){
-        // TODO implements me #PROJECT #TUTO
-        return null;
+
+        DiscreteCoordinates coordinates = new DiscreteCoordinates(currentMainCellCoordinates.x,currentMainCellCoordinates.y);
+        return coordinates;
     }
 
+    @Override
+    protected void setCurrentPosition(Vector v) {
+        super.setCurrentPosition(v);
+
+        if (DiscreteCoordinates.isCoordinates(v)) { //si les coordonnées sont suffisamment proches d'une coordonnée discrète
+            //On arrondit, affecte à la position et met à jour les coordonnées principales
+            Vector position = v.round();
+            setCurrentPosition(position);
+            int vectorX = (int) position.x;
+            int vectorY = (int) position.y;
+
+            currentMainCellCoordinates = new DiscreteCoordinates(vectorX, vectorY);
+        }
+    }
+
+    protected void setOrientation(Orientation orientation) {
+        this.orientation = orientation;
+    }
+
+    protected Orientation getOrientation() {
+        return orientation;
+    }
 }
