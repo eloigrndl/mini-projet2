@@ -15,6 +15,7 @@ import ch.epfl.cs107.play.math.Vector;
 import javafx.scene.Camera;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,13 +47,10 @@ public abstract class Area implements Playable {
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */
     public abstract float getCameraScaleFactor();
 
-    public final void setViewCandidate(Actor a){
+    public final void setViewCandidate(Actor a) {
         this.viewCandidate = a;
     }
 
-    public final void setViewCenter(Vector v){
-        this.viewCenter = v;
-    }
     /**
      * Add an actor to the actors list
      * @param a (Actor): the actor to add, not null
@@ -91,12 +89,13 @@ public abstract class Area implements Playable {
      * @return (boolean): true if the actor is correctly registered
      */
     public final boolean registerActor(Actor a){
-
-        if (registeredActors.add(a)){
+        registeredActors.add(a);
+        if (Arrays.asList(registeredActors).contains(a)){
             return true;
         }else{
             return false;
         }
+
 
     }
 
@@ -106,7 +105,9 @@ public abstract class Area implements Playable {
      * @return (boolean): true if the actor is correctly unregistered
      */
     public final boolean unregisterActor(Actor a){
-        if (unregisteredActors.add(a)){
+
+        unregisteredActors.add(a);
+        if (Arrays.asList(unregisteredActors).contains(a)){
             return true;
         }else{
             return false;
@@ -150,7 +151,7 @@ public abstract class Area implements Playable {
         this.actors = new LinkedList<>();
 
         //Initialization of center of the view/actor of view
-        setViewCenter(Vector.ZERO);
+        viewCenter = Vector.ZERO;
         setViewCandidate(null);
 
         return true;
@@ -194,7 +195,7 @@ public abstract class Area implements Playable {
 
     private void updateCamera () {
         if(viewCandidate!=null){
-           setViewCenter(viewCandidate.getPosition());
+           viewCenter = viewCandidate.getPosition();
         }
         Transform viewTransform = Transform.I.scaled(getCameraScaleFactor()).translated(viewCenter);
         window.setRelativeTransform(viewTransform);
