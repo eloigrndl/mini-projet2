@@ -13,6 +13,7 @@ import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.math.Vector;
 import javafx.scene.Camera;
+import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 
 import java.io.File;
 import java.util.Arrays;
@@ -120,8 +121,8 @@ public abstract class Area implements Playable {
      * @return (int) : the width in number of cols
      */
     public final int getWidth(){
-        // TODO implements me #PROJECT #TUTO
-        return 0;
+
+        return areaBehavior.getBehaviorMapSize()[0];
     }
 
     /**
@@ -129,8 +130,8 @@ public abstract class Area implements Playable {
      * @return (int) : the height in number of rows
      */
     public final int getHeight(){
-        // TODO implements me #PROJECT #TUTO
-        return 0;
+
+        return areaBehavior.getBehaviorMapSize()[1];
     }
 
     /** @return the Window Keyboard for inputs */

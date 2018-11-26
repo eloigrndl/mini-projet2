@@ -3,6 +3,7 @@ package ch.epfl.cs107.play.game.areagame;
 import ch.epfl.cs107.play.game.Game;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.window.Window;
+import ch.epfl.cs107.play.game.areagame.Area;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,8 +50,10 @@ abstract public class AreaGame implements Game {
             }else{
                 currentArea.resume(window, fileSystem);
             }
-        }else if(currentArea != null){
-
+        }else {
+            if (currentArea == null) {
+                throw new NullPointerException("currentArea is null");
+            }
         }
         return null;
     }

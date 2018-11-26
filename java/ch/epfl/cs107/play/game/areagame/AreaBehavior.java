@@ -29,6 +29,13 @@ public abstract class AreaBehavior
         cells = new Cell[width][height];
     }
 
+    protected int[] getBehaviorMapSize() {
+
+        int[] size = {cells.length, cells[0].length};
+
+        return size;
+    }
+
     /**
      * Each game will have its own Cell extension. */
     public abstract class Cell {
