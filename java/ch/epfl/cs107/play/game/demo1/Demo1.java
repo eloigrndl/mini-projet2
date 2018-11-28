@@ -71,11 +71,5 @@ public class Demo1 implements Game {
         if( Math.abs(actor2.getPosition().x) <=0.2 && Math.abs(actor2.getPosition().y) <=0.2) {
             actor3.draw(window);
         }
-
-
-
-
-
-
     }
 }

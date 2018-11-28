@@ -21,12 +21,12 @@ public abstract class AreaBehavior
      * @param window (Window): graphic context, not null
      * @param fileName (String): name of the file containing the behavior image, not null
      */
-    public AreaBehavior(Window window, String fileName){
-        behaviorMap = window.getImage(ResourcePath.getBehaviors(fileName), null, false);
-        width = behaviorMap.getWidth();
-        height = behaviorMap.getHeight();
 
-        cells = new Cell[width][height];
+    public AreaBehavior(Window window, String fileName){
+        this.behaviorMap = window.getImage(ResourcePath.getBehaviors(fileName), null, false);
+        this.width = behaviorMap.getWidth();
+        this.height = behaviorMap.getHeight();
+        this.cells = new Cell[width][height];
     }
 
     protected int[] getBehaviorMapSize() {
@@ -34,6 +34,10 @@ public abstract class AreaBehavior
         int[] size = {cells.length, cells[0].length};
 
         return size;
+    }
+
+    protected Image getBehaviorMap(){
+        return behaviorMap;
     }
 
     /**
