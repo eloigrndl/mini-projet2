@@ -1,5 +1,6 @@
 package ch.epfl.cs107.play.game.areagame.actor;
 
+import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
@@ -7,13 +8,51 @@ import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
 
+import java.util.List;
 
 /**
  * MovableAreaEntity are AreaEntity able to move on a grid
  */
 public abstract class MovableAreaEntity extends AreaEntity {
 
-    // TODO implements me #PROJECT #TUTO
+    /// Indicate if the actor is currently moving
+    private boolean isMoving;
+    /// Indicate how many frames the current move is supposed to take
+    private int framesForCurrentMove;
+    /// The target cell (i.e. where the mainCell will be after the motion)
+    private DiscreteCoordinates targetMainCellCoordinates;
+
+    /**
+     * Getter for the leaving cells which are the current cells.
+     * @return (List<DiscreteCoordinates>)
+     */
+    protected final List<DiscreteCoordinates> getLeavingCells() {
+        return getCurrentCells();
+    }
+
+    /**
+     * Getter for the entering cells
+     * "Les cellules investies seront toutes celles qui parmi les projections des cellules courantes dans la direction de l'acteur font partie de la grille.
+     * @return (List<DiscreteCoordinates>)
+     */
+    protected final List<DiscreteCoordinates> getEnteringCells() {
+        List<DiscreteCoordinates> currentCells = getCurrentCells();
+        List<DiscreteCoordinates> enteringCells;
+
+        for (int i=0; i<currentCells.size(); ++i) {
+            //Iterate through
+            DiscreteCoordinates currentCell = currentCells.get(i);
+
+            //Coordonnées dans la direction de l'acteur
+            DiscreteCoordinates projectedCoordinates = currentCell.jump(getOrientation().toVector());
+
+            //Position dans la grille
+            //TODO
+        }
+
+        /// TODO return enteringCells
+        return currentCells;
+    }
 
     /**
      * Default MovableAreaEntity constructor
@@ -23,24 +62,34 @@ public abstract class MovableAreaEntity extends AreaEntity {
      */
     public MovableAreaEntity(Area area, Orientation orientation, DiscreteCoordinates position) {
         super(area, orientation, position);
-        // TODO implements me #PROJECT #TUTO
+
+        resetMotion();
     }
 
     /**
      * Initialize or reset the current motion information
      */
     protected void resetMotion(){
-        // TODO implements me #PROJECT #TUTO
+        isMoving = false;
+        framesForCurrentMove = 0;
+        targetMainCellCoordinates = getCurrentMainCellCoordinates();
     }
 
     /**
-     * 
+     * Decide if a cell can move and if yes initalize it
      * @param frameForMove (int): number of frames used for simulating motion
      * @return (boolean): returns true if motion can occur
      */
   
-    protected  boolean move(int framesForMove){
-        // TODO implements me #PROJECT #TUTO
+    protected boolean move(int framesForMove){
+
+        //framesForMove or framesForCurrentMove
+        if (!isMoving || framesForCurrentMove == 0) { //Si l'acteur ne bouge pas OU s'il a atteint sa cellule cible
+
+        //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'enter dans les cellules getEnteringCells()
+
+        }
+
         return false;
     }
 
@@ -49,7 +98,17 @@ public abstract class MovableAreaEntity extends AreaEntity {
 
     @Override
     public void update(float deltaTime) {
-        // TODO implements me #PROJECT #TUTO
+
+        if (isMoving) {
+            //si l'acteur bouge et que la cible n'est pas atteinte, le déplacer
+            Vector distance = getOrientation().toVector();
+            distance = distance.mul(1.0f / framesForCurrentMove);
+            setCurrentPosition(getPosition().add(distance));
+        } else {
+            //Sinon reset motion
+            resetMotion();
+        }
+
     }
 
     /// Implements Positionable

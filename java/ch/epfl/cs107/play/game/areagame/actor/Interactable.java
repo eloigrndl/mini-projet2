@@ -12,4 +12,27 @@ import java.util.List;
  */
 public interface Interactable {
 
+    /**
+     * Un 'Interactable' occupe une liste de cellules
+     * @return (List<DiscreteCoordinates>)
+     */
+    List<DiscreteCoordinates> getCurrentCells();
+
+    /**
+     * Peut rendre une cellule non traversable si elle est déjà occupée
+     * @return (boolean)
+     */
+    boolean takeCellSpace();
+
+    /**
+     * Accepte les interactions distantes
+     * @return (boolean)
+     */
+    boolean isViewInteractable();
+
+    /**
+     * Accepte les interactions de contact
+     * @return (boolean)
+     */
+    boolean isCellInteractable();
 }

@@ -12,7 +12,7 @@ import ch.epfl.cs107.play.math.Vector;
 /**
  * Actors leaving in a grid
  */
-public abstract class AreaEntity extends Entity {
+public abstract class AreaEntity extends Entity implements Interactable {
 
     /// an AreaEntity knows its ow Area
     private Area ownerArea;
@@ -60,17 +60,25 @@ public abstract class AreaEntity extends Entity {
             //On arrondit, affecte à la position et met à jour les coordonnées principales
             Vector position = v.round();
             setCurrentPosition(position);
+
             int vectorX = (int) position.x;
             int vectorY = (int) position.y;
 
             currentMainCellCoordinates = new DiscreteCoordinates(vectorX, vectorY);
-        }
+        } //"autrement" le comportement est le même que celui de la super-classe
     }
 
+    /**
+     * Setter for the orientation
+     */
     protected void setOrientation(Orientation orientation) {
         this.orientation = orientation;
     }
 
+    /**
+     * Getter for the orientation
+     * @return (Orientation)
+     */
     protected Orientation getOrientation() {
         return orientation;
     }
