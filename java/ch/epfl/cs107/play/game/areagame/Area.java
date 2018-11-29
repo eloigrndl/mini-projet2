@@ -16,6 +16,7 @@ import javafx.scene.Camera;
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,8 +66,6 @@ public abstract class Area implements Playable {
             System.out.println("Actor " + a + " cannot be completely added, so remove it from where it was");
             removeActor(a, true);
         }
-
-       // actors.add(a);
     }
 
     /**
@@ -81,8 +80,6 @@ public abstract class Area implements Playable {
             System.out.print("Actor " + a + " cannot be completely removed");
             addActor(a,true);
         }
-
-        //actors.remove(a);
     }
 
     /**
@@ -91,6 +88,10 @@ public abstract class Area implements Playable {
      * @return (boolean): true if the actor is correctly registered
      */
     public final boolean registerActor(Actor a){
+    	if(this.registeredActors == null) {
+    		this.registeredActors = new ArrayList<Actor>();
+    	}
+    	System.out.println("a is" + a);
         this.registeredActors.add(a);
         if (Arrays.asList(this.registeredActors).contains(a)){
             return true;
@@ -107,7 +108,9 @@ public abstract class Area implements Playable {
      * @return (boolean): true if the actor is correctly unregistered
      */
     public final boolean unregisterActor(Actor a){
-
+    	if(this.unregisteredActors == null) {
+    		this.unregisteredActors = new ArrayList<Actor>();
+    	}
         this.unregisteredActors.add(a);
         if (Arrays.asList(this.unregisteredActors).contains(a)){
             return true;
@@ -176,9 +179,10 @@ public abstract class Area implements Playable {
                 addActor(this.registeredActors.get(j),false);
             }
         }
-       if (this.registeredActors != null)
-       for(int k = 0; k<(this.unregisteredActors.size()); ++k){
-           removeActor(this.unregisteredActors.get(k), false);
+       if (this.unregisteredActors != null) {
+           for (int k = 0; k < (this.unregisteredActors.size()); ++k) {
+               removeActor(this.unregisteredActors.get(k), false);
+           }
        }
 
        this.registeredActors = null;

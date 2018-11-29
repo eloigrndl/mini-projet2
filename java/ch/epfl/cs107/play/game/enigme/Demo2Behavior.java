@@ -2,8 +2,6 @@ package ch.epfl.cs107.play.game.enigme;
 
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.window.Window;
-import com.sun.istack.internal.localization.NullLocalizable;
-import java.util.PrimitiveIterator;
 
 public class Demo2Behavior extends AreaBehavior {
 
@@ -44,7 +42,9 @@ public class Demo2Behavior extends AreaBehavior {
         }
     }
 
-    public class Demo2Cell extends Cell{
-        private Demo2Cell(int x, int y, Demo2CellType type){}
+    public abstract class Demo2Cell extends Cell{
+        private Demo2Cell(int x, int y, Demo2CellType type){
+
+        }
     }
 }

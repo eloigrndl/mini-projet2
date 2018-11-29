@@ -11,8 +11,6 @@ import ch.epfl.cs107.play.window.Window;
 public class Demo2 extends AreaGame implements Game {
 
     private Area room0, room1;
-    private Window window;
-    private FileSystem fileSystem;
 
     @Override
     public int getFrameRate() {
@@ -32,7 +30,7 @@ public class Demo2 extends AreaGame implements Game {
         this.room1 = new Room1();
         addArea(room0);
         addArea(room1);
-        setCurrentArea("LevelSelector", false);
+        setCurrentArea("Level1", true);
 
         return super.begin(window, fileSystem);
     }

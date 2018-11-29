@@ -25,7 +25,7 @@ public class Room0 extends Area{
 
     @Override
     public float getCameraScaleFactor() {
-        return 1;
+        return 25;
     }
 
 
