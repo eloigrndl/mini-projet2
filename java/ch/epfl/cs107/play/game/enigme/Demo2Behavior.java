@@ -45,7 +45,6 @@ public class Demo2Behavior extends AreaBehavior {
     }
 
     public class Demo2Cell extends Cell{
-
         private Demo2Cell(int x, int y, Demo2CellType type){}
     }
 }

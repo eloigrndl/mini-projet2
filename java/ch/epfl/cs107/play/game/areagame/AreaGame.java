@@ -1,6 +1,7 @@
 package ch.epfl.cs107.play.game.areagame;
 
 import ch.epfl.cs107.play.game.Game;
+import ch.epfl.cs107.play.game.enigme.area.demo2.Room0;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.game.areagame.Area;
@@ -39,6 +40,7 @@ abstract public class AreaGame implements Game {
      * @return (Area): after setting it, return the new current area
      */
     protected final Area setCurrentArea(String key, boolean forceBegin){
+
         if(currentArea != null){
             currentArea.suspend();
         }
@@ -62,13 +64,13 @@ abstract public class AreaGame implements Game {
     /**@return (Window) : the Graphic and Audio context*/
     protected final Window getWindow(){
         // TODO implements me #PROJECT #TUTO
-        return null;
+        return window;
     }
 
     /**@return (FIleSystem): the linked file system*/
     protected final FileSystem getFileSystem(){
         // TODO implements me #PROJECT #TUTO
-        return null;
+        return fileSystem;
     }
 
 

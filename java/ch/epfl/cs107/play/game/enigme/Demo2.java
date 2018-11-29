@@ -10,7 +10,7 @@ import ch.epfl.cs107.play.window.Window;
 
 public class Demo2 extends AreaGame implements Game {
 
-    private Area Area0, Area1;
+    private Area room0, room1;
     private Window window;
     private FileSystem fileSystem;
 
@@ -26,10 +26,14 @@ public class Demo2 extends AreaGame implements Game {
 
     @Override
     public boolean begin(Window window, FileSystem fileSystem) {
-        this.window = window;
-        this.fileSystem = fileSystem;
-        this.Area0 = new Room0();
-        this.Area1 = new Room1();
+
+        super.begin(window, fileSystem);
+        this.room0 = new Room0();
+        this.room1 = new Room1();
+        addArea(room0);
+        addArea(room1);
+        setCurrentArea("LevelSelector", false);
+
         return super.begin(window, fileSystem);
     }
 }

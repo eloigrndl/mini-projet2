@@ -91,8 +91,8 @@ public abstract class Area implements Playable {
      * @return (boolean): true if the actor is correctly registered
      */
     public final boolean registerActor(Actor a){
-        registeredActors.add(a);
-        if (Arrays.asList(registeredActors).contains(a)){
+        this.registeredActors.add(a);
+        if (Arrays.asList(this.registeredActors).contains(a)){
             return true;
         } else {
             return false;
@@ -108,8 +108,8 @@ public abstract class Area implements Playable {
      */
     public final boolean unregisterActor(Actor a){
 
-        unregisteredActors.add(a);
-        if (Arrays.asList(unregisteredActors).contains(a)){
+        this.unregisteredActors.add(a);
+        if (Arrays.asList(this.unregisteredActors).contains(a)){
             return true;
         }else{
             return false;
@@ -137,7 +137,7 @@ public abstract class Area implements Playable {
     /** @return the Window Keyboard for inputs */
     public final Keyboard getKeyboard () {
         // TODO implements me #PROJECT #TUTO
-        return null;
+        return window.getKeyboard();
     }
 
     /// Area implements Playable
@@ -170,15 +170,19 @@ public abstract class Area implements Playable {
     }
 
     private final void purgeRegistration(){
-       for(int j=0; j<(registeredActors.size()); ++j){
-           addActor(registeredActors.get(j),false);
-       }
-       for(int k = 0; k<(unregisteredActors.size()); ++k){
-           removeActor(unregisteredActors.get(k), false);
+
+        if (this.registeredActors != null){
+            for(int j=0; j<(this.registeredActors.size()); ++j){
+                addActor(this.registeredActors.get(j),false);
+            }
+        }
+       if (this.registeredActors != null)
+       for(int k = 0; k<(this.unregisteredActors.size()); ++k){
+           removeActor(this.unregisteredActors.get(k), false);
        }
 
-       registeredActors = null;
-       unregisteredActors = null;
+       this.registeredActors = null;
+       this.unregisteredActors = null;
 
     }
 
