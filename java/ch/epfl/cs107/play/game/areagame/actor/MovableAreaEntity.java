@@ -86,6 +86,9 @@ public abstract class MovableAreaEntity extends AreaEntity {
         //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'entrer dans les cellules getEnteringCells()
 
             //if l'aire permet de quitter getLeavingCells() et d'entrer dans getEnteringCells()
+
+            
+
             //else return false
 
             //TODO temp return
@@ -96,8 +99,6 @@ public abstract class MovableAreaEntity extends AreaEntity {
             targetMainCellCoordinates = getCurrentMainCellCoordinates().jump(orientation);
             return true;
         }
-
-        //TODO : add area conditions
     }
 
 

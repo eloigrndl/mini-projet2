@@ -7,3 +7,4 @@ Mini-Projet #2
 - 4.3 : purge / registeredActors / unregisteredActors
 - 4.3 : aire abordée
 - 4.6.2 : getEnteringCells()
+- 4.6.3 : changement orientation MovableAreaEntity

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -46,6 +47,10 @@ public abstract class Area implements Playable {
     // efective center of the view
     private Vector viewCenter;
 
+    private Map<Interactable, List<DiscreteCoordinates>> interactablesToEnter;
+    private Map<Interactable, List<DiscreteCoordinates>> interactablesToLeave;
+
+
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */
     public abstract float getCameraScaleFactor();
 
@@ -62,6 +67,10 @@ public abstract class Area implements Playable {
     private void addActor(Actor a, boolean forced) {
         boolean errorOccured = !actors.add(a);
 
+        if(a instanceof Interactable){
+            errorOccured = errorOccured || !enterAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
+        }
+
         if(errorOccured && !forced) {
             System.out.println("Actor " + a + " cannot be completely added, so remove it from where it was");
             removeActor(a, true);
@@ -75,6 +84,10 @@ public abstract class Area implements Playable {
      */
     private void removeActor(Actor a, boolean forced){
         boolean errorOccured = !actors.remove(a);
+
+        if(a instanceof Interactable){
+            errorOccured = errorOccured || !enterAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
+        }
 
         if(errorOccured && !forced){
             System.out.print("Actor " + a + " cannot be completely removed");
@@ -187,6 +200,21 @@ public abstract class Area implements Playable {
        this.registeredActors = null;
        this.unregisteredActors = null;
 
+       for (Map.Entry<Interactable, List<DiscreteCoordinates>> entry : interactablesToEnter.entrySet() ) {
+           Interactable key = entry.getKey();
+           List<DiscreteCoordinates> value = entry.getValue();
+           enterAreaCells(key, value);
+       }
+
+       interactablesToEnter.clear();
+
+        for (Map.Entry<Interactable, List<DiscreteCoordinates>> entry : interactablesToLeave.entrySet() ) {
+            Interactable key = entry.getKey();
+            List<DiscreteCoordinates> value = entry.getValue();
+            leaveAreaCells(key, value);
+        }
+
+        interactablesToLeave.clear();
     }
 
     @Override
@@ -228,6 +256,31 @@ public abstract class Area implements Playable {
 
     protected final void setBehavior(AreaBehavior ab){
         this.areaBehavior = ab;
+    }
+
+    public final boolean leaveAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
+
+        boolean canLeave = areaBehavior.canLeave(entity, coordinates);
+
+        if (canLeave) {
+            interactablesToLeave.put(entity, coordinates);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public final boolean enterAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
+
+        boolean canEnter = areaBehavior.canEnter(entity, coordinates);
+
+        if (canEnter) {
+            interactablesToEnter.put(entity, coordinates);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
