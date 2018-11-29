@@ -1,8 +1,13 @@
 package ch.epfl.cs107.play.game.areagame;
 
+import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
+import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.window.Image;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * AreaBehavior manages a map of Cells.
@@ -42,8 +47,15 @@ public abstract class AreaBehavior
 
     /**
      * Each game will have its own Cell extension. */
-    public abstract class Cell {
-        //...
+    public abstract class Cell implements Interactable {
+
+        Set<Interactable> interactableSet;
+
+        @Override
+        public List<DiscreteCoordinates> getCurrentCells() {
+            /// TODO return a list with a unique element which is the DiscreteCoordinates of the cell
+            return null;
+        }
     }
 
 }
