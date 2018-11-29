@@ -20,6 +20,7 @@ public interface Interactable {
 
     /**
      * Peut rendre une cellule non traversable si elle est déjà occupée
+     * Si return true : non traversable
      * @return (boolean)
      */
     boolean takeCellSpace();

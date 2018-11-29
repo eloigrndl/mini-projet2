@@ -47,7 +47,6 @@ public abstract class MovableAreaEntity extends AreaEntity {
             DiscreteCoordinates projectedCoordinates = currentCell.jump(getOrientation().toVector());
 
             //Position dans la grille
-            //TODO
         }
 
         /// TODO return enteringCells
@@ -62,7 +61,6 @@ public abstract class MovableAreaEntity extends AreaEntity {
      */
     public MovableAreaEntity(Area area, Orientation orientation, DiscreteCoordinates position) {
         super(area, orientation, position);
-
         resetMotion();
     }
 
@@ -83,14 +81,23 @@ public abstract class MovableAreaEntity extends AreaEntity {
   
     protected boolean move(int framesForMove){
 
-        //framesForMove or framesForCurrentMove
         if (!isMoving || framesForCurrentMove == 0) { //Si l'acteur ne bouge pas OU s'il a atteint sa cellule cible
 
-        //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'enter dans les cellules getEnteringCells()
+        //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'entrer dans les cellules getEnteringCells()
 
+            //if l'aire permet de quitter getLeavingCells() et d'entrer dans getEnteringCells()
+            //else return false
+
+            //TODO temp return
+            return true;
+        } else {
+            framesForCurrentMove = framesForMove;
+            Vector orientation = getOrientation().toVector();
+            targetMainCellCoordinates = getCurrentMainCellCoordinates().jump(orientation);
+            return true;
         }
 
-        return false;
+        //TODO : add area conditions
     }
 
 
@@ -99,7 +106,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
     @Override
     public void update(float deltaTime) {
 
-        if (isMoving) {
+        if (isMoving && (getCurrentMainCellCoordinates() != targetMainCellCoordinates)) {
             //si l'acteur bouge et que la cible n'est pas atteinte, le déplacer
             Vector distance = getOrientation().toVector();
             distance = distance.mul(1.0f / framesForCurrentMove);

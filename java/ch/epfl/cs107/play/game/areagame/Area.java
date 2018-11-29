@@ -91,7 +91,6 @@ public abstract class Area implements Playable {
     	if(this.registeredActors == null) {
     		this.registeredActors = new ArrayList<Actor>();
     	}
-    	System.out.println("a is" + a);
         this.registeredActors.add(a);
         if (Arrays.asList(this.registeredActors).contains(a)){
             return true;

@@ -5,6 +5,7 @@ import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.window.Image;
+import ch.epfl.cs107.play.game.actor.Actor;
 
 import java.util.List;
 import java.util.Set;
@@ -50,10 +51,11 @@ public abstract class AreaBehavior
     public abstract class Cell implements Interactable {
 
         Set<Interactable> interactableSet;
+        Set<Actor> actorSet;
 
         @Override
         public List<DiscreteCoordinates> getCurrentCells() {
-            /// TODO return a list with a unique element which is the DiscreteCoordinates of the cell
+
             return null;
         }
     }
