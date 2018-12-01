@@ -36,7 +36,7 @@ public abstract class AreaBehavior
         this.cells = new Cell[width][height];
     }
 
-    protected int[] getBehaviorMapSize() {
+    protected  int[] getBehaviorMapSize() {
 
         int[] size = {cells.length, cells[0].length};
 
@@ -46,6 +46,8 @@ public abstract class AreaBehavior
     protected Image getBehaviorMap(){
         return behaviorMap;
     }
+
+
 
     public boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
         for (int i=0; i<coordinates.size(); ++i) {
@@ -115,5 +117,4 @@ public abstract class AreaBehavior
             return false;
         }
     }
-
 }

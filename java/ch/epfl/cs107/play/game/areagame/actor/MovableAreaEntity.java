@@ -2,12 +2,12 @@ package ch.epfl.cs107.play.game.areagame.actor;
 
 import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.Area;
-import ch.epfl.cs107.play.math.DiscreteCoordinates;
-import ch.epfl.cs107.play.math.Vector;
-import ch.epfl.cs107.play.game.areagame.Area;
+import ch.epfl.cs107.play.game.areagame.AreaBehavior;
+import ch.epfl.cs107.play.game.areagame.AreaGame;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
 
+import javax.swing.*;
 import java.util.List;
 
 /**
@@ -37,7 +37,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
      */
     protected final List<DiscreteCoordinates> getEnteringCells() {
         List<DiscreteCoordinates> currentCells = getCurrentCells();
-        List<DiscreteCoordinates> enteringCells;
+        List<DiscreteCoordinates> enteringCells =null;
 
         for (int i=0; i<currentCells.size(); ++i) {
             //Iterate through
@@ -47,10 +47,16 @@ public abstract class MovableAreaEntity extends AreaEntity {
             DiscreteCoordinates projectedCoordinates = currentCell.jump(getOrientation().toVector());
 
             //Position dans la grille
-        }
+            int poisitonx = (int) projectedCoordinates.x;
+            int positiony = (int) projectedCoordinates.y;
 
+            //regarde si ces coordonnées font partie de la grille et si oui les ajoute à la liste de nouvelles coordonnées
+            if(poisitonx < getaOwnerArea().getHeight() && positiony< getaOwnerArea().getWidth()){
+                enteringCells.add(projectedCoordinates);
+            }
+        }
         /// TODO return enteringCells
-        return currentCells;
+        return enteringCells;
     }
 
     /**
@@ -75,7 +81,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
 
     /**
      * Decide if a cell can move and if yes initalize it
-     * @param frameForMove (int): number of frames used for simulating motion
+     * @param framesForMove (int): number of frames used for simulating motion
      * @return (boolean): returns true if motion can occur
      */
   
@@ -83,22 +89,21 @@ public abstract class MovableAreaEntity extends AreaEntity {
 
         if (!isMoving || framesForCurrentMove == 0) { //Si l'acteur ne bouge pas OU s'il a atteint sa cellule cible
 
-        //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'entrer dans les cellules getEnteringCells()
+            //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'entrer dans les cellules getEnteringCells()
+            if(getaOwnerArea().leaveAreaCells(this, getLeavingCells()) && getaOwnerArea().enterAreaCells(this, getEnteringCells())){
+                return true;
 
-            //if l'aire permet de quitter getLeavingCells() et d'entrer dans getEnteringCells()
+            }else{ //Déplcement pas possible : move retourne false
+                return false;
+            }
 
-            
-
-            //else return false
-
-            //TODO temp return
-            return true;
-        } else {
+        } else { //autrement, déplacement initié
             framesForCurrentMove = framesForMove;
             Vector orientation = getOrientation().toVector();
             targetMainCellCoordinates = getCurrentMainCellCoordinates().jump(orientation);
             return true;
         }
+
     }
 
 

@@ -131,6 +131,10 @@ public abstract class Area implements Playable {
         }
     }
 
+    public AreaBehavior getAreaBehavior(){
+        return this.areaBehavior;
+    }
+
     /**
      * Getter for the area width
      * @return (int) : the width in number of cols
