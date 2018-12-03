@@ -8,3 +8,4 @@ Mini-Projet #2
 - 4.3 : aire abordée fait 
 - 4.6.2 : getEnteringCells() fait
 - 4.6.3 : changement orientation MovableAreaEntity fait
+- 4.7.3 : NullPointerException interactablesToEnter/Leave

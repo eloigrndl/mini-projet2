@@ -50,7 +50,6 @@ public abstract class Area implements Playable {
     private Map<Interactable, List<DiscreteCoordinates>> interactablesToEnter;
     private Map<Interactable, List<DiscreteCoordinates>> interactablesToLeave;
 
-
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */
     public abstract float getCameraScaleFactor();
 
@@ -204,21 +203,25 @@ public abstract class Area implements Playable {
        this.registeredActors = null;
        this.unregisteredActors = null;
 
-       for (Map.Entry<Interactable, List<DiscreteCoordinates>> entry : interactablesToEnter.entrySet() ) {
-           Interactable key = entry.getKey();
-           List<DiscreteCoordinates> value = entry.getValue();
-           enterAreaCells(key, value);
+       if (interactablesToEnter != null) {
+           for (Map.Entry<Interactable, List<DiscreteCoordinates>> entry : interactablesToEnter.entrySet() ) {
+               Interactable key = entry.getKey();
+               List<DiscreteCoordinates> value = entry.getValue();
+               enterAreaCells(key, value);
+           }
+
+           interactablesToEnter.clear();
        }
 
-       interactablesToEnter.clear();
+       if (interactablesToLeave != null) {
+           for (Map.Entry<Interactable, List<DiscreteCoordinates>> entry : interactablesToLeave.entrySet() ) {
+               Interactable key = entry.getKey();
+               List<DiscreteCoordinates> value = entry.getValue();
+               leaveAreaCells(key, value);
+           }
 
-        for (Map.Entry<Interactable, List<DiscreteCoordinates>> entry : interactablesToLeave.entrySet() ) {
-            Interactable key = entry.getKey();
-            List<DiscreteCoordinates> value = entry.getValue();
-            leaveAreaCells(key, value);
-        }
-
-        interactablesToLeave.clear();
+           interactablesToLeave.clear();
+       }
     }
 
     @Override
