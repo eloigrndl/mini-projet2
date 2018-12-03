@@ -43,11 +43,9 @@ public abstract class AreaBehavior
         return size;
     }
 
-    protected Image getBehaviorMap(){
+    public Image getBehaviorMap(){
         return behaviorMap;
     }
-
-
 
     public boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
         for (int i=0; i<coordinates.size(); ++i) {
@@ -95,7 +93,6 @@ public abstract class AreaBehavior
 
         @Override
         public List<DiscreteCoordinates> getCurrentCells() {
-
             return null;
         }
 

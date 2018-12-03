@@ -21,7 +21,6 @@ public abstract class Entity implements Actor {
      * @param position (Coordinate): Initial position of the entity. Not null
      */
     public Entity(Vector position) {
-
         if (position == null )
             throw new NullPointerException();
         this.currentPosition = position;

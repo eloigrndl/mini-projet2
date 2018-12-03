@@ -43,8 +43,6 @@ public class Demo2Behavior extends AreaBehavior {
     }
 
     public abstract class Demo2Cell extends Cell{
-        private Demo2Cell(int x, int y, Demo2CellType type){
-
-        }
+        private Demo2Cell(int x, int y, Demo2CellType type){}
     }
 }

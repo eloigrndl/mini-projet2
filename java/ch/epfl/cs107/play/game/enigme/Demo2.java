@@ -3,14 +3,19 @@ package ch.epfl.cs107.play.game.enigme;
 import ch.epfl.cs107.play.game.Game;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
+import ch.epfl.cs107.play.game.areagame.actor.Orientation;
+import ch.epfl.cs107.play.game.enigme.actor.demo2.Demo2Player;
 import ch.epfl.cs107.play.game.enigme.area.demo2.Room0;
 import ch.epfl.cs107.play.game.enigme.area.demo2.Room1;
 import ch.epfl.cs107.play.io.FileSystem;
+import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Window;
 
 public class Demo2 extends AreaGame implements Game {
 
     private Area room0, room1;
+    private Demo2Player character;
 
     @Override
     public int getFrameRate() {
@@ -30,9 +35,26 @@ public class Demo2 extends AreaGame implements Game {
         this.room1 = new Room1();
         addArea(room0);
         addArea(room1);
-        setCurrentArea("Level1", true);
-
+        setCurrentArea("LevelSelector", true);
+        this.character = new Demo2Player(getCurrentArea(), Orientation.UP, (new DiscreteCoordinates(5,5)));
         return super.begin(window, fileSystem);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        super.update(1);
+        character.update(1);
+        if(character.isPassingDoor()){
+            if(getCurrentArea().getTitle().equals("LevelSelector")){
+                character.leaveArea(getCurrentArea(), new DiscreteCoordinates((int) character.getPosition().x, (int) character.getPosition().y));
+                setCurrentArea("Level1", true);
+                character.enterArea(getCurrentArea(),new DiscreteCoordinates(5, 2) );
+            }else if(getCurrentArea().getTitle().equals("Level1")){
+                character.leaveArea(getCurrentArea(), new DiscreteCoordinates((int) character.getPosition().x, (int) character.getPosition().y));
+                setCurrentArea("LevelSelector", true);
+                character.enterArea(getCurrentArea(),new DiscreteCoordinates(5,5 ));
+            }
+        }
     }
 }
 

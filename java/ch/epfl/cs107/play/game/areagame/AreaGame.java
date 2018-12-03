@@ -60,7 +60,9 @@ abstract public class AreaGame implements Game {
         return null;
     }
 
-
+    protected Area getCurrentArea(){
+        return this.currentArea;
+    }
     /**@return (Window) : the Graphic and Audio context*/
     protected final Window getWindow(){
         // TODO implements me #PROJECT #TUTO
