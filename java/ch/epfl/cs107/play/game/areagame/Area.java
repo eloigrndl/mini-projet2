@@ -15,6 +15,7 @@ import ch.epfl.cs107.play.math.Vector;
 import javafx.scene.Camera;
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 
+import javax.sound.midi.SysexMessage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;

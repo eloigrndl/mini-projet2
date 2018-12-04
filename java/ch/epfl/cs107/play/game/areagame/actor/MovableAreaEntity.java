@@ -9,6 +9,7 @@ import ch.epfl.cs107.play.math.Vector;
 
 import javax.swing.*;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * MovableAreaEntity are AreaEntity able to move on a grid
@@ -37,7 +38,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
      */
     protected final List<DiscreteCoordinates> getEnteringCells() {
         List<DiscreteCoordinates> currentCells = getCurrentCells();
-        List<DiscreteCoordinates> enteringCells =null;
+        List<DiscreteCoordinates> enteringCells = new ArrayList<DiscreteCoordinates>();
 
         for (int i=0; i<currentCells.size(); ++i) {
             //Iterate through
@@ -87,13 +88,20 @@ public abstract class MovableAreaEntity extends AreaEntity {
   
     protected boolean move(int framesForMove){
 
+        System.out.println("MovableAreaEntity 'move'");
+
+        System.out.println(getaOwnerArea().leaveAreaCells(this, getLeavingCells()));
+        System.out.println(getaOwnerArea().enterAreaCells(this, getEnteringCells()));
+
         if (!isMoving || framesForCurrentMove == 0) { //Si l'acteur ne bouge pas OU s'il a atteint sa cellule cible
 
             //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'entrer dans les cellules getEnteringCells()
             if(getaOwnerArea().leaveAreaCells(this, getLeavingCells()) && getaOwnerArea().enterAreaCells(this, getEnteringCells())){
+                System.out.println("MovableAreaEntity 'move' possible");
                 return true;
 
             }else{ //Déplcement pas possible : move retourne false
+                System.out.println("MovableAreaEntity 'move' impossible");
                 return false;
             }
 

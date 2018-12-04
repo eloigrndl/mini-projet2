@@ -24,8 +24,8 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
     public Demo2Player(Area area, Orientation orientation, DiscreteCoordinates position){
         super(area, orientation, position);
         setOrientation(Orientation.DOWN);
-        ghost.draw((Canvas) getaOwnerArea().getAreaBehavior().getBehaviorMap());
     }
+
     @Override
     public boolean isCellInteractable() {
         return true;
@@ -34,7 +34,10 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
     @Override
     protected boolean move(int framesForMove) {
 
+        System.out.println("Demo2Player 'move'");
+
         if(getaOwnerArea().enterAreaCells(this, getEnteringCells())){
+            System.out.println("Demo2Player 'setPassingDoor'");
             setPassingDoor(true);
         }
         return super.move(ANIMATION_DURATION);
@@ -52,6 +55,7 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
 
     @Override
     public void draw(Canvas canvas) {
+        ghost.draw(canvas);
     }
 
     @Override
@@ -67,36 +71,41 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
         Button upArrow = keyboard.get(Keyboard.UP);
         Button downArrow = keyboard.get(Keyboard.DOWN);
 
-        if(leftArrow.isDown()){
-            if(getOrientation() == Orientation.LEFT){
+        if(leftArrow.isDown()) {
+            System.out.println("LEFT");
+            if (getOrientation() == Orientation.LEFT) {
+                System.out.println("Move to the left !");
                 move(ANIMATION_DURATION);
+            } else {
+                setOrientation(Orientation.LEFT);
             }
-        }else{
-            setOrientation(Orientation.LEFT);
         }
 
-        if(rightArrow.isDown()){
-            if(getOrientation() == Orientation.RIGHT) {
+        if(rightArrow.isDown()) {
+            if (getOrientation() == Orientation.RIGHT) {
+                System.out.println("Move to the right !");
                 move(ANIMATION_DURATION);
+            } else {
+                setOrientation(Orientation.RIGHT);
             }
-        }else{
-            setOrientation(Orientation.RIGHT);
         }
 
-        if(upArrow.isDown()){
-            if(getOrientation() == Orientation.UP) {
+        if(upArrow.isDown()) {
+            if (getOrientation() == Orientation.UP) {
+                System.out.println("Move up !");
                 move(ANIMATION_DURATION);
+            } else {
+                setOrientation(Orientation.UP);
             }
-        }else{
-            setOrientation(Orientation.UP);
         }
 
-        if(downArrow.isDown()){
-            if(getOrientation() == Orientation.DOWN) {
+        if(downArrow.isDown()) {
+            if (getOrientation() == Orientation.DOWN) {
+                System.out.println("Move down !");
                 move(ANIMATION_DURATION);
+            } else {
+                setOrientation(Orientation.DOWN);
             }
-        }else{
-            setOrientation(Orientation.DOWN);
         }
     }
 

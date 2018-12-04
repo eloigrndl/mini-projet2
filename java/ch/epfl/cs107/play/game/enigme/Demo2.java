@@ -43,6 +43,7 @@ public class Demo2 extends AreaGame implements Game {
     @Override
     public void update(float deltaTime) {
         super.update(1);
+        character.draw(getWindow());
         character.update(1);
         if(character.isPassingDoor()){
             if(getCurrentArea().getTitle().equals("LevelSelector")){
