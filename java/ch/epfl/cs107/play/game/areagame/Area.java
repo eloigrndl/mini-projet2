@@ -17,11 +17,7 @@ import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 
 import javax.sound.midi.SysexMessage;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -48,8 +44,8 @@ public abstract class Area implements Playable {
     // efective center of the view
     private Vector viewCenter;
 
-    private Map<Interactable, List<DiscreteCoordinates>> interactablesToEnter;
-    private Map<Interactable, List<DiscreteCoordinates>> interactablesToLeave;
+    private Map<Interactable, List<DiscreteCoordinates>> interactablesToEnter = new HashMap<>();
+    private Map<Interactable, List<DiscreteCoordinates>> interactablesToLeave = new HashMap<>();
 
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */
     public abstract float getCameraScaleFactor();

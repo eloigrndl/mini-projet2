@@ -36,10 +36,10 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
 
         System.out.println("Demo2Player 'move'");
 
-        if(getaOwnerArea().enterAreaCells(this, getEnteringCells())){
-            System.out.println("Demo2Player 'setPassingDoor'");
-            setPassingDoor(true);
-        }
+//        if(getaOwnerArea().enterAreaCells(this, getEnteringCells())){
+//            System.out.println("Demo2Player 'setPassingDoor'");
+//            setPassingDoor(true);
+//        }
         return super.move(ANIMATION_DURATION);
     }
 

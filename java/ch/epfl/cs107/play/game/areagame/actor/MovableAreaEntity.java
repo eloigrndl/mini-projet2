@@ -88,30 +88,27 @@ public abstract class MovableAreaEntity extends AreaEntity {
   
     protected boolean move(int framesForMove){
 
-        System.out.println("MovableAreaEntity 'move'");
-
-        System.out.println(getaOwnerArea().leaveAreaCells(this, getLeavingCells()));
-        System.out.println(getaOwnerArea().enterAreaCells(this, getEnteringCells()));
+        System.out.println(" MovableAreaEntity move");
+        System.out.println(" MovableAreaEntity move isMoving " + isMoving);
+        System.out.println(" MovableAreaEntity move frames " + framesForCurrentMove);
+        System.out.println(" MovableAreaEntity move leave " + (getaOwnerArea().leaveAreaCells(this, getLeavingCells())));
+        System.out.println(" MovableAreaEntity move enter " + (getaOwnerArea().enterAreaCells(this, getEnteringCells())));
 
         if (!isMoving || framesForCurrentMove == 0) { //Si l'acteur ne bouge pas OU s'il a atteint sa cellule cible
 
             //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'entrer dans les cellules getEnteringCells()
-            if(getaOwnerArea().leaveAreaCells(this, getLeavingCells()) && getaOwnerArea().enterAreaCells(this, getEnteringCells())){
-                System.out.println("MovableAreaEntity 'move' possible");
+            if (getaOwnerArea().leaveAreaCells(this, getLeavingCells()) && getaOwnerArea().enterAreaCells(this, getEnteringCells())) {
+                System.out.println(" MovableAreaEntity move GOOOO");
+                framesForCurrentMove = framesForMove;
+                Vector orientation = getOrientation().toVector();
+                targetMainCellCoordinates = getCurrentMainCellCoordinates().jump(orientation);
+                isMoving = true;
                 return true;
-
-            }else{ //Déplcement pas possible : move retourne false
-                System.out.println("MovableAreaEntity 'move' impossible");
+            } else { //Déplcement pas possible : move retourne false
                 return false;
             }
-
-        } else { //autrement, déplacement initié
-            framesForCurrentMove = framesForMove;
-            Vector orientation = getOrientation().toVector();
-            targetMainCellCoordinates = getCurrentMainCellCoordinates().jump(orientation);
-            return true;
         }
-
+        return false;
     }
 
 
@@ -119,6 +116,10 @@ public abstract class MovableAreaEntity extends AreaEntity {
 
     @Override
     public void update(float deltaTime) {
+
+        System.out.println(" MovableAreaEntity update");
+        System.out.println(" MovableAreaEntity update isMoving  " + isMoving);
+        System.out.println(" MovableAreaEntity update coordinates " + (getCurrentMainCellCoordinates() != targetMainCellCoordinates));
 
         if (isMoving && (getCurrentMainCellCoordinates() != targetMainCellCoordinates)) {
             //si l'acteur bouge et que la cible n'est pas atteinte, le déplacer

@@ -50,12 +50,16 @@ public abstract class AreaBehavior
     }
 
     public boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
+
+        boolean canLeave = true;
+
         for (int i=0; i<coordinates.size(); ++i) {
             DiscreteCoordinates coordinate = coordinates.get(i);
-            if (cells[coordinate.x][coordinate.y].canLeave(entity)) {
-            } else {
+            if (!cells[coordinate.x][coordinate.y].canLeave(entity)) {
                 return false;
             }
+
+            return true;
         }
         return false;
     }
@@ -63,11 +67,11 @@ public abstract class AreaBehavior
     public boolean canEnter(Interactable entity, List<DiscreteCoordinates> coordinates) {
         for (int i=0; i<coordinates.size(); ++i) {
             DiscreteCoordinates coordinate = coordinates.get(i);
-            if (cells[coordinate.x][coordinate.y].canEnter(entity)) {
-                return true;
-            } else {
+            if (!cells[coordinate.x][coordinate.y].canEnter(entity)) {
                 return false;
             }
+
+            return true;
         }
         return false;
     }
