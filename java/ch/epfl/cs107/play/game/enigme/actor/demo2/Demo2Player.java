@@ -72,9 +72,7 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
         Button downArrow = keyboard.get(Keyboard.DOWN);
 
         if(leftArrow.isDown()) {
-            System.out.println("LEFT");
             if (getOrientation() == Orientation.LEFT) {
-                System.out.println("Move to the left !");
                 move(ANIMATION_DURATION);
             } else {
                 setOrientation(Orientation.LEFT);
@@ -83,7 +81,6 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
 
         if(rightArrow.isDown()) {
             if (getOrientation() == Orientation.RIGHT) {
-                System.out.println("Move to the right !");
                 move(ANIMATION_DURATION);
             } else {
                 setOrientation(Orientation.RIGHT);
@@ -92,7 +89,6 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
 
         if(upArrow.isDown()) {
             if (getOrientation() == Orientation.UP) {
-                System.out.println("Move up !");
                 move(ANIMATION_DURATION);
             } else {
                 setOrientation(Orientation.UP);
@@ -101,12 +97,13 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
 
         if(downArrow.isDown()) {
             if (getOrientation() == Orientation.DOWN) {
-                System.out.println("Move down !");
                 move(ANIMATION_DURATION);
             } else {
                 setOrientation(Orientation.DOWN);
             }
         }
+
+        super.update(1);
     }
 
     public void enterArea(Area area, DiscreteCoordinates position){

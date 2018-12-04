@@ -88,17 +88,10 @@ public abstract class MovableAreaEntity extends AreaEntity {
   
     protected boolean move(int framesForMove){
 
-        System.out.println(" MovableAreaEntity move");
-        System.out.println(" MovableAreaEntity move isMoving " + isMoving);
-        System.out.println(" MovableAreaEntity move frames " + framesForCurrentMove);
-        System.out.println(" MovableAreaEntity move leave " + (getaOwnerArea().leaveAreaCells(this, getLeavingCells())));
-        System.out.println(" MovableAreaEntity move enter " + (getaOwnerArea().enterAreaCells(this, getEnteringCells())));
-
         if (!isMoving || framesForCurrentMove == 0) { //Si l'acteur ne bouge pas OU s'il a atteint sa cellule cible
 
             //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'entrer dans les cellules getEnteringCells()
             if (getaOwnerArea().leaveAreaCells(this, getLeavingCells()) && getaOwnerArea().enterAreaCells(this, getEnteringCells())) {
-                System.out.println(" MovableAreaEntity move GOOOO");
                 framesForCurrentMove = framesForMove;
                 Vector orientation = getOrientation().toVector();
                 targetMainCellCoordinates = getCurrentMainCellCoordinates().jump(orientation);
@@ -117,15 +110,12 @@ public abstract class MovableAreaEntity extends AreaEntity {
     @Override
     public void update(float deltaTime) {
 
-        System.out.println(" MovableAreaEntity update");
-        System.out.println(" MovableAreaEntity update isMoving  " + isMoving);
-        System.out.println(" MovableAreaEntity update coordinates " + (getCurrentMainCellCoordinates() != targetMainCellCoordinates));
-
         if (isMoving && (getCurrentMainCellCoordinates() != targetMainCellCoordinates)) {
             //si l'acteur bouge et que la cible n'est pas atteinte, le déplacer
             Vector distance = getOrientation().toVector();
             distance = distance.mul(1.0f / framesForCurrentMove);
             setCurrentPosition(getPosition().add(distance));
+            isMoving = false;
         } else {
             //Sinon reset motion
             resetMotion();

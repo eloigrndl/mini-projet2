@@ -54,19 +54,25 @@ public abstract class AreaEntity extends Entity implements Interactable {
 
     @Override
     protected void setCurrentPosition(Vector v) {
-        super.setCurrentPosition(v);
+        //super.setCurrentPosition(v);
 
-        if (DiscreteCoordinates.isCoordinates(v)) { //si les coordonnées sont suffisamment proches d'une coordonnée discrète
+        if (DiscreteCoordinates.isCoordinates(v)) {
+            //si les coordonnées sont suffisamment proches d'une coordonnée discrète
             //On arrondit, affecte à la position et met à jour les coordonnées principales
+
+            System.out.println("setCurrentPosition arrondi");
+
             Vector position = v.round();
-            setCurrentPosition(position);
 
             int vectorX = (int) position.x;
             int vectorY = (int) position.y;
 
+            super.setCurrentPosition(position);
+
             currentMainCellCoordinates = new DiscreteCoordinates(vectorX, vectorY);
         } else {
             //"autrement" le comportement est le même que celui de la super-classe
+            System.out.println("setCurrentPosition pasArrondi");
             super.setCurrentPosition(v);
         }
     }
