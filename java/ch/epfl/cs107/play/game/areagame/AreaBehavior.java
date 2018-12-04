@@ -76,6 +76,18 @@ public abstract class AreaBehavior
         return false;
     }
 
+    public boolean canPassDoor(Interactable entity, List<DiscreteCoordinates> coordinates) {
+        for (int i=0; i<coordinates.size(); ++i) {
+            DiscreteCoordinates coordinate = coordinates.get(i);
+            if (!cells[coordinate.x][coordinate.y].canPassDoor(entity)) {
+                return false;
+            }
+
+            return true;
+        }
+        return false;
+    }
+
     protected void leave(Interactable entity, List<DiscreteCoordinates> coordinates) {
         for (int i=0; i<coordinates.size(); ++i) {
             DiscreteCoordinates coordinate = coordinates.get(i);
@@ -127,6 +139,10 @@ public abstract class AreaBehavior
 
         protected boolean canLeave(Interactable entity) {
             //return true if entity a le droit de se barrer du contenu
+            return false;
+        }
+
+        protected boolean canPassDoor(Interactable entity) {
             return false;
         }
     }

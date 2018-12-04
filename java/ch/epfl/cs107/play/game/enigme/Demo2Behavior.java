@@ -3,6 +3,7 @@ package ch.epfl.cs107.play.game.enigme;
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.game.enigme.actor.demo2.Demo2Player;
 import ch.epfl.cs107.play.window.Window;
 
 import java.util.List;
@@ -84,10 +85,19 @@ public class Demo2Behavior extends AreaBehavior {
 
         @Override
         protected boolean canEnter(Interactable entity) {
-            if (value == Demo2CellType.NULL || value == Demo2CellType.WALL) {
+            if (value.equals(Demo2CellType.NULL) || value.equals(Demo2CellType.WALL)) {
                 return false;
             } else {
                 return true;
+            }
+        }
+
+        @Override
+        protected boolean canPassDoor(Interactable entity) {
+            if (value.equals(Demo2CellType.DOOR)) {
+                return true;
+            } else {
+                return false;
             }
         }
     }

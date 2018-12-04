@@ -60,8 +60,6 @@ public abstract class AreaEntity extends Entity implements Interactable {
             //si les coordonnées sont suffisamment proches d'une coordonnée discrète
             //On arrondit, affecte à la position et met à jour les coordonnées principales
 
-            System.out.println("setCurrentPosition arrondi");
-
             Vector position = v.round();
 
             int vectorX = (int) position.x;
@@ -72,7 +70,6 @@ public abstract class AreaEntity extends Entity implements Interactable {
             currentMainCellCoordinates = new DiscreteCoordinates(vectorX, vectorY);
         } else {
             //"autrement" le comportement est le même que celui de la super-classe
-            System.out.println("setCurrentPosition pasArrondi");
             super.setCurrentPosition(v);
         }
     }

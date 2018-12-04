@@ -120,11 +120,13 @@ public abstract class Area implements Playable {
     		this.unregisteredActors = new ArrayList<Actor>();
     	}
         this.unregisteredActors.add(a);
-        if (Arrays.asList(this.unregisteredActors).contains(a)){
-            return true;
-        }else{
-            return false;
-        }
+//        if (Arrays.asList(this.unregisteredActors).contains(a)){
+//            return true;
+//        }else{
+//            return false;
+//        }
+
+        return true;
     }
 
     public AreaBehavior getAreaBehavior(){
@@ -285,6 +287,10 @@ public abstract class Area implements Playable {
         } else {
             return false;
         }
+    }
+
+    public final boolean passDoor(Interactable entity, List<DiscreteCoordinates> coordinates) {
+        return areaBehavior.canPassDoor(entity, coordinates);
     }
 
 }
