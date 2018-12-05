@@ -260,7 +260,7 @@ public abstract class Area implements Playable {
         // TODO save the AreaState somewhere
     }
 
-    protected final void setBehavior(AreaBehavior ab){
+    public final void setBehavior(AreaBehavior ab){
         this.areaBehavior = ab;
     }
 
