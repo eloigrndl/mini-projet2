@@ -13,25 +13,26 @@ import ch.epfl.cs107.play.window.Canvas;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PressureSwitch implements Actor, Interactable {
+public class PressurePlate implements Actor, Interactable {
 
     private Area area;
     private DiscreteCoordinates position;
-    private Sprite pressureSwitch;
+    private Sprite pressurePlate;
     private Logic signal;
     private boolean activated;
+    private final float activationTime = 0.3f;
 
-    public PressureSwitch(Area area, DiscreteCoordinates position) {
+    public PressurePlate(Area area, DiscreteCoordinates position) {
         this.area = area;
         this.position = position;
         this.signal = Logic.FALSE;
-        this.pressureSwitch = new Sprite("GroundLightOff", 1, 1.f, this);
+        this.pressurePlate = new Sprite("GroundPlateOff", 1, 1.f, this);
         this.activated = false;
     }
 
     @Override
     public void draw(Canvas canvas) {
-        pressureSwitch.draw(canvas);
+        pressurePlate.draw(canvas);
     }
 
     @Override
@@ -70,13 +71,13 @@ public class PressureSwitch implements Actor, Interactable {
     @Override
     public void update(float deltaTime) {
         if(activated){
-            this.pressureSwitch = new Sprite("GroundLightOn", 1, 1.f, this);
-            signal = Logic.TRUE;
+            this.pressurePlate = new Sprite("GroundPlateOn", 1, 1.f, this);
+            this.signal = Logic.TRUE;
+            this.activated = false;
+            update(activationTime);
         }else{
-            this.pressureSwitch = new Sprite("GroundLightOff", 1, 1.f, this);
-            signal = Logic.FALSE;
+            this.pressurePlate = new Sprite("GroundPlateOff", 1, 1.f, this);
+            this.signal = Logic.FALSE;
         }
-
     }
-
 }
