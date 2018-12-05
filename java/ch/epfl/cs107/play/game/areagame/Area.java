@@ -39,7 +39,7 @@ public abstract class Area implements Playable {
     private List<Actor> unregisteredActors;
 
     //Camera Parameter
-    // actor on which thz camera is centered
+    // actor on which the camera is centered
     private Actor viewCandidate;
     // efective center of the view
     private Vector viewCenter;
@@ -51,7 +51,7 @@ public abstract class Area implements Playable {
     public abstract float getCameraScaleFactor();
 
     public final void setViewCandidate(Actor a){
-
+        System.out.println("setting view candidate");
         this.viewCandidate = a;
     }
 
@@ -229,6 +229,7 @@ public abstract class Area implements Playable {
         purgeRegistration();
 
         updateCamera();
+
         Keyboard keyboard = window.getKeyboard();
         Button downArrow = keyboard.get(Keyboard.DOWN);
         for (int i = 0; i < actors.size(); ++i) {
@@ -239,8 +240,9 @@ public abstract class Area implements Playable {
 
     private void updateCamera () {
         if(viewCandidate!=null){
-           viewCenter = viewCandidate.getPosition();
+            viewCenter = viewCandidate.getPosition();
         }
+
         Transform viewTransform = Transform.I.scaled(getCameraScaleFactor()).translated(viewCenter);
         window.setRelativeTransform(viewTransform);
 

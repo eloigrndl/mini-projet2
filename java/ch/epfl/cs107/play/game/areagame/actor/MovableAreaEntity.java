@@ -48,15 +48,14 @@ public abstract class MovableAreaEntity extends AreaEntity {
             DiscreteCoordinates projectedCoordinates = currentCell.jump(getOrientation().toVector());
 
             //Position dans la grille
-            int poisitonx = (int) projectedCoordinates.x;
-            int positiony = (int) projectedCoordinates.y;
+            int positionx = projectedCoordinates.x;
+            int positiony = projectedCoordinates.y;
 
             //regarde si ces coordonnées font partie de la grille et si oui les ajoute à la liste de nouvelles coordonnées
-            if(poisitonx < getaOwnerArea().getHeight() && positiony< getaOwnerArea().getWidth()){
+            if(positionx < getaOwnerArea().getHeight() && positiony < getaOwnerArea().getWidth()){
                 enteringCells.add(projectedCoordinates);
             }
         }
-        /// TODO return enteringCells
         return enteringCells;
     }
 
@@ -85,14 +84,17 @@ public abstract class MovableAreaEntity extends AreaEntity {
      * @param framesForMove (int): number of frames used for simulating motion
      * @return (boolean): returns true if motion can occur
      */
-  
     protected boolean move(int framesForMove){
 
         if (!isMoving || framesForCurrentMove == 0) { //Si l'acteur ne bouge pas OU s'il a atteint sa cellule cible
 
             //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'entrer dans les cellules getEnteringCells()
             if (getaOwnerArea().leaveAreaCells(this, getLeavingCells()) && getaOwnerArea().enterAreaCells(this, getEnteringCells())) {
-                framesForCurrentMove = framesForMove;
+                if (framesForMove < 1) {
+                    framesForCurrentMove = 1;
+                } else {
+                    framesForCurrentMove = framesForMove;
+                }
                 Vector orientation = getOrientation().toVector();
                 targetMainCellCoordinates = getCurrentMainCellCoordinates().jump(orientation);
                 isMoving = true;
@@ -103,7 +105,6 @@ public abstract class MovableAreaEntity extends AreaEntity {
         }
         return false;
     }
-
 
     /// MovableAreaEntity implements Actor
 

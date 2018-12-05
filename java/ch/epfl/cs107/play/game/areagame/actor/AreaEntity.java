@@ -2,6 +2,7 @@ package ch.epfl.cs107.play.game.areagame.actor;
 
 import ch.epfl.cs107.play.game.actor.Entity;
 import ch.epfl.cs107.play.game.areagame.Area;
+import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.game.actor.Entity;
 import ch.epfl.cs107.play.game.areagame.Area;
@@ -65,9 +66,9 @@ public abstract class AreaEntity extends Entity implements Interactable {
             int vectorX = (int) position.x;
             int vectorY = (int) position.y;
 
-            super.setCurrentPosition(position);
-
             currentMainCellCoordinates = new DiscreteCoordinates(vectorX, vectorY);
+
+            super.setCurrentPosition(position);
         } else {
             //"autrement" le comportement est le même que celui de la super-classe
             super.setCurrentPosition(v);
@@ -78,7 +79,9 @@ public abstract class AreaEntity extends Entity implements Interactable {
      * Setter for the orientation
      */
     protected void setOrientation(Orientation orientation) {
+        //pas en déplacement ensuite changer orientation
         this.orientation = orientation;
+
     }
 
     /**
