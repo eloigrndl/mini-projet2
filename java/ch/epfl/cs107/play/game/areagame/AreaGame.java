@@ -29,6 +29,7 @@ abstract public class AreaGame implements Game {
      * @param a (Area): The area to add, not null
      */
     protected final void addArea(Area a){
+
         areas.put(a.getTitle(),a);
     }
 
@@ -40,6 +41,10 @@ abstract public class AreaGame implements Game {
      * @return (Area): after setting it, return the new current area
      */
     protected final Area setCurrentArea(String key, boolean forceBegin){
+
+        System.out.println("area key " + key);
+        System.out.println("area size" + areas.size());
+        System.out.println("area test " + areas.get("Level1").getTitle());
 
         if(currentArea != null){
             currentArea.suspend();

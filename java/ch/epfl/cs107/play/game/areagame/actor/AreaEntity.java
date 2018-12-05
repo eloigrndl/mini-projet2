@@ -92,4 +92,8 @@ public abstract class AreaEntity extends Entity implements Interactable {
     public Area getaOwnerArea(){
         return this.ownerArea;
     }
+
+    public void setOwnerArea(Area ownerArea) {
+        this.ownerArea = ownerArea;
+    }
 }
