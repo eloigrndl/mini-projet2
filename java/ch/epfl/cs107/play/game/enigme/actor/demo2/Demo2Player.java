@@ -43,6 +43,7 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
         } else {
             setPassingDoor(false);
         }
+        
         return super.move(ANIMATION_DURATION);
     }
 
