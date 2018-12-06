@@ -42,10 +42,6 @@ abstract public class AreaGame implements Game {
      */
     protected final Area setCurrentArea(String key, boolean forceBegin){
 
-        System.out.println("area key " + key);
-        System.out.println("area size" + areas.size());
-        System.out.println("area test " + areas.get("Level1").getTitle());
-
         if(currentArea != null){
             currentArea.suspend();
         }

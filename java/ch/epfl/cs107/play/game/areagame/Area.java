@@ -51,7 +51,6 @@ public abstract class Area implements Playable {
     public abstract float getCameraScaleFactor();
 
     public final void setViewCandidate(Actor a){
-        System.out.println("setting view candidate");
         this.viewCandidate = a;
     }
 

@@ -23,7 +23,7 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
 
     public Demo2Player(Area area, Orientation orientation, DiscreteCoordinates position){
         super(area, orientation, position);
-        setOrientation(Orientation.DOWN);
+        super.setOrientation(Orientation.DOWN);
     }
 
     @Override
@@ -39,7 +39,6 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
 //        }
 
         if (getaOwnerArea().passDoor(this, getCurrentCells())) {
-            System.out.println("isPassingDoor");
             setPassingDoor(true);
         } else {
             setPassingDoor(false);
@@ -79,7 +78,7 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
             if (getOrientation().equals(Orientation.LEFT)) {
                 move(ANIMATION_DURATION);
             } else {
-                setOrientation(Orientation.LEFT);
+                super.setOrientation(Orientation.LEFT);
             }
         }
 
@@ -87,7 +86,7 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
             if (getOrientation().equals(Orientation.RIGHT)) {
                 move(ANIMATION_DURATION);
             } else {
-                setOrientation(Orientation.RIGHT);
+                super.setOrientation(Orientation.RIGHT);
             }
         }
 
@@ -95,7 +94,7 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
             if (getOrientation().equals(Orientation.UP)) {
                 move(ANIMATION_DURATION);
             } else {
-                setOrientation(Orientation.UP);
+                super.setOrientation(Orientation.UP);
             }
         }
 
@@ -103,7 +102,7 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
             if (getOrientation().equals(Orientation.DOWN)) {
                 move(ANIMATION_DURATION);
             } else {
-                setOrientation(Orientation.DOWN);
+                super.setOrientation(Orientation.DOWN);
             }
         }
 

@@ -60,7 +60,7 @@ public class Torch implements Actor, Interactable {
 
     @Override
     public boolean takeCellSpace() {
-        return false;
+        return true;
     }
 
     @Override
