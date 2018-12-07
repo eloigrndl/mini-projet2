@@ -87,9 +87,6 @@ public abstract class MovableAreaEntity extends AreaEntity {
     protected boolean move(int framesForMove){
 
         if (!isMoving || getCurrentMainCellCoordinates().equals(targetMainCellCoordinates)) { //Si l'acteur ne bouge pas OU s'il a atteint sa cellule cible
-            for (DiscreteCoordinates d : getEnteringCells()) {
-                System.out.println("Entering cell : " + d);
-            }
             //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'entrer dans les cellules getEnteringCells()
             if (getaOwnerArea().leaveAreaCells(this, getLeavingCells()) && getaOwnerArea().enterAreaCells(this, getEnteringCells())) {
                 if (framesForMove < 1) {
@@ -112,8 +109,6 @@ public abstract class MovableAreaEntity extends AreaEntity {
 
     @Override
     public void update(float deltaTime) {
-        System.out.println(getCurrentMainCellCoordinates());
-        System.out.println("target " +targetMainCellCoordinates);
         if (isMoving && !(getCurrentMainCellCoordinates().equals(targetMainCellCoordinates))) {
             //si l'acteur bouge et que la cible n'est pas atteinte, le déplacer
             Vector distance = getOrientation().toVector();
