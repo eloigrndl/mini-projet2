@@ -55,26 +55,23 @@ public class Demo2 extends AreaGame implements Game {
         character.draw(getWindow());
         if(character.isPassingDoor()){
             if(getCurrentArea().getTitle().equals(room0.getTitle())){
-                room0.unregisterActor(character);
-                character.leaveArea();
-                addArea(room1);
-                setCurrentArea(room1.getTitle(), true);
-                room1.registerActor(character);
-                character.setOwnerArea(room1);
-                room1.setViewCandidate(character);
-                character.enterArea(getCurrentArea(),new DiscreteCoordinates(5, 2) );
+                changeLevel(room0, room1, character, new DiscreteCoordinates(5,2));
             }else if(getCurrentArea().getTitle().equals(room1.getTitle())){
-                room1.unregisterActor(character);
-                character.leaveArea();
-                addArea(room0);
-                setCurrentArea(room0.getTitle(), true);
-                room0.registerActor(character);
-                character.setOwnerArea(room0);
-                room0.setViewCandidate(character);
-                character.enterArea(getCurrentArea(),new DiscreteCoordinates(5,5 ));
+                changeLevel(room1, room0, character, new DiscreteCoordinates(5,5));
             }
         }
 
+    }
+
+    private void changeLevel(Area areaToLeave, Area areaToEnter, Demo2Player character, DiscreteCoordinates coordinates) {
+        areaToLeave.unregisterActor(character);
+        character.leaveArea();
+        addArea(areaToEnter);
+        setCurrentArea(areaToEnter.getTitle(), true);
+        areaToEnter.registerActor(character);
+        character.setOwnerArea(areaToEnter);
+        areaToEnter.setViewCandidate(character);
+        character.enterArea(getCurrentArea(), coordinates);
     }
 }
 
