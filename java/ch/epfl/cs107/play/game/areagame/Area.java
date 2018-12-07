@@ -81,7 +81,7 @@ public abstract class Area implements Playable {
         boolean errorOccured = !actors.remove(a);
 
         if(a instanceof Interactable){
-            errorOccured = errorOccured || !enterAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
+            errorOccured = errorOccured || !leaveAreaCells(((Interactable) a), ((Interactable) a).getCurrentCells());
         }
 
         if(errorOccured && !forced){
@@ -100,13 +100,8 @@ public abstract class Area implements Playable {
     		this.registeredActors = new ArrayList<Actor>();
     	}
         this.registeredActors.add(a);
-        if (Arrays.asList(this.registeredActors).contains(a)){
-            return true;
-        } else {
-            return false;
-        }
 
-
+    	return true;
     }
 
     /**
@@ -119,11 +114,6 @@ public abstract class Area implements Playable {
     		this.unregisteredActors = new ArrayList<Actor>();
     	}
         this.unregisteredActors.add(a);
-//        if (Arrays.asList(this.unregisteredActors).contains(a)){
-//            return true;
-//        }else{
-//            return false;
-//        }
 
         return true;
     }
@@ -229,9 +219,8 @@ public abstract class Area implements Playable {
 
         updateCamera();
 
-        Keyboard keyboard = window.getKeyboard();
-        Button downArrow = keyboard.get(Keyboard.DOWN);
         for (int i = 0; i < actors.size(); ++i) {
+            actors.get(i).update(deltaTime);
             actors.get(i).draw(window);
         }
 

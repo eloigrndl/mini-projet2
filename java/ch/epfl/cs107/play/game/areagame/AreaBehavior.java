@@ -38,7 +38,7 @@ public abstract class AreaBehavior
         this.cells = new Cell[width][height];
     }
 
-    protected  int[] getBehaviorMapSize() {
+    protected int[] getBehaviorMapSize() {
 
         int[] size = {cells.length, cells[0].length};
 
@@ -58,10 +58,8 @@ public abstract class AreaBehavior
             if (!cells[coordinate.x][coordinate.y].canLeave(entity)) {
                 return false;
             }
-
-            return true;
         }
-        return false;
+        return true;
     }
 
     public boolean canEnter(Interactable entity, List<DiscreteCoordinates> coordinates) {
@@ -70,10 +68,8 @@ public abstract class AreaBehavior
             if (!cells[coordinate.x][coordinate.y].canEnter(entity)) {
                 return false;
             }
-
-            return true;
         }
-        return false;
+        return true;
     }
 
     public boolean canPassDoor(Interactable entity, List<DiscreteCoordinates> coordinates) {
@@ -82,10 +78,8 @@ public abstract class AreaBehavior
             if (!cells[coordinate.x][coordinate.y].canPassDoor(entity)) {
                 return false;
             }
-
-            return true;
         }
-        return false;
+        return true;
     }
 
     protected void leave(Interactable entity, List<DiscreteCoordinates> coordinates) {

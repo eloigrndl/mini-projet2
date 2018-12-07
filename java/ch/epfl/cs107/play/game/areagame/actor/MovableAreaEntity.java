@@ -48,11 +48,11 @@ public abstract class MovableAreaEntity extends AreaEntity {
             DiscreteCoordinates projectedCoordinates = currentCell.jump(getOrientation().toVector());
 
             //Position dans la grille
-            int positionx = projectedCoordinates.x;
-            int positiony = projectedCoordinates.y;
+            int positionX = projectedCoordinates.x;
+            int positionY = projectedCoordinates.y;
 
             //regarde si ces coordonnées font partie de la grille et si oui les ajoute à la liste de nouvelles coordonnées
-            if(positionx < getaOwnerArea().getHeight() && positiony < getaOwnerArea().getWidth()){
+            if(positionX < getaOwnerArea().getHeight() && positionY < getaOwnerArea().getWidth()){
                 enteringCells.add(projectedCoordinates);
             }
         }
@@ -86,8 +86,10 @@ public abstract class MovableAreaEntity extends AreaEntity {
      */
     protected boolean move(int framesForMove){
 
-        if (!isMoving || framesForCurrentMove == 0) { //Si l'acteur ne bouge pas OU s'il a atteint sa cellule cible
-
+        if (!isMoving || getCurrentMainCellCoordinates().equals(targetMainCellCoordinates)) { //Si l'acteur ne bouge pas OU s'il a atteint sa cellule cible
+            for (DiscreteCoordinates d : getEnteringCells()) {
+                System.out.println("Entering cell : " + d);
+            }
             //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'entrer dans les cellules getEnteringCells()
             if (getaOwnerArea().leaveAreaCells(this, getLeavingCells()) && getaOwnerArea().enterAreaCells(this, getEnteringCells())) {
                 if (framesForMove < 1) {
@@ -110,13 +112,14 @@ public abstract class MovableAreaEntity extends AreaEntity {
 
     @Override
     public void update(float deltaTime) {
-
-        if (isMoving && (getCurrentMainCellCoordinates() != targetMainCellCoordinates)) {
+        System.out.println(getCurrentMainCellCoordinates());
+        System.out.println("target " +targetMainCellCoordinates);
+        if (isMoving && !(getCurrentMainCellCoordinates().equals(targetMainCellCoordinates))) {
             //si l'acteur bouge et que la cible n'est pas atteinte, le déplacer
             Vector distance = getOrientation().toVector();
             distance = distance.mul(1.0f / framesForCurrentMove);
             setCurrentPosition(getPosition().add(distance));
-            isMoving = false;
+            //isMoving = false;
         } else {
             //Sinon reset motion
             resetMotion();
@@ -127,10 +130,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
     @Override
     protected void setOrientation(Orientation orientation) {
         if (!isMoving) {
-            System.out.println("isNotMoving changing orientation");
             super.setOrientation(orientation);
-        } else {
-            System.out.println("isMoving NOT changing orientation");
         }
     }
 

@@ -33,13 +33,12 @@ public class Demo2 extends AreaGame implements Game {
 
         if (super.begin(window, fileSystem)) {
             this.room0 = new Room0();
-            room0.setBehavior(room0.getAreaBehavior());
             this.room1 = new Room1();
-            room1.setBehavior(room1.getAreaBehavior());
             addArea(room0);
             addArea(room1);
             setCurrentArea(room0.getTitle(), true);
             this.character = new Demo2Player(getCurrentArea(), Orientation.UP, (new DiscreteCoordinates(5,5)));
+            room0.registerActor(character);
             room0.setViewCandidate(character);
             return true;
         }
@@ -51,28 +50,31 @@ public class Demo2 extends AreaGame implements Game {
     @Override
     public void update(float deltaTime) {
 
-        super.update(1);
-        character.update(1);
+        super.update(deltaTime);
+        //character.update(deltaTime);
         character.draw(getWindow());
         if(character.isPassingDoor()){
             if(getCurrentArea().getTitle().equals(room0.getTitle())){
-                character.leaveArea(getCurrentArea(), new DiscreteCoordinates((int) character.getPosition().x, (int) character.getPosition().y));
+                room0.unregisterActor(character);
+                character.leaveArea();
                 addArea(room1);
                 setCurrentArea(room1.getTitle(), true);
+                room1.registerActor(character);
                 character.setOwnerArea(room1);
                 room1.setViewCandidate(character);
                 character.enterArea(getCurrentArea(),new DiscreteCoordinates(5, 2) );
             }else if(getCurrentArea().getTitle().equals(room1.getTitle())){
-                character.leaveArea(getCurrentArea(), new DiscreteCoordinates((int) character.getPosition().x, (int) character.getPosition().y));
-                room0.setBehavior(room0.getAreaBehavior());
-                room0.setViewCandidate(character);
+                room1.unregisterActor(character);
+                character.leaveArea();
                 addArea(room0);
                 setCurrentArea(room0.getTitle(), true);
+                room0.registerActor(character);
                 character.setOwnerArea(room0);
                 room0.setViewCandidate(character);
                 character.enterArea(getCurrentArea(),new DiscreteCoordinates(5,5 ));
             }
         }
+
     }
 }
 

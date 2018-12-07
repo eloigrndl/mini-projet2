@@ -33,18 +33,19 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
 
     @Override
     protected boolean move(int framesForMove) {
-//        if(getaOwnerArea().enterAreaCells(this, getEnteringCells())){
-//            System.out.println("Demo2Player 'setPassingDoor'");
-//            setPassingDoor(true);
-//        }
 
-        if (getaOwnerArea().passDoor(this, getCurrentCells())) {
-            setPassingDoor(true);
-        } else {
-            setPassingDoor(false);
+        boolean move = super.move(ANIMATION_DURATION);
+
+        if (move) {
+            if (getaOwnerArea().passDoor(this, getEnteringCells())) {
+                System.out.println("isPassingDoor");
+                setPassingDoor(true);
+            } else {
+                setPassingDoor(false);
+            }
         }
-        
-        return super.move(ANIMATION_DURATION);
+
+        return move;
     }
 
     @Override
@@ -112,14 +113,14 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
 
     public void enterArea(Area area, DiscreteCoordinates position){
         area.registerActor(this);
-        update(1);
+        setOwnerArea(area);
+        area.setViewCandidate(this);
+        super.setCurrentPosition(position.toVector());
         resetMotion();
     }
 
-    public void leaveArea(Area area, DiscreteCoordinates position){
-        area.unregisterActor(this);
-        update(1);
-        resetMotion();
+    public void leaveArea(){
+        getaOwnerArea().unregisterActor(this);
     }
 
     public boolean isPassingDoor() {

@@ -32,9 +32,8 @@ public class Demo2Behavior extends AreaBehavior {
                 case -14112955 : return Demo2CellType.OUTDOOR_WALKABLE;
                 case -16776961 : return Demo2CellType.WATER;
                 case -16777216 : return Demo2CellType.WALL;
-
+                default: return Demo2CellType.NULL;
             }
-            return Demo2CellType.NULL;
         }
     }
 
