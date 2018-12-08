@@ -12,26 +12,26 @@ import java.util.List;
 public interface Interactor {
 
     /**
-     * Getter for coordinates of cells
-     * @return List of DiscreteCoordinates of cells
+     * Un 'Interactor' occupe une liste de cellules
+     * @return (List<DiscreteCoordinates>)
      */
-    List<DiscreteCoordinates> getCoodinates();
+    List <DiscreteCoordinates> getCurrentCells();
 
     /**
-     * A un certain nombre de cellules dans son champ de vision
-     * @return List of DiscreteCoordinates de ces cellules
+     * Les cellules dans le champ de vision de l'Interactor
+     * @return (List<DiscreteCoordinates>)
      */
     List<DiscreteCoordinates> getFieldOfViewCells();
 
     /**
-     * Indique s'il demande une interaction de contact
-     * @return boolean
+     * Self-explanatory.
+     * @return (boolean)
      */
     boolean wantsCellInteraction();
 
     /**
-     * Indique s'il demande une interaction distante
-     * @return boolean
+     * Self-explanatory.
+     * @return (boolean)
      */
     boolean wantsViewInteraction();
 
