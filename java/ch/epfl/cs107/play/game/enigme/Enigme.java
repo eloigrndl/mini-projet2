@@ -1,26 +1,25 @@
 package ch.epfl.cs107.play.game.enigme;
 
 import ch.epfl.cs107.play.game.Game;
+import ch.epfl.cs107.play.game.Playable;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
-import ch.epfl.cs107.play.game.enigme.actor.demo2.Demo2Player;
+import ch.epfl.cs107.play.game.areagame.actor.Orientation;
+import ch.epfl.cs107.play.game.enigme.area.*;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
-import ch.epfl.cs107.play.game.areagame.AreaGame;
-import ch.epfl.cs107.play.io.FileSystem;
-import ch.epfl.cs107.play.window.Window;
-
+import ch.epfl.cs107.play.game.enigme.actor.EnigmePlayer;
 
 /**
  * Enigme Game is a concept of Game derived for AreaGame. It introduces the notion of Player
  * When initializing the player is added to the current area
  */
-public class Enigme extends AreaGame implements Game {
+public class Enigme extends AreaGame implements Game, Playable{
 
-    private Area levelSelector, level1, level2, level3;
+    private Area LevelSelector, Level1, Level2, Level3;
+    private EnigmePlayer character;
 
-    /// Enigme implements Playable
 
     @Override
     public int getFrameRate() {
@@ -36,11 +35,18 @@ public class Enigme extends AreaGame implements Game {
     public boolean begin(Window window, FileSystem fileSystem) {
 
         if (super.begin(window, fileSystem)) {
-            //Init levelSelector, level1-2-3
-            //addAreas
-            //setCurrentArea(levelSelector)
-            //setup/register/setViewCandidate character
-
+            this.LevelSelector = new LevelSelector();
+            this.Level1 = new Level1();
+            this.Level2 = new Level2();
+            this.Level3 = new Level3();
+            addArea(LevelSelector);
+            addArea(Level1);
+            addArea(Level2);
+            addArea(Level3);
+            setCurrentArea("LevelSelector", true);
+            this.character = new EnigmePlayer(getCurrentArea(), Orientation.UP, (new DiscreteCoordinates(5, 5)));
+            LevelSelector.registerActor(character);
+            LevelSelector.setViewCandidate(character);
             return true;
         }
 
@@ -50,13 +56,36 @@ public class Enigme extends AreaGame implements Game {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-
-        //character draw
-        //character passingDoor
-        //switch level
+        character.draw(getWindow());
+        if(character.isPassingDoor()){
+            changeLevel(getCurrentArea(),characterDestination(), character, characterArrival()) ;
+        }
     }
 
-    private void changeLevel(Area areaToLeave, Area areaToEnter, Demo2Player character, DiscreteCoordinates coordinates) {
+    /**
+     * Get the location of the character's location
+     * @return l'aire de destination de la denière porte franchi par le personnage
+     */
+    private Area characterDestination(){
+        return getAreas().get(character.passedDoor().getDestination());
+    }
+
+    /**
+     * Get the location of the character's arrival
+     * @return les coordonnées d'arrivée dans la nouvelle aire du personnage (une fois une porte passée)
+     */
+    private DiscreteCoordinates characterArrival(){
+        return character.passedDoor().getCoordinatesArrival();
+    }
+
+    /**
+     * Method permitting the level change
+     * @param areaToLeave
+     * @param areaToEnter
+     * @param character
+     * @param coordinates
+     */
+    private void changeLevel(Area areaToLeave, Area areaToEnter, EnigmePlayer character, DiscreteCoordinates coordinates) {
         areaToLeave.unregisterActor(character);
         character.leaveArea();
         addArea(areaToEnter);
@@ -66,4 +95,5 @@ public class Enigme extends AreaGame implements Game {
         areaToEnter.setViewCandidate(character);
         character.enterArea(getCurrentArea(), coordinates);
     }
+
 }

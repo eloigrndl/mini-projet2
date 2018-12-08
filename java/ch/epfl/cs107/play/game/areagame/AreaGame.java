@@ -1,10 +1,8 @@
 package ch.epfl.cs107.play.game.areagame;
 
 import ch.epfl.cs107.play.game.Game;
-import ch.epfl.cs107.play.game.enigme.area.demo2.Room0;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.window.Window;
-import ch.epfl.cs107.play.game.areagame.Area;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -94,6 +92,10 @@ abstract public class AreaGame implements Game {
     @Override
     public void update(float deltaTime) {
         currentArea.update(deltaTime);
+    }
+
+    public Map<String, Area> getAreas() {
+        return areas;
     }
 
     @Override

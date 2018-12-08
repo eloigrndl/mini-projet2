@@ -23,7 +23,7 @@ public class Key implements Actor, Interactable {
     private boolean isViewInteractable;
     private Logic signal;
 
-    public Key(Area area, DiscreteCoordinates position) {
+public Key(Area area, DiscreteCoordinates position) {
         this.area = area;
         this.position = position;
         this.pickedUp = false;

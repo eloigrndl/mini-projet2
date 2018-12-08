@@ -3,14 +3,12 @@ package ch.epfl.cs107.play.game.enigme;
 import ch.epfl.cs107.play.game.Game;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
-import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.enigme.actor.demo2.Demo2Player;
-import ch.epfl.cs107.play.game.enigme.area.demo2.Room0;
-import ch.epfl.cs107.play.game.enigme.area.demo2.Room1;
+import ch.epfl.cs107.play.game.enigme.area.Room0;
+import ch.epfl.cs107.play.game.enigme.area.Room1;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
-import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Window;
 
 public class Demo2 extends AreaGame implements Game {
@@ -42,12 +40,11 @@ public class Demo2 extends AreaGame implements Game {
             room0.setViewCandidate(character);
             return true;
         }
-
         return false;
-
     }
 
     @Override
+
     public void update(float deltaTime) {
 
         super.update(deltaTime);
@@ -56,8 +53,10 @@ public class Demo2 extends AreaGame implements Game {
         if(character.isPassingDoor()){
             if(getCurrentArea().getTitle().equals(room0.getTitle())){
                 changeLevel(room0, room1, character, new DiscreteCoordinates(5,2));
+                character.setPassingDoor(false);
             }else if(getCurrentArea().getTitle().equals(room1.getTitle())){
                 changeLevel(room1, room0, character, new DiscreteCoordinates(5,5));
+                character.setPassingDoor(false);
             }
         }
 

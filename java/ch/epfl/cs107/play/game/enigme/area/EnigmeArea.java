@@ -1,12 +1,13 @@
-package ch.epfl.cs107.play.game.enigme.area.demo2;
+package ch.epfl.cs107.play.game.enigme.area;
 
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Background;
+import ch.epfl.cs107.play.game.enigme.Demo2Behavior;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.window.Window;
-import ch.epfl.cs107.play.game.enigme.Demo2Behavior;
 
-public class Room1 extends Area {
+public class EnigmeArea extends Area {
+
 
     @Override
     public boolean begin(Window window, FileSystem fileSystem) {
@@ -18,13 +19,14 @@ public class Room1 extends Area {
 
     @Override
     public String getTitle() {
-        return "Level1";
+        return null;
     }
 
     @Override
     public float getCameraScaleFactor() {
-        return 25;
+        return 24;
     }
-
-
 }
+
+
+

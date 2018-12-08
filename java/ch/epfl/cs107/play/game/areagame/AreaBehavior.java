@@ -3,6 +3,7 @@ package ch.epfl.cs107.play.game.areagame;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior;
+import ch.epfl.cs107.play.game.enigme.EnigmeBehavior;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.window.Image;
@@ -52,7 +53,6 @@ public abstract class AreaBehavior
     public boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
 
         boolean canLeave = true;
-
         for (int i=0; i<coordinates.size(); ++i) {
             DiscreteCoordinates coordinate = coordinates.get(i);
             if (!cells[coordinate.x][coordinate.y].canLeave(entity)) {
@@ -99,7 +99,9 @@ public abstract class AreaBehavior
     protected void setCell(int x, int y, Demo2Behavior.Demo2Cell cell) {
         cells[x][y] = cell;
     }
-
+    protected void setCell(int x, int y, EnigmeBehavior.EnigmeCell cell) {
+        cells[x][y] = cell;
+    }
     /**
      * Each game will have its own Cell extension. */
     public abstract class Cell implements Interactable {
