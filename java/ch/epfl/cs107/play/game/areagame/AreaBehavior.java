@@ -1,6 +1,7 @@
 package ch.epfl.cs107.play.game.areagame;
 
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
+import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior;
 import ch.epfl.cs107.play.game.enigme.EnigmeBehavior;
@@ -96,6 +97,26 @@ public abstract class AreaBehavior
         }
     }
 
+    /**
+     * Gere les interactions de contact entre interactor et les Interactables aux mêmes positions.
+     * @param interactor
+     */
+    public void cellInteractionOf(Interactor interactor) {
+        for (DiscreteCoordinates coordinates : interactor.getCurrentCells()) {
+            cells[coordinates.x][coordinates.y].cellInteractionOf(interactor);
+        }
+    }
+
+    /**
+     * Gere les interactions à distance entre interactor et Interactable aux mêmes positions.
+     * @param interactor
+     */
+    public void viewInteractionOf(Interactor interactor) {
+        for (DiscreteCoordinates coordinates : interactor.getCurrentCells()) {
+            cells[coordinates.x][coordinates.y].viewInteractionOf(interactor);
+        }
+    }
+
     protected void setCell(int x, int y, Demo2Behavior.Demo2Cell cell) {
         cells[x][y] = cell;
     }
@@ -140,6 +161,22 @@ public abstract class AreaBehavior
 
         protected boolean canPassDoor(Interactable entity) {
             return false;
+        }
+
+        private void cellInteractionOf(Interactor interactor) {
+            for (Interactable interactable : interactableSet) {
+                if (interactable.isCellInteractable()) {
+                    interactor.interactWith(interactable);
+                }
+            }
+        }
+
+        private void viewInteractionOf(Interactor interactor) {
+            for (Interactable interactable : interactableSet) {
+                if (interactable.isViewInteractable()) {
+                    interactor.interactWith(interactable);
+                }
+            }
         }
     }
 }

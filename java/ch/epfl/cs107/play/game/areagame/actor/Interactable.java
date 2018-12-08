@@ -1,6 +1,7 @@
 package ch.epfl.cs107.play.game.areagame.actor;
 
 
+import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 
 import java.util.List;
@@ -36,4 +37,10 @@ public interface Interactable {
      * @return (boolean)
      */
     boolean isCellInteractable();
+
+    /**
+     * Gère les autorisations d'interactions
+     * @param v
+     */
+    void acceptInteraction(AreaInteractionVisitor v);
 }

@@ -15,7 +15,7 @@ public interface Interactor {
      * Un 'Interactor' occupe une liste de cellules
      * @return (List<DiscreteCoordinates>)
      */
-    List <DiscreteCoordinates> getCurrentCells();
+    List <DiscreteCoordinates> getCurrentCells();Interactable
 
     /**
      * Les cellules dans le champ de vision de l'Interactor
@@ -34,5 +34,11 @@ public interface Interactor {
      * @return (boolean)
      */
     boolean wantsViewInteraction();
+
+    /**
+     * Method for an Interactor to interract with an Interactable
+     * @param other Interactable with which we "work"
+     */
+    void interactWith(Interactable other);
 
 }
