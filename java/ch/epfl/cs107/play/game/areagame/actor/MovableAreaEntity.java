@@ -52,7 +52,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
             int positionY = projectedCoordinates.y;
 
             //regarde si ces coordonnées font partie de la grille et si oui les ajoute à la liste de nouvelles coordonnées
-            if(positionX < getaOwnerArea().getHeight() && positionY < getaOwnerArea().getWidth()){
+            if(positionX < getOwnerArea().getHeight() && positionY < getOwnerArea().getWidth()){
                 enteringCells.add(projectedCoordinates);
             }
         }
@@ -88,7 +88,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
 
         if (!isMoving || getCurrentMainCellCoordinates().equals(targetMainCellCoordinates)) { //Si l'acteur ne bouge pas OU s'il a atteint sa cellule cible
             //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'entrer dans les cellules getEnteringCells()
-            if (getaOwnerArea().leaveAreaCells(this, getLeavingCells()) && getaOwnerArea().enterAreaCells(this, getEnteringCells())) {
+            if (getOwnerArea().leaveAreaCells(this, getLeavingCells()) && getOwnerArea().enterAreaCells(this, getEnteringCells())) {
                 if (framesForMove < 1) {
                     framesForCurrentMove = 1;
                 } else {

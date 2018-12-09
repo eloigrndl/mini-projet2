@@ -37,7 +37,7 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
         boolean move = super.move(ANIMATION_DURATION);
 
         if (move) {
-            if (getaOwnerArea().passDoor(this, getEnteringCells())) {
+            if (getOwnerArea().passDoor(this, getEnteringCells())) {
                 setPassingDoor(true);
             } else {
                 setPassingDoor(false);
@@ -69,7 +69,7 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
 
     @Override
     public void update(float deltaTime) {
-        Keyboard keyboard = getaOwnerArea().getKeyboard();
+        Keyboard keyboard = getOwnerArea().getKeyboard();
         Button leftArrow = keyboard.get(Keyboard.LEFT);
         Button rightArrow = keyboard.get(Keyboard.RIGHT);
         Button upArrow = keyboard.get(Keyboard.UP);
@@ -119,7 +119,7 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
     }
 
     public void leaveArea(){
-        getaOwnerArea().unregisterActor(this);
+        getOwnerArea().unregisterActor(this);
     }
 
     public boolean isPassingDoor() {
