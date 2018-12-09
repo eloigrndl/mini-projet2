@@ -21,6 +21,8 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
     private Sprite ghost = new Sprite("ghost.1", 1, 1.f, this);
     private Door PassedDoor;
 
+    private final static int ANIMATION_DURATION = 8;
+
     private final EnigmePlayerHandler handler;
 
     public EnigmePlayer(Area area, Orientation orientation, DiscreteCoordinates position){
@@ -57,7 +59,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
 
     @Override
     public void update(float deltaTime) {
-        Keyboard keyboard = getaOwnerArea().getKeyboard();
+        Keyboard keyboard = getOwnerArea().getKeyboard();
         Button leftArrow = keyboard.get(Keyboard.LEFT);
         Button rightArrow = keyboard.get(Keyboard.RIGHT);
         Button upArrow = keyboard.get(Keyboard.UP);
@@ -117,16 +119,8 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
     public void leaveArea(){
         getOwnerArea().unregisterActor(this);
     }
-
-<<<<<<< HEAD
-
-
-    public void setPassingDoor(Door door){
-      if(getOwnerArea().getAreaBehavior().canPassDoor(this, door.getCurrentCells())){
-=======
     public void setIsPassingDoor(Door door){
       if(door.getOpened()){
->>>>>>> master
             passingDoor = true;
             PassedDoor = door;
       }else{
