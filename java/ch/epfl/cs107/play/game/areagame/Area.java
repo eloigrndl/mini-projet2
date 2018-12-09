@@ -48,7 +48,7 @@ public abstract class Area implements Playable {
     private Map<Interactable, List<DiscreteCoordinates>> interactablesToEnter = new HashMap<>();
     private Map<Interactable, List<DiscreteCoordinates>> interactablesToLeave = new HashMap<>();
 
-    private List<Interactor> interactors;
+    private List<Interactor> interactors = new LinkedList<>();
 
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */
     public abstract float getCameraScaleFactor();

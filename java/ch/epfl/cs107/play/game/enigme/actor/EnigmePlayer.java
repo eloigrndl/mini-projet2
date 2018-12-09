@@ -59,7 +59,43 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
     @Override
     public void update(float deltaTime) {
         Keyboard keyboard = getaOwnerArea().getKeyboard();
+        Button leftArrow = keyboard.get(Keyboard.LEFT);
+        Button rightArrow = keyboard.get(Keyboard.RIGHT);
+        Button upArrow = keyboard.get(Keyboard.UP);
+        Button downArrow = keyboard.get(Keyboard.DOWN);
         Button LArrow = keyboard.get(Keyboard.L);
+
+        if(leftArrow.isDown()) {
+            if (getOrientation().equals(Orientation.LEFT)) {
+                super.move(ANIMATION_DURATION);
+            } else {
+                super.setOrientation(Orientation.LEFT);
+            }
+        }
+
+        if(rightArrow.isDown()) {
+            if (getOrientation().equals(Orientation.RIGHT)) {
+                super.move(ANIMATION_DURATION);
+            } else {
+                super.setOrientation(Orientation.RIGHT);
+            }
+        }
+
+        if(upArrow.isDown()) {
+            if (getOrientation().equals(Orientation.UP)) {
+                super.move(ANIMATION_DURATION);
+            } else {
+                super.setOrientation(Orientation.UP);
+            }
+        }
+
+        if(downArrow.isDown()) {
+            if (getOrientation().equals(Orientation.DOWN)) {
+                super.move(ANIMATION_DURATION);
+            } else {
+                super.setOrientation(Orientation.DOWN);
+            }
+        }
 
         if (LArrow.isDown()) {
             //veut une intéraction
