@@ -98,7 +98,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
         }
 
         if (LArrow.isDown()) {
-            //veut une intéraction
+            //veut une interaction
         }
     }
 
@@ -153,7 +153,7 @@ class EnigmePlayerHandler implements EnigmeInteractionVisitor {
 
     @Override
     public void interactWith(Door door) {
-        // gère ce qui se passe lorsque le personnage passe les porte
+        // gère ce qui se passe lorsque le personnage passe les portes
     }
 }
 
