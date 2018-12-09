@@ -32,7 +32,7 @@ public class Play {
         // Create a demo game and initialize corresponding texts
 		final Game game = new Demo2();
 
-//		final Game game = new Enigme();
+		//final Game game = new Enigme();
 //		XMLTexts.initialize(fileSystem, "strings/enigme_fr.xml");
 
 		// Use Swing display

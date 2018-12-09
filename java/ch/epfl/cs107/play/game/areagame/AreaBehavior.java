@@ -2,6 +2,7 @@ package ch.epfl.cs107.play.game.areagame;
 
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.actor.Interactor;
+import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior;
 import ch.epfl.cs107.play.game.enigme.EnigmeBehavior;
@@ -177,6 +178,10 @@ public abstract class AreaBehavior
                     interactor.interactWith(interactable);
                 }
             }
+        }
+
+        @Override
+        public void acceptInteraction(AreaInteractionVisitor v) {
         }
     }
 }

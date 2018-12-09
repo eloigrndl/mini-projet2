@@ -3,6 +3,7 @@ package ch.epfl.cs107.play.game.enigme.actor;
 import ch.epfl.cs107.play.game.areagame.actor.AreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
+import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.window.Canvas;
@@ -84,6 +85,11 @@ public class Door extends AreaEntity {
 
     public DiscreteCoordinates getCoordinatesArrival() {
         return coordinatesArrival;
+    }
+
+    @Override
+    public void acceptInteraction(AreaInteractionVisitor v) {
+
     }
 }
 

@@ -15,7 +15,7 @@ public interface Interactor {
      * Un 'Interactor' occupe une liste de cellules
      * @return (List<DiscreteCoordinates>)
      */
-    List <DiscreteCoordinates> getCurrentCells();Interactable
+    List <DiscreteCoordinates> getCurrentCells();
 
     /**
      * Les cellules dans le champ de vision de l'Interactor

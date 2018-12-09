@@ -8,5 +8,6 @@ public class Level1 extends EnigmeArea {
         return "Level1";
     }
 
+
 }
 
