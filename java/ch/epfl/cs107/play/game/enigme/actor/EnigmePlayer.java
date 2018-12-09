@@ -19,8 +19,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
 
     private boolean passingDoor;
     private Sprite ghost = new Sprite("ghost.1", 1, 1.f, this);
-    private Door lastPassedDoor;
-    private final static int ANIMATION_DURATION = 8;
+    private Door PassedDoor;
 
     private final EnigmePlayerHandler handler;
 
@@ -116,23 +115,31 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
     }
 
     public void leaveArea(){
-        getaOwnerArea().unregisterActor(this);
+        getOwnerArea().unregisterActor(this);
     }
 
+<<<<<<< HEAD
+
+
+    public void setPassingDoor(Door door){
+      if(getOwnerArea().getAreaBehavior().canPassDoor(this, door.getCurrentCells())){
+=======
     public void setIsPassingDoor(Door door){
       if(door.getOpened()){
+>>>>>>> master
             passingDoor = true;
-            lastPassedDoor = door;
+            PassedDoor = door;
       }else{
          passingDoor = false;
       }
     }
-    public boolean isPassingDoor() {
+    public boolean isPassingDoor()
+    {
         return passingDoor;
     }
 
     public Door passedDoor(){
-        return lastPassedDoor;
+        return PassedDoor;
     }
 
     public void interactWith(Interactable other) {
