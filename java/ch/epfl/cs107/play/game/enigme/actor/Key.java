@@ -4,6 +4,7 @@ import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
+import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
@@ -83,5 +84,10 @@ public Key(Area area, DiscreteCoordinates position) {
             isViewInteractable = false;
             signal = Logic.TRUE;
         }
+    }
+
+    @Override
+    public void acceptInteraction(AreaInteractionVisitor v) {
+
     }
 }

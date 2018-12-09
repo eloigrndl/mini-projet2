@@ -2,6 +2,8 @@ package ch.epfl.cs107.play.game.enigme;
 
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
+import ch.epfl.cs107.play.game.areagame.actor.Interactor;
+import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.window.Window;
 
 public class EnigmeBehavior extends AreaBehavior {
@@ -98,4 +100,13 @@ public class EnigmeBehavior extends AreaBehavior {
         }
     }
 
+    @Override
+    public void cellInteractionOf(Interactor interactor) {
+        super.cellInteractionOf(interactor);
+    }
+
+    @Override
+    public void viewInteractionOf(Interactor interactor) {
+        super.viewInteractionOf(interactor);
+    }
 }

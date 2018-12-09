@@ -86,6 +86,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
      */
     protected boolean move(int framesForMove){
 
+
         if (!isMoving || getCurrentMainCellCoordinates().equals(targetMainCellCoordinates)) { //Si l'acteur ne bouge pas OU s'il a atteint sa cellule cible
             //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'entrer dans les cellules getEnteringCells()
             if (getOwnerArea().leaveAreaCells(this, getLeavingCells()) && getOwnerArea().enterAreaCells(this, getEnteringCells())) {

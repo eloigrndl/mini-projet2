@@ -4,6 +4,7 @@ import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
+import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
@@ -77,5 +78,10 @@ public class Lever implements Actor, Interactable {
             this.key = new Sprite("lever.big.right", 1, 1.f, this);
             this.signal = Logic.FALSE;
         }
+    }
+
+    @Override
+    public void acceptInteraction(AreaInteractionVisitor v) {
+
     }
 }

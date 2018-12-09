@@ -43,7 +43,7 @@ public class Enigme extends AreaGame implements Game, Playable{
             addArea(Level1);
             addArea(Level2);
             addArea(Level3);
-            setCurrentArea("LevelSelector", true);
+            setCurrentArea(LevelSelector.getTitle(), true);
             this.character = new EnigmePlayer(getCurrentArea(), Orientation.UP, (new DiscreteCoordinates(5, 5)));
             LevelSelector.registerActor(character);
             LevelSelector.setViewCandidate(character);

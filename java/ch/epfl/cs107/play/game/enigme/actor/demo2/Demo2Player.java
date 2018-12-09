@@ -5,6 +5,7 @@ import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
+import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.enigme.Demo2Behavior;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Button;
@@ -128,5 +129,10 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
 
     public void setPassingDoor(boolean isPassing) {
         this.passingDoor = isPassing;
+    }
+
+    @Override
+    public void acceptInteraction(AreaInteractionVisitor v) {
+
     }
 }
