@@ -65,7 +65,6 @@ public class Demo2 extends AreaGame implements Game {
     private void changeLevel(Area areaToLeave, Area areaToEnter, Demo2Player character, DiscreteCoordinates coordinates) {
         areaToLeave.unregisterActor(character);
         character.leaveArea();
-        addArea(areaToEnter);
         setCurrentArea(areaToEnter.getTitle(), true);
         areaToEnter.registerActor(character);
         character.setOwnerArea(areaToEnter);

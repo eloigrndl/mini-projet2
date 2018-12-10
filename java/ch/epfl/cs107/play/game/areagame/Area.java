@@ -198,7 +198,6 @@ public abstract class Area implements Playable {
                removeActor(this.unregisteredActors.get(k), false);
            }
        }
-
        this.registeredActors = null;
        this.unregisteredActors = null;
 

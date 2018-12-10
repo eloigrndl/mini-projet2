@@ -10,7 +10,6 @@ import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.game.enigme.actor.EnigmePlayer;
-
 /**
  * Enigme Game is a concept of Game derived for AreaGame. It introduces the notion of Player
  * When initializing the player is added to the current area
@@ -39,11 +38,13 @@ public class Enigme extends AreaGame implements Game, Playable{
             this.Level1 = new Level1();
             this.Level2 = new Level2();
             this.Level3 = new Level3();
+
             addArea(LevelSelector);
             addArea(Level1);
             addArea(Level2);
             addArea(Level3);
             setCurrentArea(LevelSelector.getTitle(), true);
+
             this.character = new EnigmePlayer(getCurrentArea(), Orientation.UP, (new DiscreteCoordinates(5, 5)));
             LevelSelector.registerActor(character);
             LevelSelector.setViewCandidate(character);
@@ -63,11 +64,11 @@ public class Enigme extends AreaGame implements Game, Playable{
     }
 
     /**
-     * Get the location of the character's location
+     * Get the location of the character's arrival
      * @return l'aire de destination de la denière porte franchi par le personnage
      */
     private Area characterDestination(){
-        return getAreas().get(character.passedDoor().getDestination());
+        return getAreas().get(character.getLastDoor().getDestination());
     }
 
     /**
@@ -75,7 +76,7 @@ public class Enigme extends AreaGame implements Game, Playable{
      * @return les coordonnées d'arrivée dans la nouvelle aire du personnage (une fois une porte passée)
      */
     private DiscreteCoordinates characterArrival(){
-        return character.passedDoor().getCoordinatesArrival();
+        return character.getLastDoor().getCoordinatesArrival();
     }
 
     /**

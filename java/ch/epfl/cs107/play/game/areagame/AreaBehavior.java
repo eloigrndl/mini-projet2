@@ -137,6 +137,10 @@ public abstract class AreaBehavior
             this.coordinates = new DiscreteCoordinates(x,y);
         }
 
+        public Set<Interactable> getInteractableSet() {
+            return interactableSet;
+        }
+
         @Override
         public List<DiscreteCoordinates> getCurrentCells() {
             return null;

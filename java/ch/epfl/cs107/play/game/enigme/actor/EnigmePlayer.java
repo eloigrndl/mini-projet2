@@ -11,6 +11,7 @@ import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
+import ch.epfl.cs107.play.game.enigme.area.LevelSelector;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +20,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
 
     private boolean passingDoor;
     private Sprite ghost = new Sprite("ghost.1", 1, 1.f, this);
-    private Door PassedDoor;
+    private Door lastDoor;
 
     private final static int ANIMATION_DURATION = 8;
 
@@ -101,6 +102,9 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
         if (LArrow.isDown()) {
             //veut une intéraction
         }
+
+        (for Door door : )
+        super.update(deltaTime);
     }
 
     @Override
@@ -120,11 +124,11 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
         getOwnerArea().unregisterActor(this);
     }
     public void setIsPassingDoor(Door door){
-      if(door.getOpened()){
+      if (getOwnerArea().passDoor(this,door.getCurrentCells())){
             passingDoor = true;
-            PassedDoor = door;
-      }else{
-         passingDoor = false;
+            lastDoor = door;
+      } else {
+          passingDoor = false;
       }
     }
     public boolean isPassingDoor()
@@ -132,8 +136,8 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
         return passingDoor;
     }
 
-    public Door passedDoor(){
-        return PassedDoor;
+    public Door getLastDoor(){
+        return lastDoor;
     }
 
     public void interactWith(Interactable other) {
