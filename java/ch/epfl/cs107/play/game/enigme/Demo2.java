@@ -48,28 +48,22 @@ public class Demo2 extends AreaGame implements Game {
     public void update(float deltaTime) {
 
         super.update(deltaTime);
-        //character.update(deltaTime);
-        character.draw(getWindow());
         if(character.isPassingDoor()){
             if(getCurrentArea().getTitle().equals(room0.getTitle())){
                 changeLevel(room0, room1, character, new DiscreteCoordinates(5,2));
-                character.setPassingDoor(false);
             }else if(getCurrentArea().getTitle().equals(room1.getTitle())){
                 changeLevel(room1, room0, character, new DiscreteCoordinates(5,5));
-                character.setPassingDoor(false);
             }
         }
 
     }
 
     private void changeLevel(Area areaToLeave, Area areaToEnter, Demo2Player character, DiscreteCoordinates coordinates) {
-        areaToLeave.unregisterActor(character);
         character.leaveArea();
         setCurrentArea(areaToEnter.getTitle(), true);
-        areaToEnter.registerActor(character);
-        character.setOwnerArea(areaToEnter);
-        areaToEnter.setViewCandidate(character);
         character.enterArea(getCurrentArea(), coordinates);
+        character.setPassingDoor(false);
+
     }
 }
 

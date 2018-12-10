@@ -25,27 +25,27 @@ public class LevelSelector extends EnigmeArea {
                 new DiscreteCoordinates(2,7), new Circle(0.25f, new Vector(2,7)),true);
         this.registerActor(door2);
 
-        Door door3 = new Door(this, "",null, Orientation.UP,
+        Door door3 = new Door(this, "LevelSelector",new DiscreteCoordinates(3,6), Orientation.UP,
                 new DiscreteCoordinates(3,7), new Circle(0.25f, new Vector(3,7)), false);
         this.registerActor(door3);
 
-        Door door4 = new Door(this,"",null, Orientation.UP,
+        Door door4 = new Door(this,"LevelSelector",new DiscreteCoordinates(4,6), Orientation.UP,
                 new DiscreteCoordinates(4,7), new Circle(0.25f, new Vector(4,7)), false);
         this.registerActor(door4);
 
-        Door door5 = new Door(this, "", null, Orientation.UP,
+        Door door5 = new Door(this, "LevelSelector", new DiscreteCoordinates(5,6), Orientation.UP,
                 new DiscreteCoordinates(5,7), new Circle(0.25f, new Vector(5,7)), false);
         this.registerActor(door5);
 
-        Door door6 = new Door(this, "", null, Orientation.UP,
+        Door door6 = new Door(this, "LevelSelector", new DiscreteCoordinates(6,6), Orientation.UP,
                 new DiscreteCoordinates(6,7), new Circle(0.25f, new Vector(6,7)), false);
         this.registerActor(door6);
 
-        Door door7 = new Door(this, "", null, Orientation.UP,
+        Door door7 = new Door(this, "LevelSelector", new DiscreteCoordinates(7,6), Orientation.UP,
                 new DiscreteCoordinates(7,7), new Circle(0.25f, new Vector(7,7)), false);
         this.registerActor(door7);
 
-        Door door8 = new Door(this, "", null, Orientation.UP,
+        Door door8 = new Door(this, "LevelSelector", new DiscreteCoordinates(8,6), Orientation.UP,
                 new DiscreteCoordinates(8,7), new Circle(0.25f, new Vector(8,7)), false);
         this.registerActor(door8);
 

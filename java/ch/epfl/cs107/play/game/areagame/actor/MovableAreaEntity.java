@@ -1,13 +1,8 @@
 package ch.epfl.cs107.play.game.areagame.actor;
 
-import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.Area;
-import ch.epfl.cs107.play.game.areagame.AreaBehavior;
-import ch.epfl.cs107.play.game.areagame.AreaGame;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
-
-import javax.swing.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -38,7 +33,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
      */
     protected final List<DiscreteCoordinates> getEnteringCells() {
         List<DiscreteCoordinates> currentCells = getCurrentCells();
-        List<DiscreteCoordinates> enteringCells = new ArrayList<DiscreteCoordinates>();
+        List<DiscreteCoordinates> enteringCells = new ArrayList<>();
 
         for (int i=0; i<currentCells.size(); ++i) {
             //Iterate through
@@ -90,6 +85,7 @@ public abstract class MovableAreaEntity extends AreaEntity {
         if (!isMoving || getCurrentMainCellCoordinates().equals(targetMainCellCoordinates)) { //Si l'acteur ne bouge pas OU s'il a atteint sa cellule cible
             //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'entrer dans les cellules getEnteringCells()
             if (getOwnerArea().leaveAreaCells(this, getLeavingCells()) && getOwnerArea().enterAreaCells(this, getEnteringCells())) {
+
                 if (framesForMove < 1) {
                     framesForCurrentMove = 1;
                 } else {
@@ -110,12 +106,13 @@ public abstract class MovableAreaEntity extends AreaEntity {
 
     @Override
     public void update(float deltaTime) {
+
         if (isMoving && !(getCurrentMainCellCoordinates().equals(targetMainCellCoordinates))) {
             //si l'acteur bouge et que la cible n'est pas atteinte, le déplacer
             Vector distance = getOrientation().toVector();
             distance = distance.mul(1.0f / framesForCurrentMove);
             setCurrentPosition(getPosition().add(distance));
-            //isMoving = false;
+
         } else {
             //Sinon reset motion
             resetMotion();

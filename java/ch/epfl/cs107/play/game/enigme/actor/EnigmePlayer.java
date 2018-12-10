@@ -3,6 +3,8 @@ package ch.epfl.cs107.play.game.enigme.actor;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.*;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
+import ch.epfl.cs107.play.game.enigme.area.Level1;
+import ch.epfl.cs107.play.game.enigme.area.Level3;
 import ch.epfl.cs107.play.game.enigme.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Button;
@@ -19,7 +21,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
     private Sprite ghost = new Sprite("ghost.1", 1, 1.f, this);
     private Door lastDoor;
 
-    private final static int ANIMATION_DURATION = 8;
+    private final static int ANIMATION_DURATION = 5;
 
     private final EnigmePlayerHandler handler;
 
@@ -79,6 +81,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
         Button downArrow = keyboard.get(Keyboard.DOWN);
         Button LArrow = keyboard.get(Keyboard.L);
 
+
         if(leftArrow.isDown()) {
             if (getOrientation().equals(Orientation.LEFT)) {
                 super.move(ANIMATION_DURATION);
@@ -111,10 +114,10 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
             }
         }
 
-        if (LArrow.isDown()) {
+        if (LArrow.isPressed()) {
+            //interactWith(Level1.apple1);
             //veut une intéraction
         }
-
         super.update(deltaTime);
     }
 
@@ -142,6 +145,10 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
           passingDoor = false;
       }
     }
+
+    public void resetIsPassingDoor(){
+        passingDoor = false;
+    }
     public boolean isPassingDoor()
     {
         return passingDoor;
@@ -152,7 +159,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
     }
 
     public void interactWith(Interactable other) {
-        System.out.println("interacting with");
         other.acceptInteraction(handler);
     }
 

@@ -65,8 +65,10 @@ public class Enigme extends AreaGame implements Game, Playable{
         character.draw(getWindow());
 
         if(character.isPassingDoor()){
-            changeLevel(getCurrentArea(),characterDestination(), character, characterArrival()) ;
+            changeLevel(characterDestination(), character, characterArrival()) ;
+            character.resetIsPassingDoor();
         }
+
     }
 
     /**
@@ -87,19 +89,14 @@ public class Enigme extends AreaGame implements Game, Playable{
 
     /**
      * Method permitting the level change
-     * @param areaToLeave
      * @param areaToEnter
      * @param character
      * @param coordinates
      */
-    private void changeLevel(Area areaToLeave, Area areaToEnter, EnigmePlayer character, DiscreteCoordinates coordinates) {
-        areaToLeave.unregisterActor(character);
+    private void changeLevel(Area areaToEnter, EnigmePlayer character, DiscreteCoordinates coordinates) {
         character.leaveArea();
-        addArea(areaToEnter);
+        System.out.println(areaToEnter);
         setCurrentArea(areaToEnter.getTitle(), true);
-        areaToEnter.registerActor(character);
-        character.setOwnerArea(areaToEnter);
-        areaToEnter.setViewCandidate(character);
         character.enterArea(getCurrentArea(), coordinates);
     }
 

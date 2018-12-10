@@ -3,6 +3,7 @@ package ch.epfl.cs107.play.game.enigme;
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.actor.Interactor;
+import ch.epfl.cs107.play.game.enigme.actor.Apple;
 import ch.epfl.cs107.play.window.Window;
 
 public class EnigmeBehavior extends AreaBehavior {
@@ -80,22 +81,20 @@ public class EnigmeBehavior extends AreaBehavior {
             return true;
         }
 
-        protected boolean takingCellSpace(){
+
+        @Override
+        protected boolean canEnter(Interactable entity) {
+            System.out.println(getInteractableSet());
+            if (value.equals(EnigmeBehavior.EnigmeCellType.NULL) || value.equals(EnigmeBehavior.EnigmeCellType.WALL)) {
+                return false;
+            }
             for(Interactable i : getInteractableSet()) {
                 if (i.takeCellSpace()) {
                     return false;
                 }
             }
             return true;
-        }
 
-        @Override
-        protected boolean canEnter(Interactable entity) {
-            if (value.equals(EnigmeBehavior.EnigmeCellType.NULL) || value.equals(EnigmeBehavior.EnigmeCellType.WALL) || takingCellSpace()) {
-                return false;
-            } else {
-                return true;
-            }
         }
 
         @Override

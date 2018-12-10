@@ -55,6 +55,7 @@ public abstract class AreaBehavior
     public boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
 
         boolean canLeave = true;
+
         for (int i=0; i<coordinates.size(); ++i) {
             DiscreteCoordinates coordinate = coordinates.get(i);
             if (!cells[coordinate.x][coordinate.y].canLeave(entity)) {
@@ -65,9 +66,12 @@ public abstract class AreaBehavior
     }
 
     public boolean canEnter(Interactable entity, List<DiscreteCoordinates> coordinates) {
+
         for (int i=0; i<coordinates.size(); ++i) {
             DiscreteCoordinates coordinate = coordinates.get(i);
             if (!cells[coordinate.x][coordinate.y].canEnter(entity)) {
+                System.out.println("canEnter");
+
                 return false;
             }
         }
@@ -156,6 +160,7 @@ public abstract class AreaBehavior
 
         protected boolean canEnter(Interactable entity) {
             //return true if entity a le droit de s'ajouter au contenu
+
             return false;
         }
 
@@ -170,7 +175,6 @@ public abstract class AreaBehavior
 
         private void cellInteractionOf(Interactor interactor) {
             for (Interactable interactable : interactableSet) {
-                System.out.println(interactable.isCellInteractable());
                 if (interactable.isCellInteractable()) {
                     interactor.interactWith(interactable);
                 }

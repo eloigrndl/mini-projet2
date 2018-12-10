@@ -15,6 +15,7 @@ import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.math.Vector;
 import javafx.scene.Camera;
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
+import jdk.internal.cmm.SystemResourcePressureImpl;
 
 import javax.sound.midi.SysexMessage;
 import java.io.File;
@@ -36,9 +37,8 @@ public abstract class Area implements Playable {
     //List of Actors inside the area
     private List<Actor> actors;
 
-    private List<Actor> registeredActors;
-    private List<Actor> unregisteredActors;
-
+    private List<Actor> registeredActors = new LinkedList<>();
+    private List<Actor> unregisteredActors = new LinkedList<>();
     //Camera Parameter
     // actor on which the camera is centered
     private Actor viewCandidate;
@@ -74,9 +74,10 @@ public abstract class Area implements Playable {
         }
 
         if(errorOccured && !forced) {
-            System.out.println("Actor " + a + " cannot be completely added, so remove it from where it was");
+            System.out.println("Actor " + a + " cannot be completely added");
             removeActor(a, true);
         }
+
     }
 
     /**
@@ -107,9 +108,7 @@ public abstract class Area implements Playable {
      * @return (boolean): true if the actor is correctly registered
      */
     public final boolean registerActor(Actor a){
-    	if(this.registeredActors == null) {
-    		this.registeredActors = new ArrayList<Actor>();
-    	}
+
         this.registeredActors.add(a);
 
     	return true;
@@ -121,9 +120,7 @@ public abstract class Area implements Playable {
      * @return (boolean): true if the actor is correctly unregistered
      */
     public final boolean unregisterActor(Actor a){
-    	if(this.unregisteredActors == null) {
-    		this.unregisteredActors = new ArrayList<Actor>();
-    	}
+
         this.unregisteredActors.add(a);
 
         return true;
@@ -173,7 +170,6 @@ public abstract class Area implements Playable {
         //Initialization of center of the view/actor of view
         viewCenter = Vector.ZERO;
         setViewCandidate(null);
-
         return true;
     }
 
@@ -199,15 +195,15 @@ public abstract class Area implements Playable {
                removeActor(this.unregisteredActors.get(k), false);
            }
        }
-       this.registeredActors = null;
-       this.unregisteredActors = null;
+       this.registeredActors.clear();
+       this.unregisteredActors.clear();
+
 
        if (interactablesToEnter != null) {
            for (Map.Entry<Interactable, List<DiscreteCoordinates>> entry : interactablesToEnter.entrySet() ) {
                Interactable key = entry.getKey();
                List<DiscreteCoordinates> value = entry.getValue();
                areaBehavior.enter(key, value);
-               //enterAreaCells(key, value);
            }
 
            interactablesToEnter.clear();
@@ -218,7 +214,6 @@ public abstract class Area implements Playable {
                Interactable key = entry.getKey();
                List<DiscreteCoordinates> value = entry.getValue();
                areaBehavior.leave(key,value);
-               //leaveAreaCells(key, value);
            }
 
            interactablesToLeave.clear();
@@ -227,10 +222,8 @@ public abstract class Area implements Playable {
 
     @Override
     public void update(float deltaTime) {
-
-        purgeRegistration();
-
         updateCamera();
+        purgeRegistration();
 
         for (Actor actor : actors) {
             actor.update(deltaTime);
