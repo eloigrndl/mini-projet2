@@ -22,5 +22,6 @@ public interface EnigmeInteractionVisitor extends AreaInteractionVisitor {
      */
     default void interactWith(Door door) {
         //by default, interaction is empty
+
     }
 }

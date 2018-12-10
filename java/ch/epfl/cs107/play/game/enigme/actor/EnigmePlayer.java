@@ -1,10 +1,7 @@
 package ch.epfl.cs107.play.game.enigme.actor;
 
 import ch.epfl.cs107.play.game.areagame.Area;
-import ch.epfl.cs107.play.game.areagame.actor.Interactable;
-import ch.epfl.cs107.play.game.areagame.actor.MovableAreaEntity;
-import ch.epfl.cs107.play.game.areagame.actor.Orientation;
-import ch.epfl.cs107.play.game.areagame.actor.Sprite;
+import ch.epfl.cs107.play.game.areagame.actor.*;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.enigme.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -16,7 +13,7 @@ import ch.epfl.cs107.play.game.enigme.area.LevelSelector;
 import java.util.Collections;
 import java.util.List;
 
-public class EnigmePlayer extends MovableAreaEntity implements Interactable {
+public class EnigmePlayer extends MovableAreaEntity implements Interactor {
 
     private boolean passingDoor;
     private Sprite ghost = new Sprite("ghost.1", 1, 1.f, this);
@@ -45,6 +42,21 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
 
     @Override
     public boolean takeCellSpace() {
+        return true;
+    }
+
+    @Override
+    public List<DiscreteCoordinates> getFieldOfViewCells() {
+        return null;
+    }
+
+    @Override
+    public boolean wantsCellInteraction() {
+        return true;
+    }
+
+    @Override
+    public boolean wantsViewInteraction() {
         return true;
     }
 
@@ -103,13 +115,11 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
             //veut une intéraction
         }
 
-        (for Door door : )
         super.update(deltaTime);
     }
 
     @Override
     public void acceptInteraction(AreaInteractionVisitor v) {
-
     }
 
     public void enterArea(Area area, DiscreteCoordinates position){
@@ -123,6 +133,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
     public void leaveArea(){
         getOwnerArea().unregisterActor(this);
     }
+
     public void setIsPassingDoor(Door door){
       if (getOwnerArea().passDoor(this,door.getCurrentCells())){
             passingDoor = true;
@@ -141,24 +152,26 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactable {
     }
 
     public void interactWith(Interactable other) {
+        System.out.println("interacting with");
         other.acceptInteraction(handler);
     }
-}
 
-/**
- * La classe EnigmePlayerHandler permet de déléguer la gestion des interactions.
- * Elle envisage et définit des méthodes pour *tous* les cas possibles.
- */
-class EnigmePlayerHandler implements EnigmeInteractionVisitor {
+    /**
+     * La classe EnigmePlayerHandler permet de déléguer la gestion des interactions.
+     * Elle envisage et définit des méthodes pour *tous* les cas possibles.
+     */
+    class EnigmePlayerHandler implements EnigmeInteractionVisitor {
 
-    @Override
-    public void interactWith(Apple apple) {
-        //gère ce qui se passe lorsque le personnage interagit avec une pomme
-    }
+        @Override
+        public void interactWith(Apple apple) {
+            //gère ce qui se passe lorsque le personnage interagit avec une pomme
+        }
 
-    @Override
-    public void interactWith(Door door) {
-        // gère ce qui se passe lorsque le personnage passe les porte
+        @Override
+        public void interactWith(Door door) {
+            // gère ce qui se passe lorsque le personnage passe les porte
+            setIsPassingDoor(door);
+        }
     }
 }
 

@@ -5,11 +5,15 @@ import ch.epfl.cs107.play.game.Playable;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
+import ch.epfl.cs107.play.game.enigme.actor.Door;
 import ch.epfl.cs107.play.game.enigme.area.*;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.game.enigme.actor.EnigmePlayer;
+
+import java.util.ArrayList;
+
 /**
  * Enigme Game is a concept of Game derived for AreaGame. It introduces the notion of Player
  * When initializing the player is added to the current area
@@ -19,6 +23,7 @@ public class Enigme extends AreaGame implements Game, Playable{
     private Area LevelSelector, Level1, Level2, Level3;
     private EnigmePlayer character;
 
+    //private LevelSelector levelSelector;
 
     @Override
     public int getFrameRate() {
@@ -58,6 +63,7 @@ public class Enigme extends AreaGame implements Game, Playable{
     public void update(float deltaTime) {
         super.update(deltaTime);
         character.draw(getWindow());
+
         if(character.isPassingDoor()){
             changeLevel(getCurrentArea(),characterDestination(), character, characterArrival()) ;
         }

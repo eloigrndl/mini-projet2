@@ -48,7 +48,7 @@ public abstract class Area implements Playable {
     private Map<Interactable, List<DiscreteCoordinates>> interactablesToEnter = new HashMap<>();
     private Map<Interactable, List<DiscreteCoordinates>> interactablesToLeave = new HashMap<>();
 
-    private List<Interactor> interactors = new LinkedList<>();
+    private List<Interactor> interactors;
 
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */
     public abstract float getCameraScaleFactor();
@@ -168,6 +168,7 @@ public abstract class Area implements Playable {
 
         //Initialisation de la liste d'acteurs
         this.actors = new LinkedList<>();
+        this.interactors = new LinkedList<>();
 
         //Initialization of center of the view/actor of view
         viewCenter = Vector.ZERO;
@@ -205,7 +206,8 @@ public abstract class Area implements Playable {
            for (Map.Entry<Interactable, List<DiscreteCoordinates>> entry : interactablesToEnter.entrySet() ) {
                Interactable key = entry.getKey();
                List<DiscreteCoordinates> value = entry.getValue();
-               enterAreaCells(key, value);
+               areaBehavior.enter(key, value);
+               //enterAreaCells(key, value);
            }
 
            interactablesToEnter.clear();
@@ -215,7 +217,8 @@ public abstract class Area implements Playable {
            for (Map.Entry<Interactable, List<DiscreteCoordinates>> entry : interactablesToLeave.entrySet() ) {
                Interactable key = entry.getKey();
                List<DiscreteCoordinates> value = entry.getValue();
-               leaveAreaCells(key, value);
+               areaBehavior.leave(key,value);
+               //leaveAreaCells(key, value);
            }
 
            interactablesToLeave.clear();
@@ -238,11 +241,13 @@ public abstract class Area implements Playable {
             if (interactor.wantsCellInteraction()) {
                 //demander au gestionnaire de la grille (AreaBehavior)
                 //de mettre en place les interactions de contact
+                areaBehavior.cellInteractionOf(interactor);
             }
 
             if (interactor.wantsViewInteraction()) {
                 //demander au gestionnaire de la grille (AreaBehavior)
                 //de mettre en place les interactions distantes
+                areaBehavior.viewInteractionOf(interactor);
             }
         }
 

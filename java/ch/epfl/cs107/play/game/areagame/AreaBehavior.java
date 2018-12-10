@@ -170,6 +170,7 @@ public abstract class AreaBehavior
 
         private void cellInteractionOf(Interactor interactor) {
             for (Interactable interactable : interactableSet) {
+                System.out.println(interactable.isCellInteractable());
                 if (interactable.isCellInteractable()) {
                     interactor.interactWith(interactable);
                 }
