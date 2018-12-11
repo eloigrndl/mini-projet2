@@ -27,7 +27,6 @@ import java.util.*;
  */
 public abstract class Area implements Playable {
 
-
     /// The behavior Map
     private AreaBehavior areaBehavior;
 
@@ -49,6 +48,8 @@ public abstract class Area implements Playable {
     private Map<Interactable, List<DiscreteCoordinates>> interactablesToLeave = new HashMap<>();
 
     private List<Interactor> interactors;
+
+    private boolean levelBegan = false;
 
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */
     public abstract float getCameraScaleFactor();
@@ -304,4 +305,11 @@ public abstract class Area implements Playable {
         return areaBehavior.canPassDoor(entity, coordinates);
     }
 
+    public boolean isLevelBegan() {
+        return levelBegan;
+    }
+
+    public void setLevelBegan(boolean begin) {
+        levelBegan = begin;
+    }
 }

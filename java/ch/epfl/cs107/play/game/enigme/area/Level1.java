@@ -10,6 +10,8 @@ import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Window;
 public class Level1 extends EnigmeArea {
 
+    boolean levelBegan = false;
+
     @Override
     public boolean begin(Window window, FileSystem fileSystem) {
         super.begin(window, fileSystem);
@@ -26,6 +28,14 @@ public class Level1 extends EnigmeArea {
         return "Level1";
     }
 
+    @Override
+    public void setLevelBegan(boolean began) {
+        levelBegan = true;
+    }
 
+    @Override
+    public boolean isLevelBegan() {
+        return levelBegan;
+    }
 }
 

@@ -11,6 +11,8 @@ import ch.epfl.cs107.play.window.Window;
 
 public class Level2 extends EnigmeArea {
 
+    boolean levelBegan = false;
+
     @Override
     public boolean begin(Window window, FileSystem fileSystem) {
         super.begin(window,fileSystem);
@@ -28,6 +30,16 @@ public class Level2 extends EnigmeArea {
     @Override
     public String getTitle() {
         return "Level2";
+    }
+
+    @Override
+    public void setLevelBegan(boolean began) {
+        levelBegan = true;
+    }
+
+    @Override
+    public boolean isLevelBegan() {
+        return levelBegan;
     }
 }
 

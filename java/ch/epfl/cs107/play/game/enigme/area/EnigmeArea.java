@@ -9,6 +9,7 @@ import ch.epfl.cs107.play.window.Window;
 
 public class EnigmeArea extends Area {
 
+    boolean levelBegan = false;
 
     @Override
     public boolean begin(Window window, FileSystem fileSystem) {

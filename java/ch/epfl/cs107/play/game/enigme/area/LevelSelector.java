@@ -13,6 +13,8 @@ public class LevelSelector extends EnigmeArea {
 
     private ArrayList<Door> allDoors = new ArrayList<>();
 
+    boolean levelBegan = false;
+
     @Override
     public boolean begin(Window window, FileSystem fileSystem) {
         super.begin(window, fileSystem);
@@ -71,4 +73,13 @@ public class LevelSelector extends EnigmeArea {
         return "LevelSelector";
     }
 
+    @Override
+    public void setLevelBegan(boolean began) {
+        levelBegan = true;
+    }
+
+    @Override
+    public boolean isLevelBegan() {
+        return levelBegan;
+    }
 }
