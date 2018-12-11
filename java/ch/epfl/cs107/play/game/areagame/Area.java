@@ -289,6 +289,7 @@ public abstract class Area implements Playable {
 
     public final boolean enterAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
 
+
         boolean canEnter = areaBehavior.canEnter(entity, coordinates);
 
         if (canEnter) {

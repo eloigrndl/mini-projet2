@@ -3,6 +3,7 @@ package ch.epfl.cs107.play.game.enigme.actor;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.*;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
+import ch.epfl.cs107.play.game.enigme.EnigmeBehavior;
 import ch.epfl.cs107.play.game.enigme.area.Level1;
 import ch.epfl.cs107.play.game.enigme.area.Level3;
 import ch.epfl.cs107.play.game.enigme.handler.EnigmeInteractionVisitor;
@@ -12,6 +13,8 @@ import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.game.enigme.area.LevelSelector;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,6 +42,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
 
     @Override
     public boolean isViewInteractable() {
+
         return true;
     }
 
@@ -49,7 +53,12 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
 
     @Override
     public List<DiscreteCoordinates> getFieldOfViewCells() {
-        return null;
+        List<DiscreteCoordinates> fieldOfViewCells = new ArrayList<>();
+        for (DiscreteCoordinates coordinates : getCurrentCells()) {
+            fieldOfViewCells.add(coordinates.jump(getOrientation().toVector()));
+        }
+
+        return fieldOfViewCells;
     }
 
     @Override
@@ -59,7 +68,15 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
 
     @Override
     public boolean wantsViewInteraction() {
-        return true;
+        Keyboard keyboard = getOwnerArea().getKeyboard();
+        Button LButton = keyboard.get(Keyboard.L);
+
+        if (LButton.isPressed()) {
+            System.out.println("L pressed");
+            return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -79,7 +96,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
         Button rightArrow = keyboard.get(Keyboard.RIGHT);
         Button upArrow = keyboard.get(Keyboard.UP);
         Button downArrow = keyboard.get(Keyboard.DOWN);
-        Button LArrow = keyboard.get(Keyboard.L);
 
 
         if(leftArrow.isDown()) {
@@ -113,15 +129,12 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
                 super.setOrientation(Orientation.DOWN);
             }
         }
-
-        if (LArrow.isPressed()) {
-            //veut une interaction
-        }
         super.update(deltaTime);
     }
 
     @Override
     public void acceptInteraction(AreaInteractionVisitor v) {
+        ((EnigmeInteractionVisitor) v).interactWith(this);
     }
 
     public void enterArea(Area area, DiscreteCoordinates position){
@@ -170,6 +183,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
 
         @Override
         public void interactWith(Apple apple) {
+            System.out.println("interactWith Apple");
             //gère ce qui se passe lorsque le personnage interagit avec une pomme
             apple.setCollected(true);
         }
@@ -177,7 +191,13 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
         @Override
         public void interactWith(Door door) {
             // gère ce qui se passe lorsque le personnage passe les porte
+            System.out.println("interactWithDoor");
             setIsPassingDoor(door);
+        }
+
+        @Override
+        public void interactWith(EnigmeBehavior.EnigmeCell cell) {
+            System.out.println("interactWith");
         }
     }
 }

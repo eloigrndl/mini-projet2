@@ -68,7 +68,6 @@ public class Enigme extends AreaGame implements Game, Playable{
             changeLevel(characterDestination(), character, characterArrival()) ;
             character.resetIsPassingDoor();
         }
-
     }
 
     /**

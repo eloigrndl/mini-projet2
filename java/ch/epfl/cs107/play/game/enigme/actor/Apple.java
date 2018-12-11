@@ -61,6 +61,7 @@ public class Apple extends AreaEntity {
     }
 
     protected void setCollected(boolean collected) {
+        System.out.println("Apple now collected");
         this.collected = collected;
     }
 }
