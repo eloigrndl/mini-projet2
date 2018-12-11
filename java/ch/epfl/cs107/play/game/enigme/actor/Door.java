@@ -40,7 +40,7 @@ public class Door extends AreaEntity {
         this.principalCoordinate = principalCoordinate;
         this.opened = opened;
         if(this.opened){
-            door = new  Sprite("door.open.1", 1, 1.f, this);
+            door = new Sprite("door.open.1", 1, 1.f, this);
         }else{
             door = new Sprite("door.close.1", 1, 1.0f, this);
         }
@@ -80,17 +80,17 @@ public class Door extends AreaEntity {
     public void update(float deltaTime) {
         if(opened){
             door = new Sprite("door.open.1", 1, 1.f, this);
-        }else{
+        }else {
             door = new Sprite("door.close.1", 1, 1.0f, this);
         }
     }
 
-    public String getDestination() {
-        return destination;
+    public void updateDoor(boolean opened) {
+        this.opened = opened;
     }
 
-    public boolean getOpened(){
-        return opened;
+    public String getDestination() {
+        return destination;
     }
 
     public DiscreteCoordinates getCoordinatesArrival() {
