@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Lever extends AreaEntity {
+public class Lever extends AreaEntity implements Logic {
 
     private Sprite key;
     //false = pushed right / true = pushed left
@@ -29,7 +29,6 @@ public class Lever extends AreaEntity {
         super(area, Orientation.UP, position);
         this.key = new Sprite("lever.big.right", 1, 1.f, this);
         this.pushed = false;
-        this.signal = Logic.FALSE;
     }
 
     @Override
@@ -61,10 +60,8 @@ public class Lever extends AreaEntity {
     public void update(float deltaTime) {
         if (pushed) {
             this.key = new Sprite("lever.big.left", 1, 1.f, this);
-            this.signal = Logic.TRUE;
         } else {
             this.key = new Sprite("lever.big.right", 1, 1.f, this);
-            this.signal = Logic.FALSE;
         }
     }
 
@@ -75,5 +72,15 @@ public class Lever extends AreaEntity {
 
     protected void setPushed() {
         this.pushed = !pushed;
+    }
+
+    @Override
+    public boolean isOn() {
+        return pushed;
+    }
+
+    @Override
+    public float getIntensity() {
+        return (pushed ? 1.0f : 0.0f);
     }
 }

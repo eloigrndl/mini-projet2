@@ -19,16 +19,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Torch extends AreaEntity {
+public class Torch extends AreaEntity implements Logic {
 
     private Sprite torch;
-    private Logic signal;
     private boolean fired;
 
     public Torch(Area area, DiscreteCoordinates position, Logic signal) {
         super(area, Orientation.UP, position);
-        this.signal = signal;
-        if(signal == Logic.FALSE){
+
+        if(!isOn()){
             this.torch = new Sprite("torch.ground.off", 1, 1.f, this);
             this.fired = false;
         }else{
@@ -67,10 +66,8 @@ public class Torch extends AreaEntity {
     public void update(float deltaTime) {
         if(fired) {
             this.torch = new Sprite("torch.ground.on.1", 1, 1.f, this);
-            signal = Logic.TRUE;
         }else{
             this.torch = new Sprite("torch.ground.off", 1, 1.f, this);
-            signal = Logic.FALSE;
         }
     }
 
@@ -83,4 +80,13 @@ public class Torch extends AreaEntity {
         this.fired = !fired;
     }
 
+    @Override
+    public boolean isOn() {
+        return fired;
+    }
+
+    @Override
+    public float getIntensity() {
+        return (fired ? 1.0f : 0.0f);
+    }
 }

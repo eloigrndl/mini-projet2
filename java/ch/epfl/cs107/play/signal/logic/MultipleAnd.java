@@ -2,9 +2,13 @@ package ch.epfl.cs107.play.signal.logic;
 
 import java.util.List;
 
-public class MultipleAnd extends And {
+public class MultipleAnd extends LogicSignal {
 
     private List<Logic> signals;
+
+    public MultipleAnd(List<Logic> signals) {
+        this.signals = signals;
+    }
 
     @Override
     public boolean isOn() {

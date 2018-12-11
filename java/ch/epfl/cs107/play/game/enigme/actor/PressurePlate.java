@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PressurePlate extends AreaEntity {
+public class PressurePlate extends AreaEntity implements Logic {
 
     private Sprite pressurePlate;
     private Logic signal;
@@ -27,7 +27,6 @@ public class PressurePlate extends AreaEntity {
 
     public PressurePlate(Area area, DiscreteCoordinates position) {
         super(area, Orientation.UP, position);
-        this.signal = Logic.FALSE;
         this.pressurePlate = new Sprite("GroundPlateOff", 1, 1.f, this);
         this.activated = false;
     }
@@ -62,7 +61,6 @@ public class PressurePlate extends AreaEntity {
     public void update(float deltaTime) {
         if(activated){
             this.pressurePlate = new Sprite("GroundLightOn", 1, 1.f, this);
-            this.signal = Logic.TRUE;
             if ((activationTime - deltaTime) > 0) {
                 activated = true;
                 activationTime -= deltaTime;
@@ -73,7 +71,6 @@ public class PressurePlate extends AreaEntity {
 
         } else {
             this.pressurePlate = new Sprite("GroundPlateOff", 1, 1.f, this);
-            this.signal = Logic.FALSE;
         }
     }
 
@@ -84,5 +81,15 @@ public class PressurePlate extends AreaEntity {
 
     protected void setActivated() {
         this.activated = true;
+    }
+
+    @Override
+    public boolean isOn() {
+        return activated;
+    }
+
+    @Override
+    public float getIntensity() {
+        return (activated ? 1.0f : 0.0f);
     }
 }

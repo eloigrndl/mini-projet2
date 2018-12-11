@@ -8,6 +8,7 @@ import ch.epfl.cs107.play.game.enigme.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.game.areagame.Area;
+import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.window.Canvas;
 
 import java.util.ArrayList;
@@ -47,7 +48,6 @@ public class Door extends AreaEntity {
 
     }
 
-
     @Override
     public List<DiscreteCoordinates> getCurrentCells() {
         ArrayList<DiscreteCoordinates> currentCells = new ArrayList<>();
@@ -75,9 +75,9 @@ public class Door extends AreaEntity {
         door.draw(canvas);
     }
 
-
     @Override
     public void update(float deltaTime) {
+        //System.out.println(opened);
         if(opened){
             door = new Sprite("door.open.1", 1, 1.f, this);
         }else {
@@ -100,6 +100,10 @@ public class Door extends AreaEntity {
     @Override
     public void acceptInteraction(AreaInteractionVisitor v) {
         ((EnigmeInteractionVisitor) v).interactWith(this);
+    }
+
+    protected boolean isOpened() {
+        return opened;
     }
 }
 

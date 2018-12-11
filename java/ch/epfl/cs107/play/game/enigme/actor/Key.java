@@ -18,27 +18,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Key extends AreaEntity {
+public class Key extends AreaEntity implements Logic {
 
     private Sprite key;
     private boolean pickedUp;
     private boolean visible;
     private boolean isViewInteractable;
-    private Logic signal;
 
     public Key(Area area, DiscreteCoordinates position) {
         super(area, Orientation.UP, position);
         this.pickedUp = false;
         this.key = new Sprite("key.1", 1.f, 1.f, this);
-        this.signal = Logic.FALSE;
         this.visible = true;
         this.isViewInteractable = true;
-
     }
 
     @Override
     public void draw(Canvas canvas) {
-        key.draw(canvas);
+        if (!pickedUp) {
+            key.draw(canvas);
+        }
     }
 
     @Override
@@ -48,7 +47,7 @@ public class Key extends AreaEntity {
 
     @Override
     public boolean takeCellSpace() {
-        return true;
+        return visible;
     }
 
     @Override
@@ -66,11 +65,9 @@ public class Key extends AreaEntity {
         if(!pickedUp) {
             visible = true;
             isViewInteractable = true;
-            signal = Logic.FALSE;
         }else{
             visible = false;
             isViewInteractable = false;
-            signal = Logic.TRUE;
         }
     }
 
@@ -79,11 +76,17 @@ public class Key extends AreaEntity {
         ((EnigmeInteractionVisitor) v).interactWith(this);
     }
 
-    protected void setCollected(boolean collected) {
-        this.pickedUp = pickedUp;
+    protected void setCollected() {
+        this.pickedUp = true;
     }
 
-    public Logic getSignal() {
-        return signal;
+    @Override
+    public boolean isOn() {
+        return !isViewInteractable;
+    }
+
+    @Override
+    public float getIntensity() {
+        return (isViewInteractable? 0.0f : 1.0f);
     }
 }

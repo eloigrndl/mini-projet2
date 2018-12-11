@@ -6,9 +6,12 @@ import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
-import ch.epfl.cs107.play.signal.logic.And;
-import ch.epfl.cs107.play.signal.logic.Logic;
+import ch.epfl.cs107.play.signal.logic.*;
 import ch.epfl.cs107.play.window.Window;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Level3 extends EnigmeArea {
 
@@ -50,7 +53,7 @@ public class Level3 extends EnigmeArea {
         key = new Key(this, new DiscreteCoordinates(1,3));
         this.registerActor(key);
 
-        torch = new Torch(this, new DiscreteCoordinates(7,5), Logic.TRUE);
+        torch = new Torch(this, new DiscreteCoordinates(7,5), Logic.FALSE);
         this.registerActor(torch);
 
         pressurePlate = new PressurePlate(this, new DiscreteCoordinates(9,8));
@@ -86,17 +89,22 @@ public class Level3 extends EnigmeArea {
         lever3 = new Lever(this, new DiscreteCoordinates(8,5));
         this.registerActor(lever3);
 
-        signalDoor1 = new SignalDoor(this, "LevelSelector", new DiscreteCoordinates(3,6),
-                Orientation.UP, new DiscreteCoordinates(5,9), new Circle(0.25f, new Vector(5,9)), Logic.FALSE);
+        signalDoor1 = new SignalDoor(this, "LevelSelector", new DiscreteCoordinates(5,5),
+                Orientation.UP, new DiscreteCoordinates(5,9), new Circle(0.25f, new Vector(5,9)), key);
         this.registerActor(signalDoor1);
 
-        signalRock1 = new SignalRock(this, Orientation.UP, new DiscreteCoordinates(6,8), Logic.FALSE);
+        signalRock1 = new SignalRock(this, Orientation.UP, new DiscreteCoordinates(4,8), pressurePlate);
         this.registerActor(signalRock1);
 
-        signalRock2 = new SignalRock(this, Orientation.UP, new DiscreteCoordinates(5,8), Logic.FALSE);
+        List<Logic> allSwitches = Arrays.asList(pressureSwitch1, pressureSwitch2, pressureSwitch3, pressureSwitch4, pressureSwitch5, pressureSwitch6, pressureSwitch7);
+
+        signalRock2 = new SignalRock(this, Orientation.UP, new DiscreteCoordinates(5,8), new MultipleAnd(allSwitches));
         this.registerActor(signalRock2);
 
-        signalRock3 = new SignalRock(this, Orientation.UP, new DiscreteCoordinates(4,8), Logic.FALSE);
+        List<Logic> leversSignal = Arrays.asList(lever1, lever2, lever3);
+        Logic signalRock3Signal = new Or(torch, new LogicNumber(5, leversSignal));
+
+        signalRock3 = new SignalRock(this, Orientation.UP, new DiscreteCoordinates(6,8), signalRock3Signal);
         this.registerActor(signalRock3);
 
         return super.begin(window, fileSystem);
@@ -105,10 +113,6 @@ public class Level3 extends EnigmeArea {
     @Override
     public void update(float deltaTime) {
         super.update(deltaTime);
-
-        if (key.getSignal() == Logic.TRUE) {
-            //update Door
-        }
 
     }
 

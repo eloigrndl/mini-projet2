@@ -8,9 +8,12 @@ import ch.epfl.cs107.play.game.enigme.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.signal.logic.Logic;
+import ch.epfl.cs107.play.window.Canvas;
 
 public class SignalDoor extends Door implements Logic {
 
+    private Sprite door;
+    private boolean opened;
     private Logic signal;
 
     public SignalDoor(Area areaOfMemebership, String destination, DiscreteCoordinates coordinatesArrival, Orientation orientation,
@@ -20,14 +23,28 @@ public class SignalDoor extends Door implements Logic {
 
         this.signal = signal;
 
+        if(!signal.isOn()){
+            this.door = new Sprite("door.close.1", 1, 1.f, this);
+            this.opened = false;
+        }else{
+            this.door = new Sprite("door.open.1", 1, 1.f, this);
+            this.opened = true;
+        }
+
     }
 
     @Override
     public void update(float deltaTime) {
+        if(signal.isOn()) {
+            this.door = new Sprite("door.open.1", 1, 1.f, this);
+        }else{
+            this.door = new Sprite("door.close.1", 1, 1.f, this);
+        }
+    }
 
-        super.updateDoor(signal.isOn());
-
-        super.update(deltaTime);
+    @Override
+    public void draw(Canvas canvas) {
+        door.draw(canvas);
     }
 
     /// Logic
@@ -38,20 +55,12 @@ public class SignalDoor extends Door implements Logic {
 
     @Override
     public float getIntensity() {
-        if (signal.isOn()) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return (signal.isOn() ? 1.0f : 0.0f);
     }
 
     @Override
     public boolean isCellInteractable() {
-        if (signal.isOn()) {
-            return true;
-        } else {
-            return false;
-        }
+        return signal.isOn();
     }
 
     @Override

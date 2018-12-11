@@ -208,8 +208,8 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
 
         @Override
         public void interactWith(Key key) {
-            key.setCollected(true);
-            getOwnerArea().unregisterActor(key);
+            key.setCollected();
+            //getOwnerArea().unregisterActor(key);
         }
 
         @Override

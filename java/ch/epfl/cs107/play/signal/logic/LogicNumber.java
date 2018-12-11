@@ -7,6 +7,11 @@ public class LogicNumber extends LogicSignal {
     private float nb;
     private List<Logic> e;
 
+    public LogicNumber(float nb, List<Logic> e) {
+        this.nb = nb;
+        this.e = e;
+    }
+
     @Override
     public boolean isOn() {
 

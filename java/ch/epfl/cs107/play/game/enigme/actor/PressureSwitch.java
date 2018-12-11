@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class PressureSwitch extends AreaEntity {
+public class PressureSwitch extends AreaEntity implements Logic {
 
     private Sprite pressureSwitch;
     private Logic signal;
@@ -26,7 +26,6 @@ public class PressureSwitch extends AreaEntity {
 
     public PressureSwitch(Area area, DiscreteCoordinates position) {
         super(area, Orientation.UP, position);
-        this.signal = Logic.FALSE;
         this.pressureSwitch = new Sprite("GroundLightOff", 1, 1.f, this);
         this.activated = false;
     }
@@ -60,10 +59,8 @@ public class PressureSwitch extends AreaEntity {
     public void update(float deltaTime) {
         if(activated){
             this.pressureSwitch = new Sprite("GroundLightOn", 1, 1.f, this);
-            signal = Logic.TRUE;
         }else{
             this.pressureSwitch = new Sprite("GroundLightOff", 1, 1.f, this);
-            signal = Logic.FALSE;
         }
 
     }
@@ -75,5 +72,15 @@ public class PressureSwitch extends AreaEntity {
 
     protected void setActivated() {
         this.activated = !activated;
+    }
+
+    @Override
+    public boolean isOn() {
+        return activated;
+    }
+
+    @Override
+    public float getIntensity() {
+        return (activated ? 1.0f : 0.0f);
     }
 }
