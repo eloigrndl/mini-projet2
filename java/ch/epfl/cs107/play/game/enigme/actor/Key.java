@@ -7,6 +7,7 @@ import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
+import ch.epfl.cs107.play.game.enigme.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
@@ -14,22 +15,19 @@ import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.window.Canvas;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Key extends AreaEntity implements Actor, Interactable {
+public class Key extends AreaEntity {
 
-    private Area area;
-    private DiscreteCoordinates position;
     private Sprite key;
     private boolean pickedUp;
     private boolean visible;
     private boolean isViewInteractable;
     private Logic signal;
 
-public Key(Area area, DiscreteCoordinates position) {
+    public Key(Area area, DiscreteCoordinates position) {
         super(area, Orientation.UP, position);
-        this.area = area;
-        this.position = position;
         this.pickedUp = false;
         this.key = new Sprite("key.1", 1.f, 1.f, this);
         this.signal = Logic.FALSE;
@@ -44,21 +42,8 @@ public Key(Area area, DiscreteCoordinates position) {
     }
 
     @Override
-    public Transform getTransform() {
-        return null;
-    }
-
-    @Override
-    public Vector getVelocity() {
-        return null;
-    }
-
-
-    @Override
     public List<DiscreteCoordinates> getCurrentCells() {
-        List<DiscreteCoordinates> currentCells = new ArrayList<DiscreteCoordinates>();
-        currentCells.add(this.position);
-        return currentCells;
+        return Collections.singletonList(getCurrentMainCellCoordinates());
     }
 
     @Override
@@ -91,6 +76,14 @@ public Key(Area area, DiscreteCoordinates position) {
 
     @Override
     public void acceptInteraction(AreaInteractionVisitor v) {
+        ((EnigmeInteractionVisitor) v).interactWith(this);
+    }
 
+    protected void setCollected(boolean collected) {
+        this.pickedUp = pickedUp;
+    }
+
+    public Logic getSignal() {
+        return signal;
     }
 }

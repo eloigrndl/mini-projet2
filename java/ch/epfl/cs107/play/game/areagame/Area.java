@@ -151,7 +151,6 @@ public abstract class Area implements Playable {
 
     /** @return the Window Keyboard for inputs */
     public final Keyboard getKeyboard () {
-        // TODO implements me #PROJECT #TUTO
         return window.getKeyboard();
     }
 

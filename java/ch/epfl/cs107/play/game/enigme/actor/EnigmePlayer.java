@@ -24,9 +24,13 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
     private Sprite ghost = new Sprite("ghost.1", 1, 1.f, this);
     private Door lastDoor;
 
+    private DiscreteCoordinates lastFieldOfViewCell;
+
     private final static int ANIMATION_DURATION = 5;
 
     private final EnigmePlayerHandler handler;
+
+    boolean canUpdatePressureSwitch = true;
 
     public EnigmePlayer(Area area, Orientation orientation, DiscreteCoordinates position){
         super(area, orientation, position);
@@ -53,6 +57,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
 
     @Override
     public List<DiscreteCoordinates> getFieldOfViewCells() {
+        System.out.println("getField");
         List<DiscreteCoordinates> fieldOfViewCells = new ArrayList<>();
         for (DiscreteCoordinates coordinates : getCurrentCells()) {
             fieldOfViewCells.add(coordinates.jump(getOrientation().toVector()));
@@ -100,6 +105,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
         if(leftArrow.isDown()) {
             if (getOrientation().equals(Orientation.LEFT)) {
                 super.move(ANIMATION_DURATION);
+                canUpdatePressureSwitch = true;
             } else {
                 super.setOrientation(Orientation.LEFT);
             }
@@ -108,6 +114,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
         if(rightArrow.isDown()) {
             if (getOrientation().equals(Orientation.RIGHT)) {
                 super.move(ANIMATION_DURATION);
+                canUpdatePressureSwitch = true;
             } else {
                 super.setOrientation(Orientation.RIGHT);
             }
@@ -116,6 +123,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
         if(upArrow.isDown()) {
             if (getOrientation().equals(Orientation.UP)) {
                 super.move(ANIMATION_DURATION);
+                canUpdatePressureSwitch = true;
             } else {
                 super.setOrientation(Orientation.UP);
             }
@@ -124,6 +132,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
         if(downArrow.isDown()) {
             if (getOrientation().equals(Orientation.DOWN)) {
                 super.move(ANIMATION_DURATION);
+                canUpdatePressureSwitch = true;
             } else {
                 super.setOrientation(Orientation.DOWN);
             }
@@ -195,6 +204,58 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
 
         @Override
         public void interactWith(EnigmeBehavior.EnigmeCell cell) {
+        }
+
+        @Override
+        public void interactWith(Key key) {
+            key.setCollected(true);
+            getOwnerArea().unregisterActor(key);
+        }
+
+        @Override
+        public void interactWith(Torch torch) {
+            torch.updateFired();
+        }
+
+        @Override
+        public void interactWith(PressurePlate pressurePlate) {
+            pressurePlate.setActivated();
+        }
+
+        @Override
+        public void interactWith(PressureSwitch pressureSwitch) {
+
+            boolean isOnSwitch = false;
+
+            if (!getIsMoving() && canUpdatePressureSwitch) {
+                for (DiscreteCoordinates pressureSwitchCoordinate : pressureSwitch.getCurrentCells()) {
+                    DiscreteCoordinates coordinate = getCurrentMainCellCoordinates();
+                    if (pressureSwitchCoordinate.equals(coordinate)) {
+                        isOnSwitch = true;
+                    }
+                }
+
+
+                if (isOnSwitch) {
+                    pressureSwitch.setActivated();
+                    canUpdatePressureSwitch = false;
+                }
+            }
+        }
+
+        @Override
+        public void interactWith(Lever lever) {
+            lever.setPushed();
+        }
+
+        @Override
+        public void interactWith(SignalDoor signalDoor) {
+            setIsPassingDoor(signalDoor);
+        }
+
+        @Override
+        public void interactWith(SignalRock signalRock) {
+
         }
     }
 }

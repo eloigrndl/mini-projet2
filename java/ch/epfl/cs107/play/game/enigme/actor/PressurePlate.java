@@ -2,9 +2,12 @@ package ch.epfl.cs107.play.game.enigme.actor;
 
 import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.Area;
+import ch.epfl.cs107.play.game.areagame.actor.AreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
+import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
+import ch.epfl.cs107.play.game.enigme.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
@@ -12,20 +15,18 @@ import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.window.Canvas;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class PressurePlate implements Actor, Interactable {
+public class PressurePlate extends AreaEntity {
 
-    private Area area;
-    private DiscreteCoordinates position;
     private Sprite pressurePlate;
     private Logic signal;
     private boolean activated;
-    private final float activationTime = 0.3f;
+    private float activationTime = 5f;
 
     public PressurePlate(Area area, DiscreteCoordinates position) {
-        this.area = area;
-        this.position = position;
+        super(area, Orientation.UP, position);
         this.signal = Logic.FALSE;
         this.pressurePlate = new Sprite("GroundPlateOff", 1, 1.f, this);
         this.activated = false;
@@ -36,22 +37,10 @@ public class PressurePlate implements Actor, Interactable {
         pressurePlate.draw(canvas);
     }
 
-    @Override
-    public Transform getTransform() {
-        return null;
-    }
-
-    @Override
-    public Vector getVelocity() {
-        return null;
-    }
-
 
     @Override
     public List<DiscreteCoordinates> getCurrentCells() {
-        List<DiscreteCoordinates> currentCells = new ArrayList<DiscreteCoordinates>();
-        currentCells.add(this.position);
-        return currentCells;
+        return Collections.singletonList(getCurrentMainCellCoordinates());
     }
 
     @Override
@@ -72,11 +61,17 @@ public class PressurePlate implements Actor, Interactable {
     @Override
     public void update(float deltaTime) {
         if(activated){
-            this.pressurePlate = new Sprite("GroundPlateOn", 1, 1.f, this);
+            this.pressurePlate = new Sprite("GroundLightOn", 1, 1.f, this);
             this.signal = Logic.TRUE;
-            this.activated = false;
-            update(activationTime);
-        }else{
+            if ((activationTime - deltaTime) > 0) {
+                activated = true;
+                activationTime -= deltaTime;
+            } else {
+                activated = false;
+                activationTime = 5f;
+            }
+
+        } else {
             this.pressurePlate = new Sprite("GroundPlateOff", 1, 1.f, this);
             this.signal = Logic.FALSE;
         }
@@ -84,6 +79,10 @@ public class PressurePlate implements Actor, Interactable {
 
     @Override
     public void acceptInteraction(AreaInteractionVisitor v) {
+        ((EnigmeInteractionVisitor) v).interactWith(this);
+    }
 
+    protected void setActivated() {
+        this.activated = true;
     }
 }

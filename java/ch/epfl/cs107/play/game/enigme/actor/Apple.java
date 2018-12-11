@@ -59,4 +59,5 @@ public class Apple extends AreaEntity {
     protected void setCollected(boolean collected) {
         this.collected = collected;
     }
+
 }
