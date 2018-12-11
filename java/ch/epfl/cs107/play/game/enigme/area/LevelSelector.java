@@ -27,8 +27,8 @@ public class LevelSelector extends EnigmeArea {
                 new DiscreteCoordinates(2,7), new Circle(0.25f, new Vector(2,7)),true);
         this.registerActor(door2);
 
-        Door door3 = new Door(this, "LevelSelector",new DiscreteCoordinates(3,6), Orientation.UP,
-                new DiscreteCoordinates(3,7), new Circle(0.25f, new Vector(3,7)), false);
+        Door door3 = new Door(this, "Level3",new DiscreteCoordinates(5,1), Orientation.UP,
+                new DiscreteCoordinates(3,7), new Circle(0.25f, new Vector(3,7)), true);
         this.registerActor(door3);
 
         Door door4 = new Door(this,"LevelSelector",new DiscreteCoordinates(4,6), Orientation.UP,

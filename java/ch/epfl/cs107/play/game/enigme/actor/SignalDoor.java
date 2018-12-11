@@ -12,7 +12,7 @@ public class SignalDoor extends Door implements Logic {
     private Logic signal;
 
     public SignalDoor(Area areaOfMemebership, String destination, DiscreteCoordinates coordinatesArrival, Orientation orientation,
-                      DiscreteCoordinates principalCoordinate, Circle rayonPosition, boolean opened, Logic signal){
+                      DiscreteCoordinates principalCoordinate, Circle rayonPosition, Logic signal){
 
         super(areaOfMemebership, destination, coordinatesArrival, orientation, principalCoordinate, rayonPosition, signal.isOn());
 

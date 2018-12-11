@@ -3,6 +3,7 @@ package ch.epfl.cs107.play.game.enigme.area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.enigme.actor.Apple;
 import ch.epfl.cs107.play.game.enigme.actor.Door;
+import ch.epfl.cs107.play.game.enigme.actor.Key;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;

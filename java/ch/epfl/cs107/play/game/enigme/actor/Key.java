@@ -1,8 +1,10 @@
 package ch.epfl.cs107.play.game.enigme.actor;
 
 import ch.epfl.cs107.play.game.actor.Actor;
+import ch.epfl.cs107.play.game.areagame.actor.AreaEntity;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.Area;
+import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -14,7 +16,7 @@ import ch.epfl.cs107.play.window.Canvas;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Key implements Actor, Interactable {
+public class Key extends AreaEntity implements Actor, Interactable {
 
     private Area area;
     private DiscreteCoordinates position;
@@ -25,10 +27,11 @@ public class Key implements Actor, Interactable {
     private Logic signal;
 
 public Key(Area area, DiscreteCoordinates position) {
+        super(area, Orientation.UP, position);
         this.area = area;
         this.position = position;
         this.pickedUp = false;
-        this.key = new Sprite("key.1", 1, 1.f, this);
+        this.key = new Sprite("key.1", 1.f, 1.f, this);
         this.signal = Logic.FALSE;
         this.visible = true;
         this.isViewInteractable = true;
