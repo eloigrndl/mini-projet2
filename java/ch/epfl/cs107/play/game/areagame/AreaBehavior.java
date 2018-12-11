@@ -116,7 +116,7 @@ public abstract class AreaBehavior
      * @param interactor
      */
     public void viewInteractionOf(Interactor interactor) {
-        for (DiscreteCoordinates coordinates : interactor.getCurrentCells()) {
+        for (DiscreteCoordinates coordinates : interactor.getFieldOfViewCells()) {
             cells[coordinates.x][coordinates.y].viewInteractionOf(interactor);
         }
     }

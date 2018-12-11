@@ -72,7 +72,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
         Button LButton = keyboard.get(Keyboard.L);
 
         if (LButton.isPressed()) {
-            System.out.println("L pressed");
             return true;
         }
 
@@ -183,21 +182,19 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
 
         @Override
         public void interactWith(Apple apple) {
-            System.out.println("interactWith Apple");
             //gère ce qui se passe lorsque le personnage interagit avec une pomme
             apple.setCollected(true);
+            getOwnerArea().unregisterActor(apple);
         }
 
         @Override
         public void interactWith(Door door) {
             // gère ce qui se passe lorsque le personnage passe les porte
-            System.out.println("interactWithDoor");
             setIsPassingDoor(door);
         }
 
         @Override
         public void interactWith(EnigmeBehavior.EnigmeCell cell) {
-            System.out.println("interactWith");
         }
     }
 }

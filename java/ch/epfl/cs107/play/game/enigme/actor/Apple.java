@@ -24,12 +24,6 @@ public class Apple extends AreaEntity {
         collected = false;
     }
 
-    public void update(Canvas canvas) {
-        if(!collected){
-           draw(canvas);
-        }
-    }
-
     @Override
     public boolean isCellInteractable() {
         return false;
@@ -47,7 +41,9 @@ public class Apple extends AreaEntity {
 
     @Override
     public void draw(Canvas canvas) {
-        apple.draw(canvas);
+        if (!collected) {
+            apple.draw(canvas);
+        }
     }
 
     @Override
@@ -61,7 +57,6 @@ public class Apple extends AreaEntity {
     }
 
     protected void setCollected(boolean collected) {
-        System.out.println("Apple now collected");
         this.collected = collected;
     }
 }
