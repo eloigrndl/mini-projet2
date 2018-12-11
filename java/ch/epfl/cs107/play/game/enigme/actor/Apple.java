@@ -59,4 +59,8 @@ public class Apple extends AreaEntity {
     public void acceptInteraction(AreaInteractionVisitor v) {
         ((EnigmeInteractionVisitor) v).interactWith(this);
     }
+
+    protected void setCollected(boolean collected) {
+        this.collected = collected;
+    }
 }

@@ -115,8 +115,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
         }
 
         if (LArrow.isPressed()) {
-            //interactWith(Level1.apple1);
-            //veut une intéraction
+            //veut une interaction
         }
         super.update(deltaTime);
     }
@@ -149,6 +148,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
     public void resetIsPassingDoor(){
         passingDoor = false;
     }
+
     public boolean isPassingDoor()
     {
         return passingDoor;
@@ -171,6 +171,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
         @Override
         public void interactWith(Apple apple) {
             //gère ce qui se passe lorsque le personnage interagit avec une pomme
+            apple.setCollected(true);
         }
 
         @Override

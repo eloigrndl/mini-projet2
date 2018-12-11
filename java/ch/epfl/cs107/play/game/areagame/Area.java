@@ -195,9 +195,6 @@ public abstract class Area implements Playable {
                removeActor(this.unregisteredActors.get(k), false);
            }
        }
-       this.registeredActors.clear();
-       this.unregisteredActors.clear();
-
 
        if (interactablesToEnter != null) {
            for (Map.Entry<Interactable, List<DiscreteCoordinates>> entry : interactablesToEnter.entrySet() ) {
@@ -206,7 +203,6 @@ public abstract class Area implements Playable {
                areaBehavior.enter(key, value);
            }
 
-           interactablesToEnter.clear();
        }
 
        if (interactablesToLeave != null) {
@@ -215,9 +211,13 @@ public abstract class Area implements Playable {
                List<DiscreteCoordinates> value = entry.getValue();
                areaBehavior.leave(key,value);
            }
-
-           interactablesToLeave.clear();
        }
+
+        interactablesToLeave.clear();
+        interactablesToEnter.clear();
+
+        this.registeredActors.clear();
+        this.unregisteredActors.clear();
     }
 
     @Override

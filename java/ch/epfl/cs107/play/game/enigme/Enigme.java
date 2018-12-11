@@ -95,7 +95,6 @@ public class Enigme extends AreaGame implements Game, Playable{
      */
     private void changeLevel(Area areaToEnter, EnigmePlayer character, DiscreteCoordinates coordinates) {
         character.leaveArea();
-        System.out.println(areaToEnter);
         setCurrentArea(areaToEnter.getTitle(), true);
         character.enterArea(getCurrentArea(), coordinates);
     }

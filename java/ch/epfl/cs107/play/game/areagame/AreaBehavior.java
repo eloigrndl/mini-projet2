@@ -12,6 +12,7 @@ import ch.epfl.cs107.play.window.Image;
 import ch.epfl.cs107.play.game.actor.Actor;
 
 import javax.sound.midi.SysexMessage;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -70,8 +71,6 @@ public abstract class AreaBehavior
         for (int i=0; i<coordinates.size(); ++i) {
             DiscreteCoordinates coordinate = coordinates.get(i);
             if (!cells[coordinate.x][coordinate.y].canEnter(entity)) {
-                System.out.println("canEnter");
-
                 return false;
             }
         }
@@ -122,10 +121,7 @@ public abstract class AreaBehavior
         }
     }
 
-    protected void setCell(int x, int y, Demo2Behavior.Demo2Cell cell) {
-        cells[x][y] = cell;
-    }
-    protected void setCell(int x, int y, EnigmeBehavior.EnigmeCell cell) {
+    protected void setCell(int x, int y, Cell cell) {
         cells[x][y] = cell;
     }
     /**
@@ -147,7 +143,9 @@ public abstract class AreaBehavior
 
         @Override
         public List<DiscreteCoordinates> getCurrentCells() {
-            return null;
+            List <DiscreteCoordinates> currentCells = new ArrayList<>();
+            currentCells.add(this.coordinates);
+            return currentCells;
         }
 
         private void enter(Interactable interactable) {
@@ -160,7 +158,6 @@ public abstract class AreaBehavior
 
         protected boolean canEnter(Interactable entity) {
             //return true if entity a le droit de s'ajouter au contenu
-
             return false;
         }
 

@@ -81,10 +81,9 @@ public class EnigmeBehavior extends AreaBehavior {
             return true;
         }
 
-
         @Override
         protected boolean canEnter(Interactable entity) {
-            System.out.println(getInteractableSet());
+
             if (value.equals(EnigmeBehavior.EnigmeCellType.NULL) || value.equals(EnigmeBehavior.EnigmeCellType.WALL)) {
                 return false;
             }
@@ -93,6 +92,7 @@ public class EnigmeBehavior extends AreaBehavior {
                     return false;
                 }
             }
+
             return true;
 
         }
