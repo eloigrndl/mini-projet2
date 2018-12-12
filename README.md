@@ -12,6 +12,8 @@ Il suffit de lancer `Play`. Le jeu `Enigme` sera lancé par défaut.
 
 * _Enter_ : Pause
 * _Flèches_ : Directions
+* _L_ : Interaction avec un Objet
+* _K_ : Faire disparaître un dialogue
 
 ### Ressources supplémentaires
 
