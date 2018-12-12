@@ -3,11 +3,13 @@ package ch.epfl.cs107.play.game.enigme;
 import ch.epfl.cs107.play.game.Game;
 import ch.epfl.cs107.play.game.Playable;
 import ch.epfl.cs107.play.game.actor.GraphicsEntity;
+import ch.epfl.cs107.play.game.actor.ImageGraphics;
 import ch.epfl.cs107.play.game.actor.TextGraphics;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
+import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.game.enigme.actor.Door;
 import ch.epfl.cs107.play.game.enigme.area.*;
 import ch.epfl.cs107.play.io.FileSystem;
@@ -32,7 +34,10 @@ public class Enigme extends AreaGame implements Game, Playable{
 
     private Area LevelSelector, Level1, Level2, Level3;
     private EnigmePlayer character;
-    private GraphicsEntity gamePaused = new GraphicsEntity(new Vector(0.0f,0.0f),new TextGraphics("Game Paused : "+ "\n" + "press Enter again to resume game", 1f, Color.BLACK, Color.BLACK, 0.005f, true, true, new Vector(0.0f,0.0f)));
+    //private GraphicsEntity gamePaused = new GraphicsEntity(new Vector(0.0f,0.0f),new TextGraphics("Game Paused : "+ "\n" + "press Enter again to resume game", 1f, Color.BLACK, Color.BLACK, 0.005f, true, true, new Vector(0.0f,0.0f)));
+    private ImageGraphics gamePaused = new ImageGraphics(ResourcePath.getBackgrounds("Level1"), 300, 300, null, Vector.ZERO, 1.0f, -Float.MAX_VALUE);
+
+    private boolean isPaused;
 
     @Override
     public int getFrameRate() {
@@ -64,6 +69,8 @@ public class Enigme extends AreaGame implements Game, Playable{
             LevelSelector.setViewCandidate(character);
             LevelSelector.setLevelBegan(true);
 
+            isPaused = false;
+
             return true;
         }
 
@@ -75,7 +82,12 @@ public class Enigme extends AreaGame implements Game, Playable{
         Keyboard keyboard = getCurrentArea().getKeyboard();
         Button enter = keyboard.get(Keyboard.ENTER);
 
-        if(!enter.isDown()) {
+        if (enter.isPressed()) {
+            isPaused = !isPaused;
+            gamePaused.draw(getWindow());
+        }
+
+        if(!isPaused) {
             super.update(deltaTime);
             character.draw(getWindow());
 
@@ -83,7 +95,7 @@ public class Enigme extends AreaGame implements Game, Playable{
                 changeLevel(characterDestination(), character, characterArrival());
                 character.resetIsPassingDoor();
             }
-        }else{
+        } else {
             gamePaused.draw(getWindow());
         }
     }
