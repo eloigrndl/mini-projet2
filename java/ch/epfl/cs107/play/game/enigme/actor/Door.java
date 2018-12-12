@@ -20,8 +20,7 @@ public class Door extends AreaEntity {
     private DiscreteCoordinates principalCoordinate;
     private DiscreteCoordinates coordinatesArrival;
     private Circle currentCoordinates;
-    private Sprite door;
-    private boolean opened;
+
 
     /**
      * Door constructor
@@ -33,18 +32,12 @@ public class Door extends AreaEntity {
      * @param rayonPosition coordonnées qu'occupent la porte (en plus de sa coordonnée principale)
      */
     public Door(Area areaOfMemebership, String destination, DiscreteCoordinates coordinatesArrival, Orientation orientation,
-                DiscreteCoordinates principalCoordinate, Circle rayonPosition, boolean opened){
+                DiscreteCoordinates principalCoordinate, Circle rayonPosition){
         super(areaOfMemebership, orientation, principalCoordinate );
         this.destination = destination;
         this.coordinatesArrival = coordinatesArrival;
         this.currentCoordinates = rayonPosition;
         this.principalCoordinate = principalCoordinate;
-        this.opened = opened;
-        if(this.opened){
-            door = new Sprite("door.open.1", 1, 1.f, this);
-        }else{
-            door = new Sprite("door.close.1", 1, 1.0f, this);
-        }
 
     }
 
@@ -54,6 +47,9 @@ public class Door extends AreaEntity {
         currentCells.add(principalCoordinate);
         return currentCells;
     }
+
+    @Override
+    public void draw(Canvas canvas) {}
 
     @Override
     public boolean takeCellSpace() {
@@ -71,18 +67,8 @@ public class Door extends AreaEntity {
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        door.draw(canvas);
-    }
-
-    @Override
     public void update(float deltaTime) {
         //System.out.println(opened);
-        if(opened){
-            door = new Sprite("door.open.1", 1, 1.f, this);
-        }else {
-            door = new Sprite("door.close.1", 1, 1.0f, this);
-        }
     }
 
     /**
@@ -107,4 +93,3 @@ public class Door extends AreaEntity {
     }
 
 }
-

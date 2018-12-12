@@ -44,8 +44,16 @@ public abstract class AreaBehavior
      */
     protected int[] getBehaviorMapSize() {
 
-        int[] size = {cells.length, cells[0].length};
+        int[] size = {width, height};
+
         return size;
+    }
+    protected int getWidth(){
+        return width;
+    }
+
+    protected int getHeight(){
+        return height;
     }
 
     /**
@@ -63,7 +71,6 @@ public abstract class AreaBehavior
      * @return (boolean) entity can leave
      */
     public boolean canLeave(Interactable entity, List<DiscreteCoordinates> coordinates) {
-
         for (int i=0; i<coordinates.size(); ++i) {
             DiscreteCoordinates coordinate = coordinates.get(i);
             if (!cells[coordinate.x][coordinate.y].canLeave(entity)) {
@@ -80,9 +87,9 @@ public abstract class AreaBehavior
      * @return (boolean) entity can enter
      */
     public boolean canEnter(Interactable entity, List<DiscreteCoordinates> coordinates) {
-
         for (int i=0; i<coordinates.size(); ++i) {
             DiscreteCoordinates coordinate = coordinates.get(i);
+            System.out.println(coordinate);
             if (!cells[coordinate.x][coordinate.y].canEnter(entity)) {
                 return false;
             }

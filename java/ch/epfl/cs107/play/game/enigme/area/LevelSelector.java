@@ -50,8 +50,8 @@ public class LevelSelector extends EnigmeArea {
                 new DiscreteCoordinates(7,7), new Circle(0.25f, new Vector(7,7)), Logic.FALSE);
         this.registerActor(door7);
 
-        SignalDoor door8 = new SignalDoor(this, "LevelSelector", new DiscreteCoordinates(8,6), Orientation.UP,
-                new DiscreteCoordinates(8,7), new Circle(0.25f, new Vector(8,7)), Logic.FALSE);
+        SignalDoor door8 = new SignalDoor(this, "Enigme0", new DiscreteCoordinates(23,18), Orientation.DOWN,
+                new DiscreteCoordinates(8,7), new Circle(0.25f, new Vector(8,7)), Logic.TRUE);
         this.registerActor(door8);
 
         allDoors.add(door1);

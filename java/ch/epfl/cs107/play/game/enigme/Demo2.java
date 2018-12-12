@@ -50,9 +50,9 @@ public class Demo2 extends AreaGame implements Game {
         super.update(deltaTime);
         if(character.isPassingDoor()){
             if(getCurrentArea().getTitle().equals(room0.getTitle())){
-                changeLevel(room0, room1, character, new DiscreteCoordinates(5,2));
+                changeLevel(room1, character, new DiscreteCoordinates(5,2));
             }else if(getCurrentArea().getTitle().equals(room1.getTitle())){
-                changeLevel(room1, room0, character, new DiscreteCoordinates(5,5));
+                changeLevel(room0, character, new DiscreteCoordinates(5,5));
             }
         }
 
@@ -73,5 +73,3 @@ public class Demo2 extends AreaGame implements Game {
 
     }
 }
-
-

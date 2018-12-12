@@ -15,7 +15,8 @@ public class EnigmeBehavior extends AreaBehavior {
         DOOR(-65536),
         WATER(-16776961),
         INDOOR_WALKABLE(-1),
-        OUTDOOR_WALKABLE(-14112955);
+        OUTDOOR_WALKABLE(-14112955),
+        YELLOW(-256);
 
         final int type;
 
@@ -40,6 +41,7 @@ public class EnigmeBehavior extends AreaBehavior {
                 case -14112955 : return EnigmeBehavior.EnigmeCellType.OUTDOOR_WALKABLE;
                 case -16776961 : return EnigmeBehavior.EnigmeCellType.WATER;
                 case -16777216 : return EnigmeBehavior.EnigmeCellType.WALL;
+                case -256 : return EnigmeCellType.YELLOW;
                 default: return EnigmeBehavior.EnigmeCellType.NULL;
             }
         }
@@ -51,17 +53,17 @@ public class EnigmeBehavior extends AreaBehavior {
      * @param fileName current filename
      */
     public EnigmeBehavior(Window window, String fileName){
-
         super(window, fileName);
-
-        //Initialising all the cells
-        for (int i = 0; i<getBehaviorMapSize()[0]; ++i){
-            for(int j = 0; j<getBehaviorMapSize()[1]; ++j){
+        int sum = 0;
+        for (int i = 0; i< getBehaviorMap().getWidth(); ++i){
+            for(int j = 0; j<getBehaviorMap().getHeight(); ++j){
                 EnigmeBehavior.EnigmeCellType cellType = EnigmeBehavior.EnigmeCellType.toType(getBehaviorMap().getRGB(getBehaviorMapSize()[1]-1-j,i));
                 EnigmeBehavior.EnigmeCell cell = new EnigmeBehavior.EnigmeCell(i,j,cellType);
                 setCell(i,j,cell);
+                sum+=1;
             }
         }
+        System.out.println(sum);
     }
 
     public class EnigmeCell extends Cell {
@@ -109,7 +111,6 @@ public class EnigmeBehavior extends AreaBehavior {
 
         @Override
         protected boolean canEnter(Interactable entity) {
-
             if (value.equals(EnigmeBehavior.EnigmeCellType.NULL) || value.equals(EnigmeBehavior.EnigmeCellType.WALL)
                     || value.equals(EnigmeCellType.WATER)) {
                 return false;

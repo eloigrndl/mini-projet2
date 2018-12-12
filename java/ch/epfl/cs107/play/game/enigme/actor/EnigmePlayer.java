@@ -23,9 +23,9 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
     private Sprite[] spritesLeft = new Sprite[4];
     private Sprite[] spritesUp = new Sprite[4];
     private Sprite[] spritesRight = new Sprite[4];
-    private Vector anchor = new Vector(0f, 0.15f);
 
-    private final static int ANIMATION_DURATION = 5;
+    private Door lastDoor;
+    private static int ANIMATION_DURATION = 8;
 
     //Door
     private boolean passingDoor;
@@ -50,25 +50,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
     public EnigmePlayer(Area area, Orientation orientation, DiscreteCoordinates position){
         super(area, orientation, position);
         handler = new EnigmePlayerHandler();
-
-        for (int i = 0; i < spritesDown.length; ++i) {
-            spritesDown[i] = new Sprite("max.new.1", 1f, 1f, this, new RegionOfInterest(0, i * 21, 16, 21), anchor);
-        }
-
-        for (int i = 0; i < spritesLeft.length; ++i) {
-            spritesLeft[i] = new Sprite("max.new.1", 1f, 1f, this, new RegionOfInterest(16, i * 21, 16, 21), anchor);
-        }
-
-        for (int i = 0; i < spritesUp.length; ++i) {
-            spritesUp[i] = new Sprite("max.new.1", 1f, 1f, this, new RegionOfInterest(32, i * 21, 16, 21), anchor);
-        }
-
-        for (int i = 0; i < spritesRight.length; ++i) {
-            spritesRight[i] = new Sprite("max.new.1", 1f, 1f, this, new RegionOfInterest(48, i * 21, 16, 21), anchor);
-        }
-
-        dialog = new Dialog("", "dialog.1", getOwnerArea());
-        showDialog = false;
     }
 
     @Override
@@ -135,7 +116,8 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         Button rightArrow = keyboard.get(Keyboard.RIGHT);
         Button upArrow = keyboard.get(Keyboard.UP);
         Button downArrow = keyboard.get(Keyboard.DOWN);
-        Button KButton = keyboard.get(Keyboard.K);
+        Button spaceKey = keyboard.get(Keyboard.SPACE);
+
 
         if(leftArrow.isDown()) {
             if (getOrientation().equals(Orientation.LEFT)) {
@@ -178,8 +160,15 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
             showDialog = false;
         }
 
+        if(spaceKey.isDown()){
+            ANIMATION_DURATION = 4;
+        }else{
+            ANIMATION_DURATION = 8;
+        }
+
         super.update(deltaTime);
-        ghost = animPerso(getOrientation(), inMoveFrame, ghost, spritesUp,spritesDown,spritesRight,spritesLeft);
+        ghost = animPerso(getOrientation(), inMoveFrame, ghost);
+
     }
 
     @Override
@@ -338,5 +327,3 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         }
     }
 }
-
-

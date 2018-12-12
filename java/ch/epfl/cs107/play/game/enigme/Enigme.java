@@ -33,7 +33,7 @@ import java.util.logging.Level;
  */
 public class Enigme extends AreaGame implements Game, Playable{
 
-    private Area LevelSelector, Level1, Level2, Level3;
+    private Area LevelSelector, Level1, Level2, Level3, Enigme0, Enigme1;
     private EnigmePlayer character;
     //private GraphicsEntity gamePaused = new GraphicsEntity(new Vector(0.0f,0.0f),new TextGraphics("Game Paused : "+ "\n" + "press Enter again to resume game", 1f, Color.BLACK, Color.BLACK, 0.005f, true, true, new Vector(0.0f,0.0f)));
     private ImageGraphics gamePaused;
@@ -60,11 +60,15 @@ public class Enigme extends AreaGame implements Game, Playable{
             this.Level1 = new Level1();
             this.Level2 = new Level2();
             this.Level3 = new Level3();
+            this.Enigme0 = new Enigme0();
+            this.Enigme1 = new Enigme1();
 
             addArea(LevelSelector);
             addArea(Level1);
             addArea(Level2);
             addArea(Level3);
+            addArea(Enigme0);
+            addArea(Enigme1);
             setCurrentArea(LevelSelector.getTitle(), true);
 
             this.character = new EnigmePlayer(getCurrentArea(), Orientation.UP, (new DiscreteCoordinates(5, 5)));
@@ -89,7 +93,6 @@ public class Enigme extends AreaGame implements Game, Playable{
     public void update(float deltaTime) {
         Keyboard keyboard = getCurrentArea().getKeyboard();
         Button enter = keyboard.get(Keyboard.ENTER);
-
         if (enter.isPressed()) {
             isPaused = !isPaused;
             gamePaused.draw(getWindow());
