@@ -22,6 +22,12 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
     private Sprite ghost = new Sprite("ghost.1", 1, 1.f, this);
     private final static int ANIMATION_DURATION = 8;
 
+    /**
+     * Demo2Player Constructor
+     * @param area current area
+     * @param orientation current orientation
+     * @param position current position
+     */
     public Demo2Player(Area area, Orientation orientation, DiscreteCoordinates position){
         super(area, orientation, position);
         super.setOrientation(Orientation.DOWN);
@@ -111,6 +117,11 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
         super.update(1);
     }
 
+    /**
+     * Method in charge of handling all necessary calls for the Actor to enter the Area
+     * @param area the current area
+     * @param position the current position
+     */
     public void enterArea(Area area, DiscreteCoordinates position){
         area.registerActor(this);
         setOwnerArea(area);
@@ -119,14 +130,25 @@ public class Demo2Player extends MovableAreaEntity implements Interactable {
         resetMotion();
     }
 
+    /**
+     * Method in charge of handling all necessary calls for the Actor to leave the Area
+     */
     public void leaveArea(){
         getOwnerArea().unregisterActor(this);
     }
 
+    /**
+     * Getter to know if the Actor is currently passing a door
+     * @return isPassingDoor
+     */
     public boolean isPassingDoor() {
         return passingDoor;
     }
 
+    /**
+     * Setter to know if the actor is passing a door
+     * @param isPassing is the actor currently passing a door
+     */
     public void setPassingDoor(boolean isPassing) {
         this.passingDoor = isPassing;
     }

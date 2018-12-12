@@ -8,7 +8,6 @@ import ch.epfl.cs107.play.game.enigme.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.game.areagame.Area;
-import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.window.Canvas;
 
 import java.util.ArrayList;
@@ -16,18 +15,19 @@ import java.util.List;
 
 public class Door extends AreaEntity {
 
+    //(Door) attributes
     private String destination;
     private DiscreteCoordinates principalCoordinate;
     private DiscreteCoordinates coordinatesArrival;
     private Circle currentCoordinates;
 
 
-    /**x
-     *
+    /**
+     * Door constructor
      * @param areaOfMemebership aire
      * @param destination aire vers laquelle doit mener la porte
      * @param coordinatesArrival les coordonnées d'arrivée dans l'aire de destination
-     * @param orientation
+     * @param orientation l'orientation
      * @param principalCoordinate coordonnées principales de la porte
      * @param rayonPosition coordonnées qu'occupent la porte (en plus de sa coordonnée principale)
      */
@@ -71,11 +71,18 @@ public class Door extends AreaEntity {
         //System.out.println(opened);
     }
 
-
+    /**
+     * Getter of the (Door) destination
+     * @return (String) Door destination
+     */
     public String getDestination() {
         return destination;
     }
 
+    /**
+     * Getter of the arrival coordinates
+     * @return (Door) arrival coordinates
+     */
     public DiscreteCoordinates getCoordinatesArrival() {
         return coordinatesArrival;
     }
@@ -86,4 +93,3 @@ public class Door extends AreaEntity {
     }
 
 }
-

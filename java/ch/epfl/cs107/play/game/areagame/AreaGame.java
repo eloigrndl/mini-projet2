@@ -59,6 +59,10 @@ abstract public class AreaGame implements Game {
         return null;
     }
 
+    /**
+     * Current Area Getter
+     * @return (Area) the current Area
+     */
     protected Area getCurrentArea(){
         return this.currentArea;
     }
@@ -94,6 +98,10 @@ abstract public class AreaGame implements Game {
         currentArea.update(deltaTime);
     }
 
+    /**
+     * Getter of the current areas of the game
+     * @return (Map<String, Area>) all the areas
+     */
     public Map<String, Area> getAreas() {
         return areas;
     }

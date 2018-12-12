@@ -40,7 +40,7 @@ public interface Interactable {
 
     /**
      * Gère les autorisations d'interactions
-     * @param v
+     * @param v (AreaInteractionVisitor)
      */
     void acceptInteraction(AreaInteractionVisitor v);
 }

@@ -15,10 +15,17 @@ import java.util.List;
 
 public class Torch extends AreaEntity implements Logic, Animation {
 
+    //(Sprite) properties
     private Sprite torch;
     private boolean fired;
     private int numSprite = 1;
 
+    /**
+     * Torch Constructor
+     * @param area the current area
+     * @param position the current position
+     * @param signal the current signal
+     */
     public Torch(Area area, DiscreteCoordinates position, Logic signal) {
         super(area, Orientation.UP, position);
 
@@ -71,6 +78,9 @@ public class Torch extends AreaEntity implements Logic, Animation {
         ((EnigmeInteractionVisitor) v).interactWith(this);
     }
 
+    /**
+     * Setter to update the Torch fired state
+     */
     protected void updateFired() {
         this.fired = !fired;
     }

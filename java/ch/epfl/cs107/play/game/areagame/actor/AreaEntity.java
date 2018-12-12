@@ -26,11 +26,6 @@ public abstract class AreaEntity extends Entity implements Interactable {
      */
     public AreaEntity(Area area, Orientation orientation, DiscreteCoordinates position) {
 
-        // TODO fix me assert impossible
-//        assert area != null;
-//        assert orientation != null;
-//        assert position != null;
-
         super(position.toVector());
 
         this.ownerArea = area;
@@ -68,6 +63,7 @@ public abstract class AreaEntity extends Entity implements Interactable {
 
     /**
      * Setter for the orientation
+     * @param orientation (Orientation)
      */
     protected void setOrientation(Orientation orientation) {
         //pas en déplacement ensuite changer orientation
@@ -83,10 +79,18 @@ public abstract class AreaEntity extends Entity implements Interactable {
         return orientation;
     }
 
+    /**
+     * Getter for the Area
+     * @return (Area)
+     */
     public Area getOwnerArea(){
         return this.ownerArea;
     }
 
+    /**
+     * Setter for the area
+     * @param ownerArea (Area)
+     */
     public void setOwnerArea(Area ownerArea) {
         this.ownerArea = ownerArea;
     }

@@ -58,7 +58,14 @@ public class Demo2 extends AreaGame implements Game {
 
     }
 
-    private void changeLevel(Area areaToEnter, Demo2Player character, DiscreteCoordinates coordinates) {
+    /**
+     * Method handling the calls to change level
+     * @param areaToLeave the area being left
+     * @param areaToEnter the area entered
+     * @param character the current character
+     * @param coordinates the coordinates where the character will be in the new area
+     */
+    private void changeLevel(Area areaToLeave, Area areaToEnter, Demo2Player character, DiscreteCoordinates coordinates) {
         character.leaveArea();
         setCurrentArea(areaToEnter.getTitle(), true);
         character.enterArea(getCurrentArea(), coordinates);
@@ -66,5 +73,3 @@ public class Demo2 extends AreaGame implements Game {
 
     }
 }
-
-

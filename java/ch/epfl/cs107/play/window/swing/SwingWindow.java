@@ -422,6 +422,6 @@ public final class SwingWindow extends Node implements Window {
 
 	@Override
 	public boolean isSoundSupported() {
-		return false;
+		return true;
 	}
 }

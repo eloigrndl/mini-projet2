@@ -1,30 +1,31 @@
 package ch.epfl.cs107.play.game.enigme.actor;
 
-import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.actor.AreaEntity;
-import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.enigme.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
-import ch.epfl.cs107.play.math.Transform;
-import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.window.Canvas;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Key extends AreaEntity implements Logic {
 
+    //(Key) attributes
     private Sprite key;
     private boolean pickedUp;
     private boolean visible;
     private boolean isViewInteractable;
 
+    /**
+     * Key Constructor
+     * @param area the current area
+     * @param position the current position
+     */
     public Key(Area area, DiscreteCoordinates position) {
         super(area, Orientation.UP, position);
         this.pickedUp = false;
@@ -76,6 +77,9 @@ public class Key extends AreaEntity implements Logic {
         ((EnigmeInteractionVisitor) v).interactWith(this);
     }
 
+    /**
+     * Setter to update the state of Key collection
+     */
     protected void setCollected() {
         this.pickedUp = true;
     }

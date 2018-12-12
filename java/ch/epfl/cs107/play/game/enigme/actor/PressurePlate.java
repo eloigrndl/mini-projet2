@@ -1,30 +1,30 @@
 package ch.epfl.cs107.play.game.enigme.actor;
 
-import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.AreaEntity;
-import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
 import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.enigme.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
-import ch.epfl.cs107.play.math.Transform;
-import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.window.Canvas;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class PressurePlate extends AreaEntity implements Logic {
 
+    //(PressurePlate) properties
     private Sprite pressurePlate;
-    private Logic signal;
     private boolean activated;
     private float activationTime = 5f;
 
+    /**
+     * PressurePlate constructor
+     * @param area the current area
+     * @param position the current orientation
+     */
     public PressurePlate(Area area, DiscreteCoordinates position) {
         super(area, Orientation.UP, position);
         this.pressurePlate = new Sprite("GroundPlateOff", 1, 1.f, this);
@@ -35,7 +35,6 @@ public class PressurePlate extends AreaEntity implements Logic {
     public void draw(Canvas canvas) {
         pressurePlate.draw(canvas);
     }
-
 
     @Override
     public List<DiscreteCoordinates> getCurrentCells() {
@@ -79,6 +78,9 @@ public class PressurePlate extends AreaEntity implements Logic {
         ((EnigmeInteractionVisitor) v).interactWith(this);
     }
 
+    /**
+     * Setter to update the state of PressurePlate activation
+     */
     protected void setActivated() {
         this.activated = true;
     }
