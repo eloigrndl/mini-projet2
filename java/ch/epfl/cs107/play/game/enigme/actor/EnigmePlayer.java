@@ -29,7 +29,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 
     //Door
     private boolean passingDoor;
-    private Door lastDoor;
 
     //Interactions
     private final EnigmePlayerHandler handler;
@@ -116,6 +115,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         Button rightArrow = keyboard.get(Keyboard.RIGHT);
         Button upArrow = keyboard.get(Keyboard.UP);
         Button downArrow = keyboard.get(Keyboard.DOWN);
+        Button KKey = keyboard.get(Keyboard.K);
         Button spaceKey = keyboard.get(Keyboard.SPACE);
 
 
@@ -155,7 +155,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
             }
         }
 
-        if (KButton.isPressed()) {
+        if (KKey.isPressed()) {
             dialog.resetDialog("");
             showDialog = false;
         }
