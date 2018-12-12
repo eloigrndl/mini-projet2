@@ -30,12 +30,8 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
     private Sprite[] spritesUp = new Sprite[4];
     private Sprite[] spritesRight = new Sprite[4];
     Vector anchor = new Vector(0f, 0.15f);
-
     private Door lastDoor;
-
-    private DiscreteCoordinates lastFieldOfViewCell;
-
-    private final static int ANIMATION_DURATION = 5;
+    private static int ANIMATION_DURATION = 8;
 
     private final EnigmePlayerHandler handler;
 
@@ -122,6 +118,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         Button rightArrow = keyboard.get(Keyboard.RIGHT);
         Button upArrow = keyboard.get(Keyboard.UP);
         Button downArrow = keyboard.get(Keyboard.DOWN);
+        Button spaceKey = keyboard.get(Keyboard.SPACE);
 
 
         if(leftArrow.isDown()) {
@@ -158,6 +155,12 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
             } else {
                 super.setOrientation(Orientation.DOWN);
             }
+        }
+
+        if(spaceKey.isDown()){
+            ANIMATION_DURATION = 4;
+        }else{
+            ANIMATION_DURATION = 8;
         }
 
         super.update(deltaTime);
