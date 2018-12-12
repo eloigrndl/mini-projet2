@@ -79,7 +79,6 @@ public class Dialog implements Graphics {
      * @return (boolean) if the dialog can be closed or not
      */
     public boolean push(){
-
         int lengthToPush = text.length()-cursor;
         // Simply close the dialog
         if(lengthToPush <= 0)

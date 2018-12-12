@@ -75,7 +75,7 @@ public class Enigme extends AreaGame implements Game, Playable{
             isPaused = false;
             gamePaused = new ImageGraphics(ResourcePath.getBackgrounds("Pause"), getCurrentArea().getWidth(), getCurrentArea().getHeight(), null, Vector.ZERO, 1.0f, 0.0f);
 
-            soundEffect = new SoundAcoustics(ResourcePath.getSounds("Pokemon"), 1.0f, false, false, true, false);
+            soundEffect = new SoundAcoustics(ResourcePath.getSounds("Background"), 1.0f, false, false, true, false);
             soundEffect.shouldBeStarted();
             soundEffect.bip(getWindow());
 

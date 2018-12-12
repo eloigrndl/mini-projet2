@@ -37,9 +37,10 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 
     private final EnigmePlayerHandler handler;
 
-    boolean canUpdatePressureSwitch = true;
+    private Dialog dialog;
+    private boolean showDialog;
 
-    private SoundAcoustics soundEffect;
+    boolean canUpdatePressureSwitch = true;
 
     public EnigmePlayer(Area area, Orientation orientation, DiscreteCoordinates position){
         super(area, orientation, position);
@@ -60,6 +61,9 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         for (int i = 0; i < spritesRight.length; ++i) {
             spritesRight[i] = new Sprite("max.new.1", 1f, 1f, this, new RegionOfInterest(48, i * 21, 16, 21), anchor);
         }
+
+        dialog = new Dialog("", "dialog.1", getOwnerArea());
+        showDialog = false;
     }
 
     @Override
@@ -108,6 +112,10 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
     @Override
     public void draw(Canvas canvas) {
         ghost.draw(canvas);
+
+        if (showDialog) {
+            dialog.draw(canvas);
+        }
     }
 
     @Override
@@ -122,7 +130,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         Button rightArrow = keyboard.get(Keyboard.RIGHT);
         Button upArrow = keyboard.get(Keyboard.UP);
         Button downArrow = keyboard.get(Keyboard.DOWN);
-
+        Button KButton = keyboard.get(Keyboard.K);
 
         if(leftArrow.isDown()) {
             if (getOrientation().equals(Orientation.LEFT)) {
@@ -158,6 +166,11 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
             } else {
                 super.setOrientation(Orientation.DOWN);
             }
+        }
+
+        if (KButton.isPressed()) {
+            dialog.resetDialog("");
+            showDialog = false;
         }
 
         super.update(deltaTime);
@@ -208,9 +221,9 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         other.acceptInteraction(handler);
     }
 
-    @Override
-    public void bip(Audio audio) {
-        super.bip(audio);
+    private void showDialog(String text) {
+        dialog.resetDialog(text);
+        showDialog = true;
     }
 
     /**
@@ -238,7 +251,10 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 
         @Override
         public void interactWith(Key key) {
+            System.out.println("interact with key");
             key.setCollected();
+            //dialog.resetDialog("It seems this key can open a door.");
+            showDialog("It seems this key can open a door.");
         }
 
         @Override
@@ -274,8 +290,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         @Override
         public void interactWith(Lever lever) {
             lever.setPushed();
-            System.out.println("soundeffect");
-            //soundEffect.shouldBeStarted();
         }
 
         @Override

@@ -1,11 +1,22 @@
-#cs107-miniprojet2
-Mini-Projet #2
+#EPFL CS107 - Mini-Projet #2
 
-### A demander
+Antoine BELLANGER / Eloi GARANDEL
 
-- 4.1 : agreeToAdd() / vetoFromGrid()
-- 4.3 : purge fait / registeredActors / unregisteredActors
-- 4.3 : aire abordé
-- 4.6.2 : getEnteringCells() fait
-- 4.6.3 : changement orientation MovableAreaEntity fait
-- setOrientation getter dans subclass, impossible a récupérer
+###Comment lancer le programme ?
+
+Il suffit de lancer `Play`. Le jeu `Enigme` sera lancé par défaut.
+
+`MovingRock` ainsi que `Demo2` peuvent également être lancés depuis `Play`. Il suffit de commenter les deux autres jeux et d'enlever les commentaires pour le `Game` voulant être lancé. 
+
+### Commandes
+
+* _Enter_ : Pause
+* _Flèches_ : Directions
+
+### Ressources supplémentaires
+
+* Musique de fond : Eric Skiff - All Of Us - Resistor Anthems (Sous license CC 4.0 CC-BY). Disponible [ici](https://ericskiff.com/music/).
+
+###Notes
+
+Pour désactiver la musique, il suffit de mettre le `boolean isSoundSupported()` dans `SwingWindow` à `false`.
