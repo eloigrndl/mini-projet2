@@ -1,8 +1,8 @@
-#EPFL CS107 - Mini-Projet #2
+# EPFL CS107 - Mini-Projet #2
 
 Antoine BELLANGER / Eloi GARANDEL
 
-###Comment lancer le programme ?
+### Comment lancer le programme ?
 
 Il suffit de lancer `Play`. Le jeu `Enigme` sera lancé par défaut.
 
