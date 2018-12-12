@@ -19,6 +19,6 @@ Il suffit de lancer `Play`. Le jeu `Enigme` sera lancé par défaut.
 
 * Musique de fond : Eric Skiff - All Of Us - Resistor Anthems (Sous license CC 4.0 CC-BY). Disponible [ici](https://ericskiff.com/music/).
 
-###Notes
+### Notes
 
 Pour désactiver la musique, il suffit de mettre le `boolean isSoundSupported()` dans `SwingWindow` à `false`.
