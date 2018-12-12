@@ -29,7 +29,7 @@ public class Torch extends AreaEntity implements Logic, Animation {
     public Torch(Area area, DiscreteCoordinates position, Logic signal) {
         super(area, Orientation.UP, position);
 
-        if(!isOn()){
+        if(!signal.isOn()){
             this.torch = new Sprite("torch.ground.off", 1, 1.f, this);
             this.fired = false;
         }else{

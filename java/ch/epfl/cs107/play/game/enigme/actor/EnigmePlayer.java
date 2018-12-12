@@ -262,6 +262,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
             //gère ce qui se passe lorsque le personnage interagit avec une pomme
             apple.setCollected(true);
             getOwnerArea().unregisterActor(apple);
+            showDialog("Yummy !");
         }
 
         @Override
