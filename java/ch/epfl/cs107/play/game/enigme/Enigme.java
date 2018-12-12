@@ -2,6 +2,8 @@ package ch.epfl.cs107.play.game.enigme;
 
 import ch.epfl.cs107.play.game.Game;
 import ch.epfl.cs107.play.game.Playable;
+import ch.epfl.cs107.play.game.actor.GraphicsEntity;
+import ch.epfl.cs107.play.game.actor.TextGraphics;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
@@ -9,9 +11,13 @@ import ch.epfl.cs107.play.game.enigme.actor.Door;
 import ch.epfl.cs107.play.game.enigme.area.*;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.math.Vector;
+import ch.epfl.cs107.play.window.Button;
+import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.game.enigme.actor.EnigmePlayer;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,6 +30,7 @@ public class Enigme extends AreaGame implements Game, Playable{
 
     private Area LevelSelector, Level1, Level2, Level3;
     private EnigmePlayer character;
+    private GraphicsEntity gamePaused = new GraphicsEntity(new Vector(0.0f,0.0f),new TextGraphics("Game Paused : "+ "\n" + "press Enter again to resume game", 1f, Color.BLACK, Color.BLACK, 0.005f, true, true, new Vector(0.0f,0.0f)));
 
     @Override
     public int getFrameRate() {
@@ -63,12 +70,19 @@ public class Enigme extends AreaGame implements Game, Playable{
 
     @Override
     public void update(float deltaTime) {
-        super.update(deltaTime);
-        character.draw(getWindow());
+        Keyboard keyboard = getCurrentArea().getKeyboard();
+        Button enter = keyboard.get(Keyboard.ENTER);
 
-        if(character.isPassingDoor()){
-            changeLevel(characterDestination(), character, characterArrival()) ;
-            character.resetIsPassingDoor();
+        if(!enter.isDown()) {
+            super.update(deltaTime);
+            character.draw(getWindow());
+
+            if (character.isPassingDoor()) {
+                changeLevel(characterDestination(), character, characterArrival());
+                character.resetIsPassingDoor();
+            }
+        }else{
+            gamePaused.draw(getWindow());
         }
     }
 

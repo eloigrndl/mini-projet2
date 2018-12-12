@@ -1,5 +1,6 @@
 package ch.epfl.cs107.play.game.areagame.actor;
 
+import ch.epfl.cs107.play.game.areagame.Animation;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Vector;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 /**
  * MovableAreaEntity are AreaEntity able to move on a grid
  */
-public abstract class MovableAreaEntity extends AreaEntity {
+public abstract class MovableAreaEntity extends AreaEntity implements Animation {
 
     /// Indicate if the actor is currently moving
     private boolean isMoving;
@@ -18,6 +19,8 @@ public abstract class MovableAreaEntity extends AreaEntity {
     /// The target cell (i.e. where the mainCell will be after the motion)
     private DiscreteCoordinates targetMainCellCoordinates;
 
+    //Entier qui donne le numéro de l'image du mouvement, numéro à partir duquel on choisira le Sprite à associer, dans le Player
+    protected int inMoveFrame = 0;
     /**
      * Getter for the leaving cells which are the current cells.
      * @return (List<DiscreteCoordinates>)
@@ -113,10 +116,15 @@ public abstract class MovableAreaEntity extends AreaEntity {
             Vector distance = getOrientation().toVector();
             distance = distance.mul(1.0f / framesForCurrentMove);
             setCurrentPosition(getPosition().add(distance));
+            inMoveFrame +=1;
+            if(inMoveFrame >= 4){
+                inMoveFrame -=4;
+            }
 
         } else {
             //Sinon reset motion
             resetMotion();
+            inMoveFrame = 0;
         }
 
     }

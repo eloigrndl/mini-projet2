@@ -4,7 +4,6 @@ import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
-import ch.epfl.cs107.play.game.enigme.actor.Apple;
 import ch.epfl.cs107.play.game.enigme.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.window.Window;
 
@@ -86,9 +85,11 @@ public class EnigmeBehavior extends AreaBehavior {
         @Override
         protected boolean canEnter(Interactable entity) {
 
-            if (value.equals(EnigmeBehavior.EnigmeCellType.NULL) || value.equals(EnigmeBehavior.EnigmeCellType.WALL)) {
+            if (value.equals(EnigmeBehavior.EnigmeCellType.NULL) || value.equals(EnigmeBehavior.EnigmeCellType.WALL)
+                    || value.equals(EnigmeCellType.WATER)) {
                 return false;
             }
+
             for(Interactable i : getInteractableSet()) {
                 if (i.takeCellSpace()) {
                     return false;

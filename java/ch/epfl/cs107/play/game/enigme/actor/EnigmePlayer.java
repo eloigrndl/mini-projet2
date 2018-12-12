@@ -1,5 +1,6 @@
 package ch.epfl.cs107.play.game.enigme.actor;
 
+import ch.epfl.cs107.play.game.areagame.Animation;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.*;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
@@ -8,6 +9,8 @@ import ch.epfl.cs107.play.game.enigme.area.Level1;
 import ch.epfl.cs107.play.game.enigme.area.Level3;
 import ch.epfl.cs107.play.game.enigme.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
+import ch.epfl.cs107.play.math.RegionOfInterest;
+import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
@@ -18,10 +21,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class EnigmePlayer extends MovableAreaEntity implements Interactor {
+public class EnigmePlayer extends MovableAreaEntity implements Interactor, Animation {
 
     private boolean passingDoor;
-    private Sprite ghost = new Sprite("ghost.1", 1, 1.f, this);
+    private Sprite ghost = new Sprite("max.new.1", 1f, 1f, this, new RegionOfInterest(0,  0, 16, 21), new Vector(0f, 0.15f));
     private Door lastDoor;
 
     private DiscreteCoordinates lastFieldOfViewCell;
@@ -34,8 +37,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
 
     public EnigmePlayer(Area area, Orientation orientation, DiscreteCoordinates position){
         super(area, orientation, position);
-        super.setOrientation(Orientation.DOWN);
-
         handler = new EnigmePlayerHandler();
     }
 
@@ -57,7 +58,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
 
     @Override
     public List<DiscreteCoordinates> getFieldOfViewCells() {
-        System.out.println("getField");
         List<DiscreteCoordinates> fieldOfViewCells = new ArrayList<>();
         for (DiscreteCoordinates coordinates : getCurrentCells()) {
             fieldOfViewCells.add(coordinates.jump(getOrientation().toVector()));
@@ -137,7 +137,10 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor {
                 super.setOrientation(Orientation.DOWN);
             }
         }
+
         super.update(deltaTime);
+        ghost = animPerso(getOrientation(), inMoveFrame, ghost);
+
     }
 
     @Override
