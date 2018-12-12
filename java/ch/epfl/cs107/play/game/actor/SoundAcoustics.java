@@ -46,6 +46,7 @@ public class SoundAcoustics implements Acoustics {
 
     /** Set the "should be started" flag to true*/
     public void shouldBeStarted(){
+        System.out.println("shouldbestarted");
         this.shouldBeStarted = true;
     }
 

@@ -4,6 +4,7 @@ import ch.epfl.cs107.play.game.Game;
 import ch.epfl.cs107.play.game.Playable;
 import ch.epfl.cs107.play.game.actor.GraphicsEntity;
 import ch.epfl.cs107.play.game.actor.ImageGraphics;
+import ch.epfl.cs107.play.game.actor.SoundAcoustics;
 import ch.epfl.cs107.play.game.actor.TextGraphics;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
@@ -35,9 +36,11 @@ public class Enigme extends AreaGame implements Game, Playable{
     private Area LevelSelector, Level1, Level2, Level3;
     private EnigmePlayer character;
     //private GraphicsEntity gamePaused = new GraphicsEntity(new Vector(0.0f,0.0f),new TextGraphics("Game Paused : "+ "\n" + "press Enter again to resume game", 1f, Color.BLACK, Color.BLACK, 0.005f, true, true, new Vector(0.0f,0.0f)));
-    private ImageGraphics gamePaused = new ImageGraphics(ResourcePath.getBackgrounds("Level1"), 300, 300, null, Vector.ZERO, 1.0f, -Float.MAX_VALUE);
+    private ImageGraphics gamePaused;
 
     private boolean isPaused;
+
+    private SoundAcoustics soundEffect;
 
     @Override
     public int getFrameRate() {
@@ -70,6 +73,11 @@ public class Enigme extends AreaGame implements Game, Playable{
             LevelSelector.setLevelBegan(true);
 
             isPaused = false;
+            gamePaused = new ImageGraphics(ResourcePath.getBackgrounds("Pause"), getCurrentArea().getWidth(), getCurrentArea().getHeight(), null, Vector.ZERO, 1.0f, 0.0f);
+
+            soundEffect = new SoundAcoustics(ResourcePath.getSounds("Pokemon"), 1.0f, false, false, true, false);
+            soundEffect.shouldBeStarted();
+            soundEffect.bip(getWindow());
 
             return true;
         }
@@ -131,6 +139,8 @@ public class Enigme extends AreaGame implements Game, Playable{
             areaToEnter.setLevelBegan(true);
         }
         character.enterArea(getCurrentArea(), coordinates);
+        gamePaused = new ImageGraphics(ResourcePath.getBackgrounds("Pause"), getCurrentArea().getWidth(), getCurrentArea().getHeight(), null, Vector.ZERO, 1.0f, 0.0f);
+
     }
 
 

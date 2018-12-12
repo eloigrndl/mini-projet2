@@ -1,9 +1,11 @@
 package ch.epfl.cs107.play.game.enigme.actor;
 
+import ch.epfl.cs107.play.game.actor.SoundAcoustics;
 import ch.epfl.cs107.play.game.areagame.Animation;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.*;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
+import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.game.enigme.EnigmeBehavior;
 import ch.epfl.cs107.play.game.enigme.area.Level1;
 import ch.epfl.cs107.play.game.enigme.area.Level3;
@@ -11,9 +13,7 @@ import ch.epfl.cs107.play.game.enigme.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.RegionOfInterest;
 import ch.epfl.cs107.play.math.Vector;
-import ch.epfl.cs107.play.window.Button;
-import ch.epfl.cs107.play.window.Canvas;
-import ch.epfl.cs107.play.window.Keyboard;
+import ch.epfl.cs107.play.window.*;
 import ch.epfl.cs107.play.game.enigme.area.LevelSelector;
 
 import java.lang.reflect.Array;
@@ -29,17 +29,17 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
     private Sprite[] spritesLeft = new Sprite[4];
     private Sprite[] spritesUp = new Sprite[4];
     private Sprite[] spritesRight = new Sprite[4];
-    Vector anchor = new Vector(0f, 0.15f);
+    private Vector anchor = new Vector(0f, 0.15f);
 
     private Door lastDoor;
-
-    private DiscreteCoordinates lastFieldOfViewCell;
 
     private final static int ANIMATION_DURATION = 5;
 
     private final EnigmePlayerHandler handler;
 
     boolean canUpdatePressureSwitch = true;
+
+    private SoundAcoustics soundEffect;
 
     public EnigmePlayer(Area area, Orientation orientation, DiscreteCoordinates position){
         super(area, orientation, position);
@@ -208,6 +208,11 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         other.acceptInteraction(handler);
     }
 
+    @Override
+    public void bip(Audio audio) {
+        super.bip(audio);
+    }
+
     /**
      * La classe EnigmePlayerHandler permet de déléguer la gestion des interactions.
      * Elle envisage et définit des méthodes pour *tous* les cas possibles.
@@ -269,6 +274,8 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         @Override
         public void interactWith(Lever lever) {
             lever.setPushed();
+            System.out.println("soundeffect");
+            //soundEffect.shouldBeStarted();
         }
 
         @Override
