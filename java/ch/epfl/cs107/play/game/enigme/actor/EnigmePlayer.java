@@ -25,6 +25,12 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 
     private boolean passingDoor;
     private Sprite ghost = new Sprite("max.new.1", 1f, 1f, this, new RegionOfInterest(0,  0, 16, 21), new Vector(0f, 0.15f));
+    private Sprite[] spritesDown = new Sprite[4];
+    private Sprite[] spritesLeft = new Sprite[4];
+    private Sprite[] spritesUp = new Sprite[4];
+    private Sprite[] spritesRight = new Sprite[4];
+    Vector anchor = new Vector(0f, 0.15f);
+
     private Door lastDoor;
 
     private DiscreteCoordinates lastFieldOfViewCell;
@@ -38,6 +44,22 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
     public EnigmePlayer(Area area, Orientation orientation, DiscreteCoordinates position){
         super(area, orientation, position);
         handler = new EnigmePlayerHandler();
+
+        for (int i = 0; i < spritesDown.length; ++i) {
+            spritesDown[i] = new Sprite("max.new.1", 1f, 1f, this, new RegionOfInterest(0, i * 21, 16, 21), anchor);
+        }
+
+        for (int i = 0; i < spritesLeft.length; ++i) {
+            spritesLeft[i] = new Sprite("max.new.1", 1f, 1f, this, new RegionOfInterest(16, i * 21, 16, 21), anchor);
+        }
+
+        for (int i = 0; i < spritesUp.length; ++i) {
+            spritesUp[i] = new Sprite("max.new.1", 1f, 1f, this, new RegionOfInterest(32, i * 21, 16, 21), anchor);
+        }
+
+        for (int i = 0; i < spritesRight.length; ++i) {
+            spritesRight[i] = new Sprite("max.new.1", 1f, 1f, this, new RegionOfInterest(48, i * 21, 16, 21), anchor);
+        }
     }
 
     @Override
@@ -139,7 +161,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         }
 
         super.update(deltaTime);
-        ghost = animPerso(getOrientation(), inMoveFrame, ghost);
+        ghost = animPerso(getOrientation(), inMoveFrame, ghost, spritesUp,spritesDown,spritesRight,spritesLeft);
 
     }
 
@@ -212,7 +234,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         @Override
         public void interactWith(Key key) {
             key.setCollected();
-            //getOwnerArea().unregisterActor(key);
         }
 
         @Override
@@ -237,7 +258,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
                         isOnSwitch = true;
                     }
                 }
-
 
                 if (isOnSwitch) {
                     pressureSwitch.setActivated();
