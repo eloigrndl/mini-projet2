@@ -7,17 +7,10 @@ import ch.epfl.cs107.play.game.areagame.actor.Interactor;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.Transform;
-import ch.epfl.cs107.play.window.Button;
-import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
-import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.math.Vector;
-import javafx.scene.Camera;
-import ch.epfl.cs107.play.game.areagame.AreaBehavior;
 
-import javax.sound.midi.SysexMessage;
-import java.io.File;
 import java.util.*;
 
 
@@ -26,33 +19,42 @@ import java.util.*;
  */
 public abstract class Area implements Playable {
 
-    /// The behavior Map
+    // The behavior Map
     private AreaBehavior areaBehavior;
 
     // Context objects
     private Window window;
     private FileSystem fileSystem;
-    //List of Actors inside the area
+
+    // List of Actors inside the area
     private List<Actor> actors;
 
     private List<Actor> registeredActors = new LinkedList<>();
     private List<Actor> unregisteredActors = new LinkedList<>();
-    //Camera Parameter
-    // actor on which the camera is centered
+
+    // Camera Parameters
+    // Actor on which the camera is centered
     private Actor viewCandidate;
-    // efective center of the view
+    // Effective center of the view
     private Vector viewCenter;
 
+    //List of Interactables
     private Map<Interactable, List<DiscreteCoordinates>> interactablesToEnter = new HashMap<>();
     private Map<Interactable, List<DiscreteCoordinates>> interactablesToLeave = new HashMap<>();
 
+    //List of Interactors
     private List<Interactor> interactors;
 
+    //Has Level already began
     private boolean levelBegan = false;
 
 	/** @return (float): camera scale factor, assume it is the same in x and y direction */
     public abstract float getCameraScaleFactor();
 
+    /**
+     * Setter for the viewCandidate so that we can then center the view on him.
+     * @param a (Actor)
+     */
     public final void setViewCandidate(Actor a){
         this.viewCandidate = a;
     }
@@ -126,10 +128,6 @@ public abstract class Area implements Playable {
         return true;
     }
 
-    public AreaBehavior getAreaBehavior(){
-        return this.areaBehavior;
-    }
-
     /**
      * Getter for the area width
      * @return (int) : the width in number of cols
@@ -189,6 +187,7 @@ public abstract class Area implements Playable {
                 addActor(this.registeredActors.get(j),false);
             }
         }
+
        if (this.unregisteredActors != null) {
            for (int k = 0; k < (this.unregisteredActors.size()); ++k) {
                removeActor(this.unregisteredActors.get(k), false);
@@ -212,8 +211,8 @@ public abstract class Area implements Playable {
            }
        }
 
-        interactablesToLeave.clear();
         interactablesToEnter.clear();
+        interactablesToLeave.clear();
 
         this.registeredActors.clear();
         this.unregisteredActors.clear();
@@ -225,6 +224,7 @@ public abstract class Area implements Playable {
         purgeRegistration();
 
         for (Actor actor : actors) {
+            //On met à jour et on dessine les acteurs.
             actor.update(deltaTime);
             actor.draw(window);
         }
@@ -244,7 +244,10 @@ public abstract class Area implements Playable {
         }
 
     }
-
+    /**
+     * Met à jour le centre de la vue.
+     * S'il existe un viewCandidate, on centre la vue sur lui.
+     */
     private void updateCamera () {
         if(viewCandidate!=null){
             viewCenter = viewCandidate.getPosition();
@@ -252,7 +255,6 @@ public abstract class Area implements Playable {
 
         Transform viewTransform = Transform.I.scaled(getCameraScaleFactor()).translated(viewCenter);
         window.setRelativeTransform(viewTransform);
-
     }
 
     /**
@@ -269,10 +271,21 @@ public abstract class Area implements Playable {
         // TODO save the AreaState somewhere
     }
 
-    public final void setBehavior(AreaBehavior ab){
+    /**
+     * Setter for the (AreaBehavior)
+     * @param ab (AreaBehavior)
+     */
+    protected final void setBehavior(AreaBehavior ab){
         this.areaBehavior = ab;
     }
 
+    /**
+     * Teste si la grille associée à l’Aire permet à entity de quitter
+     * les cellules de coordonnées de coordinates
+     * @param entity (Interactable) dont on veut tester les coordonnées
+     * @param coordinates (List<DiscreteCoordinates>) à tester
+     * @return (boolean) entity autorisé à quitter la cellule
+     */
     public final boolean leaveAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
 
         boolean canLeave = areaBehavior.canLeave(entity, coordinates);
@@ -286,8 +299,14 @@ public abstract class Area implements Playable {
 
     }
 
+    /**
+     * Teste si la grille associée à l’Aire permet à entity d'entrer
+     * les cellules de coordonnées de coordinates
+     * @param entity (Interactable) dont on veut tester les coordonnées
+     * @param coordinates (List<DiscreteCoordinates>) à tester
+     * @return (boolean) entity autorisé à entrer dans la cellule
+     */
     public final boolean enterAreaCells(Interactable entity, List<DiscreteCoordinates> coordinates) {
-
 
         boolean canEnter = areaBehavior.canEnter(entity, coordinates);
 
@@ -299,14 +318,29 @@ public abstract class Area implements Playable {
         }
     }
 
+    /**
+     * Teste si la grille associée à l’Aire permet à entity de passer
+     * la porte
+     * @param entity (Interactable) dont on veut tester les coordonnées
+     * @param coordinates (List<DiscreteCoordinates>) à tester
+     * @return (boolean) entity autorisé à entrer dans la cellule
+     */
     public final boolean passDoor(Interactable entity, List<DiscreteCoordinates> coordinates) {
         return areaBehavior.canPassDoor(entity, coordinates);
     }
 
+    /**
+     * Getter isLevelBegan
+     * @return (boolean)
+     */
     public boolean isLevelBegan() {
         return levelBegan;
     }
 
+    /**
+     * Setter isLevelBegan
+     * @param begin levelBegan
+     */
     public void setLevelBegan(boolean begin) {
         levelBegan = begin;
     }

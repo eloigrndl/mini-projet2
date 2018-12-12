@@ -2,8 +2,13 @@ package ch.epfl.cs107.play.signal.logic;
 
 public class Not extends LogicSignal {
 
+    //(Not) properties
     private Logic s;
 
+    /**
+     * Not Constructor
+     * @param s Logic to "Not"
+     */
     public Not(Logic s){
         if(s == TRUE){
             this.s = FALSE;

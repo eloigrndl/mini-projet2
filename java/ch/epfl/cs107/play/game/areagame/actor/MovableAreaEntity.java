@@ -21,6 +21,7 @@ public abstract class MovableAreaEntity extends AreaEntity implements Animation 
 
     //Entier qui donne le numéro de l'image du mouvement, numéro à partir duquel on choisira le Sprite à associer, dans le Player
     protected int inMoveFrame = 0;
+
     /**
      * Getter for the leaving cells which are the current cells.
      * @return (List<DiscreteCoordinates>)
@@ -146,7 +147,11 @@ public abstract class MovableAreaEntity extends AreaEntity implements Animation 
         return null;
     }
 
-    public boolean getIsMoving() {
+    /**
+     * Getter for the isMoving property
+     * @return (boolean) isMoving
+     */
+    protected boolean getIsMoving() {
         return (isMoving && !(getCurrentMainCellCoordinates().equals(targetMainCellCoordinates)));
     }
 }

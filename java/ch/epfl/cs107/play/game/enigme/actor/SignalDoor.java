@@ -12,10 +12,21 @@ import ch.epfl.cs107.play.window.Canvas;
 
 public class SignalDoor extends Door implements Logic {
 
+    //(SignalDoor) properties
     private Sprite door;
     private boolean opened;
     private Logic signal;
 
+    /**
+     *
+     * @param areaOfMemebership aire
+     * @param destination aire vers laquelle doit mener la porte
+     * @param coordinatesArrival les coordonnées d'arrivée dans l'aire de destination
+     * @param orientation l'orientation
+     * @param principalCoordinate coordonnées principales de la porte
+     * @param rayonPosition coordonnées qu'occupent la porte (en plus de sa coordonnée principale)
+     * @param signal signal associé à la porte
+     */
     public SignalDoor(Area areaOfMemebership, String destination, DiscreteCoordinates coordinatesArrival, Orientation orientation,
                       DiscreteCoordinates principalCoordinate, Circle rayonPosition, Logic signal){
 

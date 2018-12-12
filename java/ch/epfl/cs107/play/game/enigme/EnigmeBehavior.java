@@ -19,10 +19,19 @@ public class EnigmeBehavior extends AreaBehavior {
 
         final int type;
 
+        /**
+         * EnigmeCellType Constructor
+         * @param type type of the Cell
+         */
         EnigmeCellType (int type){
             this.type = type;
         }
 
+        /**
+         * Enum function, switching an Int to a CellType
+         * @param type int of type of the cell
+         * @return (EnigmeCellType) type of the cell
+         */
         static EnigmeBehavior.EnigmeCellType toType(int type){
             switch (type) {
                 case 0 :  return EnigmeBehavior.EnigmeCellType.NULL;
@@ -36,10 +45,16 @@ public class EnigmeBehavior extends AreaBehavior {
         }
     }
 
+    /**
+     * EnigmeBehavior Constructor
+     * @param window current window
+     * @param fileName current filename
+     */
     public EnigmeBehavior(Window window, String fileName){
 
         super(window, fileName);
 
+        //Initialising all the cells
         for (int i = 0; i<getBehaviorMapSize()[0]; ++i){
             for(int j = 0; j<getBehaviorMapSize()[1]; ++j){
                 EnigmeBehavior.EnigmeCellType cellType = EnigmeBehavior.EnigmeCellType.toType(getBehaviorMap().getRGB(getBehaviorMapSize()[1]-1-j,i));
@@ -53,11 +68,21 @@ public class EnigmeBehavior extends AreaBehavior {
 
         private EnigmeBehavior.EnigmeCellType value;
 
+        /**
+         * EnigmeCell Constructor
+         * @param x coordinate
+         * @param y coordinate
+         * @param type CellType
+         */
         private EnigmeCell(int x, int y, EnigmeBehavior.EnigmeCellType type){
             super(x,y);
             value = type;
         }
 
+        /**
+         * Returns the value of the current cell type
+         * @return (EnigmeCellType)
+         */
         protected EnigmeBehavior.EnigmeCellType getValue() {
             return value;
         }

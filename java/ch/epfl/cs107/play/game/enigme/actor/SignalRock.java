@@ -15,9 +15,17 @@ import java.util.List;
 
 public class SignalRock extends AreaEntity implements Logic {
 
+    //(SignalRock) properties
     Sprite rock;
     Logic signal;
 
+    /**
+     * SignalRock Constructor
+     * @param area the current area
+     * @param orientation the current orientation
+     * @param position the current position
+     * @param signal the signal linked to the rock
+     */
     public SignalRock(Area area, Orientation orientation, DiscreteCoordinates position, Logic signal){
 
         super(area, orientation, position);

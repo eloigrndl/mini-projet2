@@ -1,29 +1,23 @@
 package ch.epfl.cs107.play.game.enigme.actor;
 
-import ch.epfl.cs107.play.game.actor.SoundAcoustics;
 import ch.epfl.cs107.play.game.areagame.Animation;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.actor.*;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
-import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
 import ch.epfl.cs107.play.game.enigme.EnigmeBehavior;
-import ch.epfl.cs107.play.game.enigme.area.Level1;
-import ch.epfl.cs107.play.game.enigme.area.Level3;
 import ch.epfl.cs107.play.game.enigme.handler.EnigmeInteractionVisitor;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
 import ch.epfl.cs107.play.math.RegionOfInterest;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.*;
-import ch.epfl.cs107.play.game.enigme.area.LevelSelector;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class EnigmePlayer extends MovableAreaEntity implements Interactor, Animation {
 
-    private boolean passingDoor;
+    //Player & PlayerAnimation
     private Sprite ghost = new Sprite("max.new.1", 1f, 1f, this, new RegionOfInterest(0,  0, 16, 21), new Vector(0f, 0.15f));
     private Sprite[] spritesDown = new Sprite[4];
     private Sprite[] spritesLeft = new Sprite[4];
@@ -31,17 +25,28 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
     private Sprite[] spritesRight = new Sprite[4];
     private Vector anchor = new Vector(0f, 0.15f);
 
-    private Door lastDoor;
-
     private final static int ANIMATION_DURATION = 5;
 
+    //Door
+    private boolean passingDoor;
+    private Door lastDoor;
+
+    //Interactions
     private final EnigmePlayerHandler handler;
 
+    //Dialogs
     private Dialog dialog;
     private boolean showDialog;
 
+    //Interactor attributes
     boolean canUpdatePressureSwitch = true;
 
+    /**
+     * EnigmePlayer Constructor
+     * @param area current area
+     * @param orientation current orientation
+     * @param position current position
+     */
     public EnigmePlayer(Area area, Orientation orientation, DiscreteCoordinates position){
         super(area, orientation, position);
         handler = new EnigmePlayerHandler();
@@ -175,7 +180,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
 
         super.update(deltaTime);
         ghost = animPerso(getOrientation(), inMoveFrame, ghost, spritesUp,spritesDown,spritesRight,spritesLeft);
-
     }
 
     @Override
@@ -183,6 +187,11 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         ((EnigmeInteractionVisitor) v).interactWith(this);
     }
 
+    /**
+     * Method handling all the calls for the Actor when he enters an Area
+     * @param area Area to enter
+     * @param position new position
+     */
     public void enterArea(Area area, DiscreteCoordinates position){
         area.registerActor(this);
         setOwnerArea(area);
@@ -191,10 +200,17 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         resetMotion();
     }
 
+    /**
+     * Method handling the calls for the Actor when he leaves an Area
+     */
     public void leaveArea(){
         getOwnerArea().unregisterActor(this);
     }
 
+    /**
+     * Setter to know if the Actor is passing a door
+     * @param door door he is passing
+     */
     public void setIsPassingDoor(Door door){
       if (getOwnerArea().passDoor(this,door.getCurrentCells())){
             passingDoor = true;
@@ -204,23 +220,43 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
       }
     }
 
+    /**
+     * Reset isPassingDoor
+     */
     public void resetIsPassingDoor(){
         passingDoor = false;
     }
 
+    /**
+     * Getter to know if the Actor is passing a door
+     * @return (boolean) actor currently passing a door
+     */
     public boolean isPassingDoor()
     {
         return passingDoor;
     }
 
+    /**
+     * Getter to know which door was passed last
+     * @return (Door) the last Door
+     */
     public Door getLastDoor(){
         return lastDoor;
     }
 
+    /**
+     * Interactor method to launch interactions
+     * @param other Interactable with which we "work"
+     */
     public void interactWith(Interactable other) {
         other.acceptInteraction(handler);
     }
 
+    /**
+     * Handling the dialogs, so that they can appear and disappear using
+     * our constraints
+     * @param text Text to appear in dialog
+     */
     private void showDialog(String text) {
         dialog.resetDialog(text);
         showDialog = true;
@@ -253,7 +289,6 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         public void interactWith(Key key) {
             System.out.println("interact with key");
             key.setCollected();
-            //dialog.resetDialog("It seems this key can open a door.");
             showDialog("It seems this key can open a door.");
         }
 

@@ -4,8 +4,13 @@ import java.util.List;
 
 public class MultipleAnd extends LogicSignal {
 
+    //(MultipleAnd) properties
     private List<Logic> signals;
 
+    /**
+     * MultipleAnd Constructor
+     * @param signals List of Logic
+     */
     public MultipleAnd(List<Logic> signals) {
         this.signals = signals;
     }

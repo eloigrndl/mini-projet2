@@ -143,6 +143,4 @@ public class Enigme extends AreaGame implements Game, Playable{
 
     }
 
-
-
 }

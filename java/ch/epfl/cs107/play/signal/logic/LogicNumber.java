@@ -4,9 +4,15 @@ import java.util.List;
 
 public class LogicNumber extends LogicSignal {
 
+    //(LogicNumber) properties
     private float nb;
     private List<Logic> e;
 
+    /**
+     * LogicNumber Constructor
+     * @param nb The number to validate
+     * @param e The List of Logic
+     */
     public LogicNumber(float nb, List<Logic> e) {
         this.nb = nb;
         this.e = e;

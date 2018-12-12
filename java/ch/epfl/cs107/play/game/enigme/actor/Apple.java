@@ -14,9 +14,16 @@ import java.util.List;
 
 public class Apple extends AreaEntity {
 
+    //(Apple) properties
     private boolean collected;
     Sprite apple;
 
+    /**
+     * Apple Constructor
+     * @param area current area
+     * @param orientation current orientation
+     * @param position current position
+     */
     public Apple(Area area, Orientation orientation, DiscreteCoordinates position){
         super(area, orientation, position);
         super.setOrientation(Orientation.DOWN);
@@ -56,6 +63,10 @@ public class Apple extends AreaEntity {
         ((EnigmeInteractionVisitor) v).interactWith(this);
     }
 
+    /**
+     * Setter of the 'collected' parameter
+     * @param collected is the Apple collected
+     */
     protected void setCollected(boolean collected) {
         this.collected = collected;
     }

@@ -1,7 +1,5 @@
 package ch.epfl.cs107.play.game.enigme.actor;
 
-
-
 import java.awt.Color;
 import ch.epfl.cs107.play.game.actor.Graphics;
 import ch.epfl.cs107.play.game.actor.ImageGraphics;
@@ -12,7 +10,6 @@ import ch.epfl.cs107.play.math.TextAlign;
 import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
-
 
 public class Dialog implements Graphics {
 
