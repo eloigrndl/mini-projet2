@@ -13,22 +13,19 @@ import ch.epfl.cs107.play.window.Canvas;
 public class SignalDoor extends Door implements Logic {
 
     private Sprite door;
-    private boolean opened;
     private Logic signal;
 
     public SignalDoor(Area areaOfMemebership, String destination, DiscreteCoordinates coordinatesArrival, Orientation orientation,
                       DiscreteCoordinates principalCoordinate, Circle rayonPosition, Logic signal){
 
-        super(areaOfMemebership, destination, coordinatesArrival, orientation, principalCoordinate, rayonPosition, signal.isOn());
+        super(areaOfMemebership, destination, coordinatesArrival, orientation, principalCoordinate, rayonPosition);
 
         this.signal = signal;
 
         if(!signal.isOn()){
             this.door = new Sprite("door.close.1", 1, 1.f, this);
-            this.opened = false;
         }else{
             this.door = new Sprite("door.open.1", 1, 1.f, this);
-            this.opened = true;
         }
 
     }

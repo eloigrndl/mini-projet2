@@ -127,9 +127,6 @@ public abstract class Area implements Playable {
         return true;
     }
 
-    public AreaBehavior getAreaBehavior(){
-        return this.areaBehavior;
-    }
 
     /**
      * Getter for the area width
@@ -291,6 +288,7 @@ public abstract class Area implements Playable {
 
 
         boolean canEnter = areaBehavior.canEnter(entity, coordinates);
+
 
         if (canEnter) {
             interactablesToEnter.put(entity, coordinates);

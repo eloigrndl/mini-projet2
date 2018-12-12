@@ -19,7 +19,7 @@ public class Level2 extends EnigmeArea {
         super.begin(window,fileSystem);
 
         Door door10 = new Door(this, "LevelSelector", new DiscreteCoordinates(2,6), Orientation.UP,
-                new DiscreteCoordinates(5,0),new Circle(0.25f, new Vector(5,0)), true);
+                new DiscreteCoordinates(5,0),new Circle(0.25f, new Vector(5,0)));
         this.registerActor(door10);
 
         Apple apple1 = new Apple(this, Orientation.UP, new DiscreteCoordinates(5,6));
