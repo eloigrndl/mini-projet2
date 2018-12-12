@@ -13,7 +13,6 @@ import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.signal.logic.Logic;
 import ch.epfl.cs107.play.window.Canvas;
-import com.sun.org.apache.bcel.internal.generic.FALOAD;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -15,7 +15,6 @@ import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.math.Vector;
 import javafx.scene.Camera;
 import ch.epfl.cs107.play.game.areagame.AreaBehavior;
-import jdk.internal.cmm.SystemResourcePressureImpl;
 
 import javax.sound.midi.SysexMessage;
 import java.io.File;
