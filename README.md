@@ -6,7 +6,7 @@ Antoine BELLANGER / Eloi GARANDEL
 
 Il suffit de lancer `Play`. Le jeu `Enigme` sera lancé par défaut.
 
-`MovingRock` ainsi que `Demo2` peuvent également être lancés depuis `Play`. Il suffit de commenter les deux autres jeux et d'enlever les commentaires pour le `Game` voulant être lancé. 
+`Demo1` ainsi que `Demo2` peuvent également être lancés depuis `Play`. Il suffit de commenter les deux autres jeux et d'enlever les commentaires pour le `Game` voulant être lancé. 
 
 ### Commandes
 
@@ -22,3 +22,5 @@ Il suffit de lancer `Play`. Le jeu `Enigme` sera lancé par défaut.
 ### Notes
 
 Pour désactiver la musique, il suffit de mettre le `boolean isSoundSupported()` dans `SwingWindow` à `false`.
+
+Si vous êtes bloqué par les torches et les `PressureSwitch` dans le niveau Enigme1, il suffit de ne pas changer les torches et de reproduire le "pattern" des torches avec les switches pour faire disparaître les rochers. 
