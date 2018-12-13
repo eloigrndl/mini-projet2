@@ -1,6 +1,5 @@
 package ch.epfl.cs107.play.game.enigme.handler;
 
-import ch.epfl.cs107.play.game.areagame.actor.Interactable;
 import ch.epfl.cs107.play.game.areagame.handler.AreaInteractionVisitor;
 import ch.epfl.cs107.play.game.enigme.EnigmeBehavior;
 import ch.epfl.cs107.play.game.enigme.actor.*;
@@ -97,6 +96,13 @@ public interface EnigmeInteractionVisitor extends AreaInteractionVisitor {
     }
 
     /**
+     * Simulates an interaction between Interactors and SignalRing in enigme
+     * @param signalRing (SignalRing), not null
+     */
+    default void interactWith(SignalRing signalRing) {
+      //by default, interaction is empty
+    }
+  
      * Simulates an interaction between Interactors and HelpingPerson in enigme
      * @param helpingPerson (HelpingPerson), not null
      */
@@ -104,6 +110,14 @@ public interface EnigmeInteractionVisitor extends AreaInteractionVisitor {
         //by default, interaction is empty
     }
 
+    /**
+     * Simulates an interaction between Interactors and InvisibleSignalDoor in enigme
+     * @param invisibleSignalDoor (InvisibleSignalDoor), not null
+     */
+    default void interactWith(InvisibleSignalDoor invisibleSignalDoor) {
+          //by default, interaction is empty
+    }
+  
     /**
      * Simulates an interaction between Interactors and Gelly in enigme
      * @param gelly (Gelly), not null

@@ -14,7 +14,7 @@ import ch.epfl.cs107.play.window.Window;
 import java.util.Arrays;
 import java.util.List;
 
-public class  Enigme1 extends EnigmeArea{
+public class Enigme1 extends EnigmeArea {
 
     private Door door1;
     private Door door2;
@@ -299,7 +299,7 @@ public class  Enigme1 extends EnigmeArea{
 
         signalRock4 = new SignalRock(this, Orientation.UP, new DiscreteCoordinates(14,5), key);
         this.registerActor(signalRock4);
-
+        
         signalRock5 = new SignalRock(this, Orientation.UP, new DiscreteCoordinates(16,34), torch3);
         this.registerActor(signalRock5);
 
@@ -308,9 +308,9 @@ public class  Enigme1 extends EnigmeArea{
 
         signalRock7 = new SignalRock(this, Orientation.UP, new DiscreteCoordinates(20,35), torch4);
         this.registerActor(signalRock7);
-
+      
         signalRock8 = new SignalRock(this, Orientation.UP, new DiscreteCoordinates(12,26), new Not(torch5));
-         this.registerActor(signalRock8);
+        this.registerActor(signalRock8);
 
         signalRock9 = new SignalRock(this, Orientation.UP, new DiscreteCoordinates(12,33), torch6);
         this.registerActor(signalRock9);

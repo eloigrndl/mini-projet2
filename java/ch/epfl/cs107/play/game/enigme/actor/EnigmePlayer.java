@@ -199,9 +199,11 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
      */
     public void setIsPassingDoor(Door door){
       if (getOwnerArea().passDoor(this,door.getCurrentCells())){
+          System.out.println("ownerArea canPassDoor");
             passingDoor = true;
             lastDoor = door;
       } else {
+          System.out.println("ownerArea NO");
           passingDoor = false;
       }
     }
@@ -333,6 +335,18 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
             getOwnerArea().unregisterActor(gelly);
             showDialog("I love Gelly");
 
+        }
+
+        @Override
+        public void interactWith(SignalRing signalRing) {
+            signalRing.setCollected(true);
+            showDialog("Vous avez gagné !");
+        }
+
+        @Override
+        public void interactWith(InvisibleSignalDoor invisibleSignalDoor) {
+            setIsPassingDoor(invisibleSignalDoor);
+            showDialog("Game Over ! You activated the wrong torch :(");
         }
     }
 }
