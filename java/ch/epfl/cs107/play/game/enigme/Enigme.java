@@ -2,8 +2,10 @@ package ch.epfl.cs107.play.game.enigme;
 
 import ch.epfl.cs107.play.game.Game;
 import ch.epfl.cs107.play.game.Playable;
+import ch.epfl.cs107.play.game.actor.GraphicsEntity;
 import ch.epfl.cs107.play.game.actor.ImageGraphics;
 import ch.epfl.cs107.play.game.actor.SoundAcoustics;
+import ch.epfl.cs107.play.game.actor.TextGraphics;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
@@ -17,6 +19,8 @@ import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.game.enigme.actor.EnigmePlayer;
 
+import java.awt.*;
+
 
 /**
  * Enigme Game is a concept of Game derived for AreaGame. It introduces the notion of Player
@@ -26,9 +30,8 @@ public class Enigme extends AreaGame implements Game, Playable{
 
     private Area LevelSelector, Level1, Level2, Level3, Enigme0, Enigme1, Enigme2;
     private EnigmePlayer character;
-    private GraphicsEntity gamePaused = new GraphicsEntity(new Vector(-5.0f,3.0f),new TextGraphics("Game Paused", 1f, Color.BLACK, Color.BLACK, 0.005f, true, true, new Vector(0.0f,0.0f)));
-    private GraphicsEntity gamePaused2 = new GraphicsEntity(new Vector(-5.0f,0.0f),new TextGraphics("Press Enter to resume.", 1f, Color.BLACK, Color.BLACK, 0.005f, true, true, new Vector(0.0f,0.0f)));
-
+    private TextGraphics gamePaused;
+    private TextGraphics gamePaused2;
     private boolean isPaused;
 
     private SoundAcoustics soundEffect;
@@ -74,6 +77,13 @@ public class Enigme extends AreaGame implements Game, Playable{
             soundEffect = new SoundAcoustics(ResourcePath.getSounds("Background"), 1.0f, false, false, true, false);
             soundEffect.shouldBeStarted();
             soundEffect.bip(getWindow());
+
+            gamePaused = new TextGraphics("Game Paused", 1f, Color.BLACK, Color.BLACK, 0.005f, true, true, new Vector(0.0f,0.0f));
+            gamePaused.setParent(character);
+            gamePaused.setAnchor(new Vector(-5f, 0f));
+            gamePaused2 = new TextGraphics("Press Enter to resume.", 1f, Color.BLACK, Color.BLACK, 0.005f, true, true, new Vector(0.0f,0.0f));
+            gamePaused2.setParent(character);
+            gamePaused2.setAnchor(new Vector(-7f, -2f));
 
             return true;
         }

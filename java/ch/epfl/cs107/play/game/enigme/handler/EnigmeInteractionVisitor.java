@@ -102,7 +102,8 @@ public interface EnigmeInteractionVisitor extends AreaInteractionVisitor {
     default void interactWith(SignalRing signalRing) {
       //by default, interaction is empty
     }
-  
+
+    /**
      * Simulates an interaction between Interactors and HelpingPerson in enigme
      * @param helpingPerson (HelpingPerson), not null
      */

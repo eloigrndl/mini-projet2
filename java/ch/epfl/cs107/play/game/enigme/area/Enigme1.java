@@ -188,7 +188,7 @@ public class Enigme1 extends EnigmeArea {
                 new DiscreteCoordinates(17,0), new Circle(1f, new Vector(16,0)));
         this.registerActor(door3);
 
-        finalDoor = new SignalDoor(this, "Enigme2", new DiscreteCoordinates(5,2), Orientation.UP,
+        finalDoor = new SignalDoor(this, "Enigme2-AB", new DiscreteCoordinates(7,3), Orientation.UP,
                 new DiscreteCoordinates(6,32), new Circle(1f, new Vector(6,32)), finalKey);
         this.registerActor(finalDoor);
 
