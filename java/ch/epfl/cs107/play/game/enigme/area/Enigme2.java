@@ -1,10 +1,7 @@
 package ch.epfl.cs107.play.game.enigme.area;
 
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
-import ch.epfl.cs107.play.game.enigme.actor.InvisibleSignalDoor;
-import ch.epfl.cs107.play.game.enigme.actor.SignalDoor;
-import ch.epfl.cs107.play.game.enigme.actor.SignalRing;
-import ch.epfl.cs107.play.game.enigme.actor.Torch;
+import ch.epfl.cs107.play.game.enigme.actor.*;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
@@ -19,8 +16,10 @@ public class Enigme2 extends EnigmeArea {
 
     private Torch torch1;
     private Torch torch2;
+    private SignalDoor door1;
     private SignalRing signalRing;
     private InvisibleSignalDoor invisibleSignalDoor;
+    private HelpingPerson person1;
 
     public boolean begin(Window window, FileSystem fileSystem) {
         super.begin(window, fileSystem);
@@ -38,6 +37,13 @@ public class Enigme2 extends EnigmeArea {
         invisibleSignalDoor = new InvisibleSignalDoor(this, "LevelSelector", new DiscreteCoordinates(5,5), Orientation.DOWN,
                 new DiscreteCoordinates(6,4), new Circle(1f, new Vector(6,4)), torch1);
         this.registerActor(invisibleSignalDoor);
+
+        person1 = new HelpingPerson(this,Orientation.LEFT, new DiscreteCoordinates(8,3),"old.man.1");
+        this.registerActor(person1);
+
+        door1 = new SignalDoor(this, "LevelSelector", new DiscreteCoordinates(5,5), Orientation.UP,
+                new DiscreteCoordinates(7,0), new Circle(1f, new Vector(7,0)), torch2);
+        this.registerActor(door1);
 
         return super.begin(window, fileSystem);
     }

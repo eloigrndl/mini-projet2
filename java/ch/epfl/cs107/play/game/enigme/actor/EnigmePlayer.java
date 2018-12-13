@@ -340,7 +340,7 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         @Override
         public void interactWith(SignalRing signalRing) {
             signalRing.setCollected(true);
-            showDialog("Vous avez gagné !");
+            showDialog("Vous avez gagné ! Sortez par la porte d'entrée");
         }
 
         @Override

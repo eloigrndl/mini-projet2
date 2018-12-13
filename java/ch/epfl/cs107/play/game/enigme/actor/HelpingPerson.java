@@ -24,7 +24,7 @@ public class HelpingPerson extends AreaEntity implements Animation {
         this.name = name;
         sprite = animHelpingPerso(name, sprite, orientation);
         if (name.equals("old.man.1")){
-            whatToSay = "Choose your Destiny";
+            whatToSay = "Choose only one torch, choose wisely";
         }
         if(name.equals("old.man.2")){
             whatToSay = "I hope I will fish a lot of fish";
