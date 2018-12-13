@@ -2,30 +2,21 @@ package ch.epfl.cs107.play.game.enigme;
 
 import ch.epfl.cs107.play.game.Game;
 import ch.epfl.cs107.play.game.Playable;
-import ch.epfl.cs107.play.game.actor.GraphicsEntity;
 import ch.epfl.cs107.play.game.actor.ImageGraphics;
 import ch.epfl.cs107.play.game.actor.SoundAcoustics;
-import ch.epfl.cs107.play.game.actor.TextGraphics;
 import ch.epfl.cs107.play.game.areagame.Area;
 import ch.epfl.cs107.play.game.areagame.AreaGame;
 import ch.epfl.cs107.play.game.areagame.actor.Orientation;
-import ch.epfl.cs107.play.game.areagame.actor.Sprite;
 import ch.epfl.cs107.play.game.areagame.io.ResourcePath;
-import ch.epfl.cs107.play.game.enigme.actor.Door;
 import ch.epfl.cs107.play.game.enigme.area.*;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.DiscreteCoordinates;
-import ch.epfl.cs107.play.math.RegionOfInterest;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Button;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
 import ch.epfl.cs107.play.game.enigme.actor.EnigmePlayer;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
 
 /**
  * Enigme Game is a concept of Game derived for AreaGame. It introduces the notion of Player
@@ -103,7 +94,6 @@ public class Enigme extends AreaGame implements Game, Playable{
         if(!isPaused) {
             super.update(deltaTime);
             character.draw(getWindow());
-
             if (character.isPassingDoor()) {
                 changeLevel(characterDestination(), character, characterArrival());
                 character.resetIsPassingDoor();

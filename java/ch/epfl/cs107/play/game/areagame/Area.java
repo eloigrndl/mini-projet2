@@ -228,7 +228,6 @@ public abstract class Area implements Playable {
             actor.update(deltaTime);
             actor.draw(window);
         }
-
         for (Interactor interactor : interactors) {
             if (interactor.wantsCellInteraction()) {
                 //demander au gestionnaire de la grille (AreaBehavior)
@@ -242,7 +241,6 @@ public abstract class Area implements Playable {
                 areaBehavior.viewInteractionOf(interactor);
             }
         }
-
     }
     /**
      * Met à jour le centre de la vue.

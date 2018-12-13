@@ -100,6 +100,13 @@ public interface EnigmeInteractionVisitor extends AreaInteractionVisitor {
      * @param signalRing (SignalRing), not null
      */
     default void interactWith(SignalRing signalRing) {
+      //by default, interaction is empty
+    }
+  
+     * Simulates an interaction between Interactors and HelpingPerson in enigme
+     * @param helpingPerson (HelpingPerson), not null
+     */
+    default void interactWith(HelpingPerson helpingPerson) {
         //by default, interaction is empty
     }
 
@@ -108,6 +115,14 @@ public interface EnigmeInteractionVisitor extends AreaInteractionVisitor {
      * @param invisibleSignalDoor (InvisibleSignalDoor), not null
      */
     default void interactWith(InvisibleSignalDoor invisibleSignalDoor) {
+          //by default, interaction is empty
+    }
+  
+    /**
+     * Simulates an interaction between Interactors and Gelly in enigme
+     * @param gelly (Gelly), not null
+     */
+    default void interactWith(Gelly gelly) {
         //by default, interaction is empty
     }
 }
