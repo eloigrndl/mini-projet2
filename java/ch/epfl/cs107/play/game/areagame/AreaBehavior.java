@@ -89,7 +89,6 @@ public abstract class AreaBehavior
     public boolean canEnter(Interactable entity, List<DiscreteCoordinates> coordinates) {
         for (int i=0; i<coordinates.size(); ++i) {
             DiscreteCoordinates coordinate = coordinates.get(i);
-            System.out.println(coordinate);
             if (!cells[coordinate.x][coordinate.y].canEnter(entity)) {
                 return false;
             }

@@ -95,4 +95,20 @@ public interface EnigmeInteractionVisitor extends AreaInteractionVisitor {
     default void interactWith(SignalRock signalRock) {
         //by default, interaction is empty
     }
+
+    /**
+     * Simulates an interaction between Interactors and HelpingPerson in enigme
+     * @param helpingPerson (HelpingPerson), not null
+     */
+    default void interactWith(HelpingPerson helpingPerson) {
+        //by default, interaction is empty
+    }
+
+    /**
+     * Simulates an interaction between Interactors and Gelly in enigme
+     * @param gelly (Gelly), not null
+     */
+    default void interactWith(Gelly gelly) {
+        //by default, interaction is empty
+    }
 }

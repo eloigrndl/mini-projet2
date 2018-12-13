@@ -10,11 +10,7 @@ public class Not extends LogicSignal {
      * @param s Logic to "Not"
      */
     public Not(Logic s){
-        if(s == TRUE){
-            this.s = FALSE;
-        }else{
-            this.s = TRUE;
-        }
+        this.s = s;
     }
 
     @Override

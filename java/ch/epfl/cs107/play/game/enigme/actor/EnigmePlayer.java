@@ -18,17 +18,12 @@ import java.util.List;
 public class EnigmePlayer extends MovableAreaEntity implements Interactor, Animation {
 
     //Player & PlayerAnimation
-    private Sprite ghost = new Sprite("max.new.1", 1f, 1f, this, new RegionOfInterest(0,  0, 16, 21), new Vector(0f, 0.15f));
-    private Sprite[] spritesDown = new Sprite[4];
-    private Sprite[] spritesLeft = new Sprite[4];
-    private Sprite[] spritesUp = new Sprite[4];
-    private Sprite[] spritesRight = new Sprite[4];
-
-    private Door lastDoor;
+    private Sprite ghost = new Sprite("max.new.1", 1f, 1f, this, new RegionOfInterest(0,  0, 16, 21), new Vector(0f, 0f));
     private static int ANIMATION_DURATION = 8;
 
     //Door
     private boolean passingDoor;
+    private Door lastDoor;
 
     //Interactions
     private final EnigmePlayerHandler handler;
@@ -49,6 +44,8 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
     public EnigmePlayer(Area area, Orientation orientation, DiscreteCoordinates position){
         super(area, orientation, position);
         handler = new EnigmePlayerHandler();
+        dialog = new Dialog("", "dialog.1", getOwnerArea());
+        showDialog = false;
     }
 
     @Override
@@ -323,7 +320,18 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
         }
 
         @Override
-        public void interactWith(SignalRock signalRock) {
+        public void interactWith(SignalRock signalRock) {}
+
+        @Override
+        public void interactWith(HelpingPerson helpingPerson) {
+            showDialog(helpingPerson.whatToSay);
+        }
+
+        @Override
+        public void interactWith(Gelly gelly) {
+            gelly.setCollected(true);
+            getOwnerArea().unregisterActor(gelly);
+            showDialog("I love Gelly");
 
         }
     }
