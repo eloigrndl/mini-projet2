@@ -33,10 +33,10 @@ import java.util.logging.Level;
  */
 public class Enigme extends AreaGame implements Game, Playable{
 
-    private Area LevelSelector, Level1, Level2, Level3, Enigme0, Enigme1;
+    private Area LevelSelector, Level1, Level2, Level3, Enigme0, Enigme1, Enigme2;
     private EnigmePlayer character;
-    //private GraphicsEntity gamePaused = new GraphicsEntity(new Vector(0.0f,0.0f),new TextGraphics("Game Paused : "+ "\n" + "press Enter again to resume game", 1f, Color.BLACK, Color.BLACK, 0.005f, true, true, new Vector(0.0f,0.0f)));
-    private ImageGraphics gamePaused;
+    private GraphicsEntity gamePaused = new GraphicsEntity(new Vector(-5.0f,3.0f),new TextGraphics("Game Paused", 1f, Color.BLACK, Color.BLACK, 0.005f, true, true, new Vector(0.0f,0.0f)));
+    private GraphicsEntity gamePaused2 = new GraphicsEntity(new Vector(-5.0f,0.0f),new TextGraphics("Press Enter to resume.", 1f, Color.BLACK, Color.BLACK, 0.005f, true, true, new Vector(0.0f,0.0f)));
 
     private boolean isPaused;
 
@@ -62,6 +62,7 @@ public class Enigme extends AreaGame implements Game, Playable{
             this.Level3 = new Level3();
             this.Enigme0 = new Enigme0();
             this.Enigme1 = new Enigme1();
+            this.Enigme2 = new Enigme2();
 
             addArea(LevelSelector);
             addArea(Level1);
@@ -69,6 +70,7 @@ public class Enigme extends AreaGame implements Game, Playable{
             addArea(Level3);
             addArea(Enigme0);
             addArea(Enigme1);
+            addArea(Enigme2);
             setCurrentArea(LevelSelector.getTitle(), true);
 
             this.character = new EnigmePlayer(getCurrentArea(), Orientation.UP, (new DiscreteCoordinates(5, 5)));
@@ -77,7 +79,6 @@ public class Enigme extends AreaGame implements Game, Playable{
             LevelSelector.setLevelBegan(true);
 
             isPaused = false;
-            gamePaused = new ImageGraphics(ResourcePath.getBackgrounds("Pause"), getCurrentArea().getWidth(), getCurrentArea().getHeight(), null, Vector.ZERO, 1.0f, 0.0f);
 
             soundEffect = new SoundAcoustics(ResourcePath.getSounds("Background"), 1.0f, false, false, true, false);
             soundEffect.shouldBeStarted();
@@ -96,6 +97,7 @@ public class Enigme extends AreaGame implements Game, Playable{
         if (enter.isPressed()) {
             isPaused = !isPaused;
             gamePaused.draw(getWindow());
+            gamePaused2.draw(getWindow());
         }
 
         if(!isPaused) {
@@ -108,6 +110,7 @@ public class Enigme extends AreaGame implements Game, Playable{
             }
         } else {
             gamePaused.draw(getWindow());
+            gamePaused2.draw(getWindow());
         }
     }
 
@@ -142,8 +145,6 @@ public class Enigme extends AreaGame implements Game, Playable{
             areaToEnter.setLevelBegan(true);
         }
         character.enterArea(getCurrentArea(), coordinates);
-        gamePaused = new ImageGraphics(ResourcePath.getBackgrounds("Pause"), getCurrentArea().getWidth(), getCurrentArea().getHeight(), null, Vector.ZERO, 1.0f, 0.0f);
-
     }
 
 }
