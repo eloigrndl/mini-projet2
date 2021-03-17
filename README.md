@@ -1,8 +1,8 @@
 # EPFL CS107 - Mini-Projet #2
 
-Second mini-project of the first year @ EPFL (CS_107 course) : Grid Game
+Second mini-project during first year @ EPFL (CS_107 course) : Grid Game
 
-Antoine BELLANGER / Eloi GARANDEL
+Eloi GARANDEL / Antoine BELLANGER
 
 ### Launch the game
 
