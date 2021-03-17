@@ -35,7 +35,6 @@ public class EnigmeBehavior extends AreaBehavior {
          */
         static EnigmeBehavior.EnigmeCellType toType(int type){
             switch (type) {
-                case 0 :  return EnigmeBehavior.EnigmeCellType.NULL;
                 case -1 : return EnigmeBehavior.EnigmeCellType.INDOOR_WALKABLE;
                 case -65536 : return EnigmeBehavior.EnigmeCellType.DOOR;
                 case -14112955 : return EnigmeBehavior.EnigmeCellType.OUTDOOR_WALKABLE;
@@ -65,7 +64,7 @@ public class EnigmeBehavior extends AreaBehavior {
 
     public class EnigmeCell extends Cell {
 
-        private EnigmeBehavior.EnigmeCellType value;
+        private final EnigmeBehavior.EnigmeCellType value;
 
         /**
          * EnigmeCell Constructor
@@ -125,11 +124,7 @@ public class EnigmeBehavior extends AreaBehavior {
 
         @Override
         protected boolean canPassDoor(Interactable entity) {
-            if (value.equals(EnigmeBehavior.EnigmeCellType.DOOR)) {
-                return true;
-            } else {
-                return false;
-            }
+            return value.equals(EnigmeCellType.DOOR);
         }
 
         @Override

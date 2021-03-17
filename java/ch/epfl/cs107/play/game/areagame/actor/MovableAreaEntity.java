@@ -19,7 +19,7 @@ public abstract class MovableAreaEntity extends AreaEntity implements Animation 
     /// The target cell (i.e. where the mainCell will be after the motion)
     private DiscreteCoordinates targetMainCellCoordinates;
 
-    //Entier qui donne le numéro de l'image du mouvement, numéro à partir duquel on choisira le Sprite à associer, dans le Player
+    //Number used to update the Sprite when actor is moving
     protected int inMoveFrame = 0;
 
     /**
@@ -32,26 +32,23 @@ public abstract class MovableAreaEntity extends AreaEntity implements Animation 
 
     /**
      * Getter for the entering cells
-     * "Les cellules investies seront toutes celles qui parmi les projections des cellules courantes dans la direction de l'acteur font partie de la grille.
      * @return (List<DiscreteCoordinates>)
      */
     protected final List<DiscreteCoordinates> getEnteringCells() {
         List<DiscreteCoordinates> currentCells = getCurrentCells();
         List<DiscreteCoordinates> enteringCells = new ArrayList<>();
 
-        for (int i=0; i<currentCells.size(); ++i) {
-            //Iterate through
-            DiscreteCoordinates currentCell = currentCells.get(i);
+        for (DiscreteCoordinates currentCell : currentCells) {
 
-            //Coordonnées dans la direction de l'acteur
+            //Actor directions coordinates
             DiscreteCoordinates projectedCoordinates = currentCell.jump(getOrientation().toVector());
 
-            //Position dans la grille
+            //Position on the grid
             int positionX = projectedCoordinates.x;
             int positionY = projectedCoordinates.y;
 
-            //regarde si ces coordonnées font partie de la grille et si oui les ajoute à la liste de nouvelles coordonnées
-            if(positionX < getOwnerArea().getWidth() && positionY < getOwnerArea().getHeight()){
+            //If the coordinates are inside the grid, we add them
+            if (positionX < getOwnerArea().getWidth() && positionY < getOwnerArea().getHeight()) {
                 enteringCells.add(projectedCoordinates);
             }
         }
@@ -79,28 +76,22 @@ public abstract class MovableAreaEntity extends AreaEntity implements Animation 
     }
 
     /**
-     * Decide if a cell can move and if yes initalize it
+     * Decide if a cell can move and if yes initialize it
      * @param framesForMove (int): number of frames used for simulating motion
      * @return (boolean): returns true if motion can occur
      */
     protected boolean move(int framesForMove){
 
         if (!isMoving || getCurrentMainCellCoordinates().equals(targetMainCellCoordinates)) {
-            System.out.println(getCurrentMainCellCoordinates());
-            //Si l'acteur ne bouge pas OU s'il a atteint sa cellule cible
-            //Demander à son aire s'il est possible de quitter les cellules données par getLeavingCells() et d'entrer dans les cellules getEnteringCells()
+
             if (getOwnerArea().leaveAreaCells(this, getLeavingCells()) && getOwnerArea().enterAreaCells(this, getEnteringCells())) {
-                System.out.println(getCurrentCells());
-                if (framesForMove < 1) {
-                    framesForCurrentMove = 1;
-                    } else {
-                    framesForCurrentMove = framesForMove;
-                }
+                framesForCurrentMove = Math.max(framesForMove, 1);
                 Vector orientation = getOrientation().toVector();
                 targetMainCellCoordinates = getCurrentMainCellCoordinates().jump(orientation);
                 isMoving = true;
                 return true;
-            } else { //Déplcement pas possible : move retourne false
+            } else {
+                //Impossible movement : return false
                 return false;
             }
         }
@@ -113,7 +104,6 @@ public abstract class MovableAreaEntity extends AreaEntity implements Animation 
     public void update(float deltaTime) {
 
         if (isMoving && !(getCurrentMainCellCoordinates().equals(targetMainCellCoordinates))) {
-            //si l'acteur bouge et que la cible n'est pas atteinte, le déplacer
             Vector distance = getOrientation().toVector();
             distance = distance.mul(1.0f / framesForCurrentMove);
             setCurrentPosition(getPosition().add(distance));
@@ -123,7 +113,6 @@ public abstract class MovableAreaEntity extends AreaEntity implements Animation 
             }
 
         } else {
-            //Sinon reset motion
             resetMotion();
             inMoveFrame = 0;
         }

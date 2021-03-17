@@ -1,26 +1,28 @@
 # EPFL CS107 - Mini-Projet #2
 
+Second mini-project of the first year @ EPFL (CS_107 course) : Grid Game
+
 Antoine BELLANGER / Eloi GARANDEL
 
-### Comment lancer le programme ?
+### Launch the game
 
-Il suffit de lancer `Play`. Le jeu `Enigme` sera lancé par défaut.
+To start the game, launch `Play` : the `Enigme` level will be started by default.
 
-`Demo1` ainsi que `Demo2` peuvent également être lancés depuis `Play`. Il suffit de commenter les deux autres jeux et d'enlever les commentaires pour le `Game` voulant être lancé. 
+`Demo1` as well as `Demo2` can also be started using `Play` : to do so, comment/uncomment the right `Game` level in the Play file.  
 
-### Commandes
+### Controls
 
 * _Enter_ : Pause
-* _Flèches_ : Directions
-* _L_ : Interaction avec un Objet
-* _K_ : Faire disparaître un dialogue
+* _Arrows_ : Move
+* _L_ : Interact with an Objet
+* _K_ : Close a dialog
 
-### Ressources supplémentaires
+### Additional resources
 
-* Musique de fond : Eric Skiff - All Of Us - Resistor Anthems (Sous license CC 4.0 CC-BY). Disponible [ici](https://ericskiff.com/music/).
+* Background music : Eric Skiff - All Of Us - Resistor Anthems (Sous license CC 4.0 CC-BY). Available [here](https://ericskiff.com/music/).
 
-### Notes
+### Side-notes
 
-Pour désactiver la musique, il suffit de mettre le `boolean isSoundSupported()` dans `SwingWindow` à `false`.
+To turn off the music, set the `boolean isSoundSupported()` in `SwingWindow` to `false`.
 
-Si vous êtes bloqué par les torches et les `PressureSwitch` dans le niveau Enigme1, il suffit de ne pas changer les torches et de reproduire le "pattern" des torches avec les switches pour faire disparaître les rochers. 
+If you are blocked by the torches and the `PressureSwitch` in the Enigme1 level, turn on/off the torches to reproduce the "pattern" of the switches to make the rock disappear. 

@@ -116,7 +116,7 @@ public class Enigme extends AreaGame implements Game, Playable{
 
     /**
      * Get the location of the character's arrival
-     * @return l'aire de destination de la denière porte franchi par le personnage
+     * @return destination area of last passed door
      */
     private Area characterDestination(){
         return getAreas().get(character.getLastDoor().getDestination());
@@ -124,7 +124,7 @@ public class Enigme extends AreaGame implements Game, Playable{
 
     /**
      * Get the location of the character's arrival
-     * @return les coordonnées d'arrivée dans la nouvelle aire du personnage (une fois une porte passée)
+     * @return arrival coordinates in the new area
      */
     private DiscreteCoordinates characterArrival(){
         return character.getLastDoor().getCoordinatesArrival();

@@ -94,7 +94,7 @@ public final class Button implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (object == null || !(object instanceof Button))
+        if (!(object instanceof Button))
             return false;
         Button other = (Button)object;
         return previous == other.previous && current == other.current;

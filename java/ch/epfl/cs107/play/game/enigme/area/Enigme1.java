@@ -87,14 +87,6 @@ public class Enigme1 extends EnigmeArea {
     //(10,14)
     private PressureSwitch pressureSwitch16;
 
-
-
-
-
-
-
-
-
     //(18,18)
     private PressurePlate pressurePlate1;
 
@@ -265,8 +257,6 @@ public class Enigme1 extends EnigmeArea {
         this.registerActor(pressureSwitch15);
         pressureSwitch16 = new PressureSwitch(this, new DiscreteCoordinates(10,14));
         this.registerActor(pressureSwitch16);
-
-
 
         //PressurePlate
         pressurePlate1 = new PressurePlate(this, new DiscreteCoordinates(17,18));

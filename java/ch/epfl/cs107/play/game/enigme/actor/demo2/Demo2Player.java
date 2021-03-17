@@ -19,7 +19,7 @@ import java.util.List;
 public class Demo2Player extends MovableAreaEntity implements Interactable {
 
     private boolean passingDoor;
-    private Sprite ghost = new Sprite("ghost.1", 1, 1.f, this);
+    private final Sprite ghost = new Sprite("ghost.1", 1, 1.f, this);
     private final static int ANIMATION_DURATION = 8;
 
     /**

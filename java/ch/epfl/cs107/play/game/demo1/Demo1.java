@@ -34,17 +34,16 @@ public class Demo1 implements Game {
     @Override
     public boolean begin(Window window, FileSystem fileSystem) {
 
-        //Définition des variables
         this.window = window;
         this.fileSystem = fileSystem;
 
-        //Ajout des acteurs
+        //Adding actors
         float radius = 0.2f;
         actor1 = new GraphicsEntity(Vector.ZERO, new ShapeGraphics(new Circle(radius), null, Color.RED, 0.005f));
         actor2 = new MovingRock(new Vector(0.3f,0.1f), "this is a rock");
         actor3 = new GraphicsEntity(new Vector(0.0f,0.0f),new TextGraphics("BOUM!!!", 0.05f, Color.RED, Color.RED, 0.005f, true, false, new Vector(0.0f,0.0f)));
 
-        //Echelle de la vue
+        //View scale
         Transform viewTransform = Transform.I.scaled(2).translated(Vector.ZERO);
         window.setRelativeTransform(viewTransform);
 
@@ -59,18 +58,18 @@ public class Demo1 implements Game {
     @Override
     public void update(float deltaTime) {
 
-        //On dessine les acteurs
+        //Drawing actors
         actor1.draw(window);
         actor2.draw(window);
 
-        //On update MovingRock si on appuie sur downArrow
+        //Update rock when key is pressed
         Keyboard keyboard = window.getKeyboard();
         Button downArrow = keyboard.get(Keyboard.DOWN);
         if (downArrow.isDown()) {
             actor2.update(1);
         }
 
-        //On dessine le texte si MovingRock est dans son rayon
+        //Draw text if rock in circle
         if (Math.abs(actor2.getPosition().x) <= 0.2 && Math.abs(actor2.getPosition().y) <= 0.2) {
             actor3.draw(window);
         }

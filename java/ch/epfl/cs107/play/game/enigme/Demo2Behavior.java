@@ -26,7 +26,6 @@ public class Demo2Behavior extends AreaBehavior {
 
         static Demo2CellType toType(int type){
             switch (type) {
-                case 0 :  return Demo2CellType.NULL;
                 case -1 : return Demo2CellType.INDOOR_WALKABLE;
                 case -65536 : return Demo2CellType.DOOR;
                 case -14112955 : return Demo2CellType.OUTDOOR_WALKABLE;
@@ -51,7 +50,7 @@ public class Demo2Behavior extends AreaBehavior {
 
     public class Demo2Cell extends Cell {
 
-        private Demo2CellType value;
+        private final Demo2CellType value;
 
         private Demo2Cell(int x, int y, Demo2CellType type){
             super(x,y);
@@ -84,20 +83,12 @@ public class Demo2Behavior extends AreaBehavior {
 
         @Override
         protected boolean canEnter(Interactable entity) {
-            if (value.equals(Demo2CellType.NULL) || value.equals(Demo2CellType.WALL)) {
-                return false;
-            } else {
-                return true;
-            }
+            return !value.equals(Demo2CellType.NULL) && !value.equals(Demo2CellType.WALL);
         }
 
         @Override
         protected boolean canPassDoor(Interactable entity) {
-            if (value.equals(Demo2CellType.DOOR)) {
-                return true;
-            } else {
-                return false;
-            }
+            return value.equals(Demo2CellType.DOOR);
         }
     }
 }

@@ -199,11 +199,9 @@ public class EnigmePlayer extends MovableAreaEntity implements Interactor, Anima
      */
     public void setIsPassingDoor(Door door){
       if (getOwnerArea().passDoor(this,door.getCurrentCells())){
-          System.out.println("ownerArea canPassDoor");
             passingDoor = true;
             lastDoor = door;
       } else {
-          System.out.println("ownerArea NO");
           passingDoor = false;
       }
     }

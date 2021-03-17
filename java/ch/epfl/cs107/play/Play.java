@@ -27,9 +27,9 @@ public class Play {
 		final FileSystem fileSystem = new ResourceFileSystem(DefaultFileSystem.INSTANCE);
 
         // Create a demo game and initialize corresponding texts
+		//Uncomment to try different levels
 		final Game game = new Enigme();
 		//final Game game = new Demo1();
-		//final Game game = new Demo2();
 //		XMLTexts.initialize(fileSystem, "strings/enigme_fr.xml");
 
 		// Use Swing display
